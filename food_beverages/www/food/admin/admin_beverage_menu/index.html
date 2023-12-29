@@ -1,0 +1,422 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: -1%;
+  margin-bottom: 1%;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .title_font_style{
+      font-weight: 500;
+      font-size: 30px;
+      margin-left: 5%;
+    }
+
+    .margin_right{
+      margin-right: 1%;
+    }
+
+    .table_width{
+      width: 80%;
+    }
+
+    .table_header{
+      background-color: #FF4D00;
+      color: #fff;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      box-shadow: #FF4D00 0 4px 7px;
+      transform: translateY(-2px);
+    }
+    .margin_left{
+      margin-left: 10px;
+    }
+    .outline_border{
+    border: 1px solid #DEE2E6;
+    border-collapse: collapse;
+    }
+    
+  table {
+      border-collapse: collapse;
+      width: 100%;
+      height: 90%;
+      border: 2px solid #000000;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+      border: 1px solid #000000;
+    }
+
+    th {
+      background-color: #FF4D00;
+      color: #fff;
+    }
+</style>
+
+
+
+<!-- <div id="marquee" class="marquee"></div> -->
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div>
+        <div>
+          <div class="location_container">
+            <select class="form-select select_width margin_right" id="location" name="location">
+              <option  value="">Location</option>
+              <option  value="IITM RP">IITM RP</option>
+              <option  value="Thaiyur">Thaiyur</option>
+              <option  value="Shar">Shar</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="display_center"> -->
+        <table id="dynamicTable"></table>
+      <!-- </div> -->
+      
+    </div>
+    
+  </form>
+</div>
+
+<div class="modal fade" id="TableEdit" tabindex="-1" role="dialog" aria-labelledby="TableEditTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="display_center modal-title">Select New Values</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table id="EditTable"></table>
+       
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        <div class="display_center">
+          <button type="button" onclick="update_table_data()" id="yes_button" data-dismiss="modal" class="btn button_width button">
+            Submit
+          </button>
+          <button type="button" id="no_button" data-dismiss="modal" class="btn button_width button margin_left">
+            Cancel
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+var id;
+var data = [];
+var row_data = {};
+let days; 
+update_table_values();
+
+var location_change = document.getElementById('location');
+  location_change.addEventListener('change', function(event) {
+    beverage_list();
+  });
+
+
+    function editRow(event) {
+    console.log('Edit clicked for row:', { event});
+    id = event.name;
+    var table_data = [];
+    table_data.push(event)
+    console.log(table_data);
+    const table = document.getElementById('EditTable');
+    table.innerHTML = '';
+        // Create header row
+        const headerRow = table.insertRow();
+        const headerCell = headerRow.insertCell(0);
+        headerCell.textContent = 'Days';
+
+        // Extract unique days from the data
+        days = [...new Set(table_data.map(item => Object.keys(item).filter(key => key !== 'item' && key !== 'name')).flat())];
+
+        days.forEach(day => {
+            const cell = headerRow.insertCell();
+            cell.textContent = day.toUpperCase();
+        });
+
+        table_data.forEach(itemData => {
+            const row = table.insertRow();
+            const itemNameCell = row.insertCell(0);
+            itemNameCell.textContent = itemData.item;
+
+            // Create cells for each day
+            days.forEach(day => {
+                const cell = row.insertCell();
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = itemData[day] === 'yes';
+                cell.appendChild(checkbox);
+            });
+
+            for (let i = 0; i < headerRow.cells.length; i++) {
+                headerRow.cells[i].style.backgroundColor = '#FF4D00';
+                headerRow.cells[i].style.color = '#fff';
+              }
+        });
+    }
+
+    function update_table_data(){
+      console.log('hi 3')
+
+      const table = document.getElementById('EditTable');
+
+      const rows = table.getElementsByTagName('tr');
+
+      // Iterate over each row (skip the first row, as it is the header)
+      for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          const cells = row.getElementsByTagName('td');
+          const itemName = cells[0].textContent; // Assuming the item name is in the first cell
+
+          const rowData = {
+              item: itemName,
+              // Add other data as needed
+          };
+
+          const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+          checkboxes.forEach((checkbox, index) => {
+              const day = days[index]; // Assuming the order of days corresponds to the order of checkboxes
+              const isChecked = checkbox.checked;
+              console.log(rowData.item)
+              if(day !== 'name'){
+              rowData[day] = isChecked ? 'yes' : 'no';
+              }
+          });
+
+          // Now you have the data for the current row in the rowData object
+          console.log(rowData,id);
+          beverage_menu_update(rowData)
+
+          // Perform any further actions with the row data here
+      }
+    }
+
+    function beverage_menu_update(obejct){
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.admin_beverage_menu.index.beverage_menu_update',
+    args: {id: id, obj : obejct},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        id = ''
+        const table = document.getElementById('EditTable');
+        table.innerHTML = ''
+        row_data = {};
+        beverage_list();
+      } else {
+        id = ''
+        const table = document.getElementById('EditTable');
+        table.innerHTML = ''
+        row_data = {};
+        beverage_list();
+      }
+    }
+  
+    });
+    }
+
+
+    function update_table_values() {
+    // Get table element
+    const table = document.getElementById('dynamicTable');
+    table.innerHTML = '';
+
+    if (data && data.length > 0) {
+        // Create header row
+        const headerRow = table.insertRow();
+        const headerCell = headerRow.insertCell(0);
+        headerCell.textContent = 'Days';
+
+        // Extract unique days from the data
+        const days = [...new Set(data.map(item => Object.keys(item).filter(key => key !== 'item' && key !== 'name')).flat())];
+
+        days.forEach(day => {
+            const cell = headerRow.insertCell();
+            cell.textContent = day.toUpperCase();
+        });
+
+        const actionHeaderCell = headerRow.insertCell();
+        actionHeaderCell.textContent = 'Action';
+        actionHeaderCell.style.backgroundColor = '#FF4D00';
+        actionHeaderCell.style.color = '#fff';
+
+        data.forEach(itemData => {
+            const row = table.insertRow();
+            const itemNameCell = row.insertCell(0);
+            itemNameCell.textContent = itemData.item;
+
+            // Create cells for each day
+            days.forEach(day => {
+                const cell = row.insertCell();
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = itemData[day] === 'yes';
+                cell.appendChild(checkbox);
+            });
+
+            // Add Edit button
+            const actionCell = row.insertCell();
+            const editButton = document.createElement('button');
+            editButton.type = 'button';
+            editButton.className = 'btn btn-sm';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Edit';
+            editButton.style.backgroundColor = '#FF4D00';
+            editButton.style.color = '#fff';
+            editButton.setAttribute('data-toggle', 'modal');
+            editButton.setAttribute('data-target', '#TableEdit');
+            editButton.addEventListener('click', function () {
+                // Call your custom edit function here and pass the values
+                editRow(itemData /* pass other values as needed */);
+            });
+
+            for (let i = 0; i < headerRow.cells.length; i++) {
+                headerRow.cells[i].style.backgroundColor = '#FF4D00';
+                headerRow.cells[i].style.color = '#fff';
+              }
+
+            actionCell.appendChild(editButton);
+        });
+
+    } else {
+        // Display a message if there is no data
+        const noDataRow = table.insertRow();
+        const noDataCell = noDataRow.insertCell(0);
+        noDataCell.colSpan = 5; // Adjust the colspan based on the number of columns
+        noDataCell.textContent = 'No data found';
+    }
+}
+
+
+function beverage_list(){
+  data = [];
+  var location_variable = document.getElementById('location').value;
+  console.log('func')
+  console.log(location_variable);
+  frappe.call({
+    method: 'food_beverages.www.food.admin.admin_beverage_menu.index.Get_Beverages',
+    args: {location: location_variable},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        console.log('hi')
+        data = r.message;
+        update_table_values();
+      } else {
+        data = [];
+        update_table_values();
+      }
+    }
+  
+  });
+  }
+
+</script>
+
+
+<script type="text/javascript" src="/fleet/group_ride/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS (jQuery is required) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+{%endblock%}

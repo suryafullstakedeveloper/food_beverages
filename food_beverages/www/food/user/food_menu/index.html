@@ -1,0 +1,234 @@
+{% extends '/templates/food_user.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1cm;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  /* height: auto;  */
+  max-height: 580px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+}
+
+    .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+
+  }
+
+  /* table {
+      border-collapse: collapse;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #000000;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+      border: 1px solid #000000;
+    }
+
+    th {
+      background-color: #FF4D00;
+      color: #fff;
+    } */
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+    background-color: #FF4D00;
+    color: #fff;
+    text-transform: uppercase; /* Convert text to uppercase */
+  }
+
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+</style>
+
+<div id="marquee" class="marquee"></div>
+
+<div class="location_container">
+  <select class="form-select select_width" id="location" name="location">
+    <option value="">Location</option>
+    <option  value="IITM RP">IITM RP</option>
+    <option  value="Thaiyur">Thaiyur</option>
+    <option  value="Shar">Shar</option>
+  </select>
+</div>
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div id="breakfastTable"></div>
+      <div id="lunchTable"></div>
+      <div id="dinnerTable"></div>
+  
+    
+  </form>
+</div>
+
+<script type="text/javascript" src="/fleet/group_ride/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+
+  
+document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      console.log(r);
+      if(r.message){
+        console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+
+  var mealData = {};
+
+  createTable('Breakfast', [], 'breakfastTable');
+  createTable('Lunch', [], 'lunchTable');
+  createTable('Dinner', [], 'dinnerTable');
+
+  var location_variable = document.getElementById('location');
+  location_variable.addEventListener('change', function(event) {
+  console.log('works')
+  Food_menu_list()
+  });
+
+  
+  function createTable(mealType, data, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = ""; // Clear previous content
+
+    const table = document.createElement('table');
+
+    if (data && data.length === 0) {
+      // Display "No data found" message
+      const noDataRow = table.insertRow();
+      const noDataCell = noDataRow.insertCell();
+      noDataCell.colSpan = Object.keys(data[0] || {}).length;
+      noDataCell.textContent = 'No data found';
+      noDataRow.classList.add('no-data');
+    } else {
+      // Set table caption
+      const captionRow = table.insertRow();
+      const captionCell = captionRow.insertCell();
+      captionCell.colSpan = Object.keys(data[0] || {}).length;
+      captionCell.textContent = `${mealType}`;
+
+      // Create header cells
+      const headerRow = table.insertRow();
+      Object.keys(data[0]).forEach(day => {
+        const th = document.createElement('th');
+        th.textContent = day;
+        headerRow.appendChild(th);
+      });
+
+      // Create data rows
+      data.forEach(item => {
+        const row = table.insertRow();
+        Object.values(item).forEach(value => {
+          const cell = row.insertCell();
+          cell.textContent = value;
+        });
+      });
+    }
+
+    container.appendChild(table);
+  }
+
+  function Food_menu_list(){
+  mealData = {}
+  var location_variable = document.getElementById('location').value;
+  console.log(location_variable);
+  frappe.call({
+    method: 'food_beverages.www.food.user.food_menu.index.Get_Food_Menu',
+    args: {location: location_variable},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        console.log('hi')
+        mealData = r.message;
+        createTable('Breakfast', mealData.Breakfast || [], 'breakfastTable');
+        createTable('Lunch', mealData.Lunch || [], 'lunchTable');
+        createTable('Dinner', mealData.Dinner || [], 'dinnerTable');
+      } else {
+        mealData = {};
+         // Create tables for each meal type
+        createTable('Breakfast', [], 'breakfastTable');
+        createTable('Lunch', [], 'lunchTable');
+        createTable('Dinner', [], 'dinnerTable');
+      }
+    }
+  
+  });
+  }
+
+</script>
+
+{%endblock%}

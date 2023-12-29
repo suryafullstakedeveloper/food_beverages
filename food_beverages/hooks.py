@@ -113,23 +113,23 @@ app_license = "MIT"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-#	"all": [
-#		"food_beverages.tasks.all"
-#	],
-#	"daily": [
-#		"food_beverages.tasks.daily"
-#	],
-#	"hourly": [
-#		"food_beverages.tasks.hourly"
-#	],
-#	"weekly": [
-#		"food_beverages.tasks.weekly"
-#	],
-#	"monthly": [
-#		"food_beverages.tasks.monthly"
-#	],
-# }
+scheduler_events = {
+	# "all": [
+	# 	"food_beverages.tasks.all"
+	# ],
+	"daily": [
+		"food_beverages..www.food.user.beverage_menu.index.update_current_date"
+	],
+	"hourly": [
+		"food_beverages..www.food.user.beverage_menu.index.update_current_date"
+	],
+	# "weekly": [
+	# 	"food_beverages.tasks.weekly"
+	# ],
+	# "monthly": [
+	# 	"food_beverages.tasks.monthly"
+	# ],
+}
 
 # Testing
 # -------

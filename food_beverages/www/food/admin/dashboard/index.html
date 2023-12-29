@@ -1,0 +1,440 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+
+    .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+
+  }
+
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .image-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #fff transparent; /* Firefox */
+        }
+
+        .image-container::-webkit-scrollbar {
+          width: 12px; /* Chrome, Safari, Edge */ 
+        }
+
+        .image-container::-webkit-scrollbar-thumb {
+          background-color: transparent; /* Chrome, Safari, Edge */
+        }
+
+        .image-container::-webkit-scrollbar-track {
+          background-color: #fff; /* Chrome, Safari, Edge */
+        }
+
+        .image {
+            flex: 0 0 auto;
+            margin-right: 10px; /* Adjust margin as needed */
+            position: relative;
+            width: 222px; /* Adjust the width of each image container */
+            height: 112px; /* Adjust the height of each image container */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-text {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+    .title_font_style{
+      font-weight: 500;
+      font-size: 30px;
+      margin-left: 5%;
+    }
+
+    .margin_right{
+      margin-right: 1%;
+    }
+
+</style>
+
+
+
+<!-- <div id="marquee" class="marquee"></div> -->
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+      <div class="title_font_style">
+        <span id="total_food_count">Total Food Count:</span>
+        <select class="form-select select_width margin_right" id="meal" name="meal">
+          <option value="All">All</option>
+          <option  value="Breakfast">Breakfast</option>
+          <option  value="Lunch">Lunch</option>
+          <option  value="Dinner">Dinner</option>
+        </select>
+
+        <select class="form-select select_width margin_right" id="date_period" name="date_period">
+          <option  value="Day">Day</option>
+          <option  value="Week">Week</option>
+          <option  value="Month">Month</option>
+        </select>
+  
+        <select class="form-select select_width margin_right" id="location" name="location">
+          <option value="All">All</option>
+          <option  value="IITM RP">IITM RP</option>
+          <option  value="Thaiyur">Thaiyur</option>
+          <option  value="Shar">Shar</option>
+        </select>
+        
+
+      </div>
+      <div class="display_center">
+      <div class="chart_with">
+        <div id="chart"></div>
+      </div>
+      </div>
+      <div class="title_font_style">Beverges Consumed</div>
+      <div class="display_center">
+        <div class="card_with">
+          <div class="image-container">
+            <!-- Image 1 -->
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+                <div class="image-text" id="value1">Food<br></div>
+            </div>
+        
+            <!-- Image 2 -->
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+                <div class="image-text" id="value2">Food<br></div>
+            </div>
+        
+            <!-- Image 3 -->
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+                <div class="image-text" id="value3">Food<br></div>
+            </div>
+             
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+              <div class="image-text" id="value1">Food<br></div>
+            </div>
+      
+            <!-- Image 2 -->
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+              <div class="image-text" id="value2">Food<br></div>
+            </div>
+      
+            <!-- Image 3 -->
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+              <div class="image-text" id="value3">Food<br></div>
+            </div>
+        
+            <!-- Add more images with text as needed -->
+        
+        </div>
+        </div>
+      </div>
+      
+    </div>
+    
+  </form>
+</div>
+
+<script type="text/javascript" src="/fleet/group_ride/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+
+var chart;
+
+var chart_data = [];
+
+var todalfood = ''
+var total_food_count = document.getElementById('total_food_count');
+
+total_food_count.innerHTML = ('Total Food Count : '+todalfood)
+
+var dynamicValues = [
+        { id: 'value1', totalDrivers: 10 },
+        { id: 'value2', totalDrivers: 15 },
+        { id: 'value3', totalDrivers: 8 }
+        // Add more objects for additional images
+    ];
+
+    // Update the text content with dynamic values
+    dynamicValues.forEach(function (item) {
+        var element = document.getElementById(item.id);
+        if (element) {
+            element.innerHTML += item.totalDrivers;
+        }
+    });
+  
+// document.addEventListener('DOMContentLoaded', function () {
+
+// frappe.call({
+//     method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+//     args: {},
+//     callback: function (r) {
+//       console.log(r);
+//       if(r.message){
+//         console.log(r.message);
+//         var marqueeElement = document.getElementById('marquee');
+//         marqueeElement.innerHTML = r.message;
+//       } 
+//     }
+//   });
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+  chart_initial_values();
+});
+  
+
+  var location_change = document.getElementById('location');
+  location_change.addEventListener('change', function(event) {
+    var location_variable = document.getElementById('location').value;
+    var meal_variable = document.getElementById('meal').value;
+    var date_period_variable = document.getElementById('date_period').value;
+
+    if(location_variable == 'All' && meal_variable == 'All' && date_period_variable == 'Day'){
+      chart_initial_values();
+    } else{
+      Get_Chart_Value();
+    }
+  });
+
+  var meal_change = document.getElementById('meal');
+  meal_change.addEventListener('change', function(event) {
+    var location_variable = document.getElementById('location').value;
+    var meal_variable = document.getElementById('meal').value;
+    var date_period_variable = document.getElementById('date_period').value;
+
+    if(location_variable == 'All' && meal_variable == 'All' && date_period_variable == 'Day'){
+      chart_initial_values();
+    } else{
+      Get_Chart_Value();
+    }
+  });
+
+  var date_period_change = document.getElementById('date_period');
+  date_period_change.addEventListener('change', function(event) {
+    var location_variable = document.getElementById('location').value;
+    var meal_variable = document.getElementById('meal').value;
+    var date_period_variable = document.getElementById('date_period').value;
+
+    if(location_variable == 'All' && meal_variable == 'All' && date_period_variable == 'Day'){
+      chart_initial_values();
+    } else{
+      Get_Chart_Value();
+    }
+  });
+
+  function Get_Chart_Value(){
+
+    var location_variable = document.getElementById('location').value;
+    var meal_variable = document.getElementById('meal').value;
+    var date_period_variable = document.getElementById('date_period').value;
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.dashboard.index.GetChartBsdFilters',
+    args: {location: location_variable, date_period: date_period_variable, meal:meal_variable},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        console.log('hi')
+        // console.log(r.message)
+        chart_data = r.message[0];
+        chart_render(chart_data)
+        todalfood = r.message[1]
+        total_food_count.innerHTML = ('Total Food Count : '+todalfood)
+
+      } else {
+        todalfood = ''
+        total_food_count.innerHTML = ('Total Food Count : '+todalfood)
+      }
+    }
+  
+  });
+
+  }
+
+
+  function chart_initial_values(){
+    var location_variable = document.getElementById('location').value;
+    var meal_variable = document.getElementById('meal').value;
+    var date_period_variable = document.getElementById('date_period').value;
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.dashboard.index.GetChartBsdDate',
+    args: {date_period: date_period_variable},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        console.log('hi')
+        console.log(r.message)
+        chart_data = r.message[0];
+        chart_render(chart_data)
+        todalfood = r.message[1]
+        total_food_count.innerHTML = ('Total Food Count : '+todalfood)
+
+      } else {
+        chart_data = [];
+        chart_render(chart_data)
+        todalfood = ''
+        total_food_count.innerHTML = ('Total Food Count : '+todalfood)
+      }
+    }
+  
+  });
+
+  }
+  
+  function chart_render(data) {
+
+    if (chart) {
+      chart.destroy();
+    }
+
+    var columnWidth;
+    if (data.length > 1) {
+      // If more than one column, set a percentage width
+      columnWidth = '20%';
+    } else {
+      // If only one column, set a different percentage width
+      columnWidth = '10%';
+    }
+
+  var options = {
+    series: [
+      {
+        name: 'Booked',
+        data: data.map(item => ({
+          x: item.location,
+          y: parseInt(item.booked),
+          goals: [
+            {
+              name: 'Consumed',
+              value: parseInt(item.consumed),
+              strokeHeight: 5,
+              strokeColor: '#775DD0'
+            }
+          ]
+        }))
+      }
+    ],
+    chart: {
+      height: 350,
+      type: 'bar'
+    },
+    plotOptions: {
+      bar: {
+        columnWidth: columnWidth,
+      }
+    },
+    colors: ['#00E396'],
+    dataLabels: {
+      enabled: false
+    },
+    legend: {
+      show: true,
+      showForSingleSeries: true,
+      customLegendItems: ['Booked', 'Consumed'],
+      markers: {
+        fillColors: ['#00E396', '#775DD0']
+      }
+    },
+    tooltip: {
+        y: {
+          formatter: function (val) {
+            return parseInt(val).toString(); // Display whole numbers in tooltip
+          },
+        }
+      } 
+  };
+
+  chart = new ApexCharts(document.querySelector("#chart"), options);
+  chart.render();
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+{%endblock%}

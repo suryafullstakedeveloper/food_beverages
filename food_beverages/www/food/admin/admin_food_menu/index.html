@@ -1,0 +1,438 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 11%;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .title_font_style{
+      font-weight: 500;
+      font-size: 30px;
+      margin-left: 5%;
+    }
+
+    .margin_right{
+      margin-right: 1%;
+    }
+
+    .table_width{
+      width: 80%;
+    }
+
+    .table_header{
+      background-color: #FF4D00;
+      color: #fff;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      box-shadow: #FF4D00 0 4px 7px;
+      transform: translateY(-2px);
+    }
+    .margin_left{
+      margin-left: 10px;
+    }
+    .outline_border{
+    border: 1px solid #DEE2E6;
+    border-collapse: collapse;
+    }
+</style>
+
+
+
+<!-- <div id="marquee" class="marquee"></div> -->
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div>
+        <div>
+          <div class="location_container">
+            <select class="form-select select_width margin_right" id="location" name="location">
+              <option  value="">Location</option>
+              <option  value="IITM RP">IITM RP</option>
+              <option  value="Thaiyur">Thaiyur</option>
+              <option  value="Shar">Shar</option>
+            </select>
+          </div>
+        </div>
+        <div class="display_center">
+          <div class="container mt-5 table_width">
+            <h3>Breakfast</h3>
+            <table class="table outline_border">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Breakfast</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="dynamic_Breakfast_table"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="display_center">
+          <div class="container mt-5 table_width">
+            <h3>Lunch</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Lunch</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="dynamic_Lunch_table"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="display_center">
+          <div class="container mt-5 table_width">
+            <h3>Dinner</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Dinner</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="dynamic_Dinner_table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+  </form>
+</div>
+
+<div class="modal fade" id="TableEdit" tabindex="-1" role="dialog" aria-labelledby="TableEditTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="display_center modal-title">Enter The New Value</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="display_center"><textarea id="new_food" name="new_food" rows="4" cols="50"></textarea></div>
+       
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        <div class="display_center">
+          <button type="button" onclick="Food_menu_update()" id="yes_button" data-dismiss="modal" class="btn button_width button">
+            Submit
+          </button>
+          <button type="button" id="no_button" data-dismiss="modal" class="btn button_width button margin_left">
+            Cancel
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+var id;
+var field;
+var new_value;
+
+var location_change = document.getElementById('location');
+  location_change.addEventListener('change', function(event) {
+    GetTableValues();
+  });
+
+var Breakfast_data = [];
+var Lunch_data = [];
+var Dinner_data = [];
+
+    function BreakfastTable(data) {
+        const tbody = document.getElementById('dynamic_Breakfast_table');
+        tbody.innerHTML = ''
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+
+            // const idCell = document.createElement('td');
+            // idCell.textContent = item.id;
+            // row.appendChild(idCell);
+
+            const DayCell = document.createElement('td');
+            DayCell.textContent = item.Day;
+            row.appendChild(DayCell);
+
+            const valueCell = document.createElement('td');
+            valueCell.textContent = item.value;
+            row.appendChild(valueCell);
+
+            const actionCell = document.createElement('td');
+
+            const editButton = document.createElement('button');
+            editButton.type = 'button';
+            editButton.className = 'btn btn-sm';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Edit';
+            editButton.style.backgroundColor= '#FF4D00';
+            editButton.style.color= '#fff';
+            editButton.setAttribute('data-toggle', 'modal');
+            editButton.setAttribute('data-target', '#TableEdit');
+            editButton.addEventListener('click', function () {
+            // Call your custom edit function here and pass the values
+            editRow(item.name, item.Day, item.meal_type);
+            });
+
+            actionCell.appendChild(editButton);
+
+            row.appendChild(actionCell);
+
+            tbody.appendChild(row);
+        });
+    }
+
+    function LunchTable(data) {
+        const tbody = document.getElementById('dynamic_Lunch_table');
+        tbody.innerHTML = ''
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+
+            // const idCell = document.createElement('td');
+            // idCell.textContent = item.id;
+            // row.appendChild(idCell);
+
+            const DayCell = document.createElement('td');
+            DayCell.textContent = item.Day;
+            row.appendChild(DayCell);
+
+            const valueCell = document.createElement('td');
+            valueCell.textContent = item.value;
+            row.appendChild(valueCell);
+
+            const actionCell = document.createElement('td');
+
+            const editButton = document.createElement('button');
+            editButton.type = 'button';
+            editButton.className = 'btn btn-sm';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Edit';
+            editButton.style.backgroundColor= '#FF4D00';
+            editButton.style.color= '#fff';
+            editButton.setAttribute('data-toggle', 'modal');
+            editButton.setAttribute('data-target', '#TableEdit');
+            editButton.addEventListener('click', function () {
+            // Call your custom edit function here and pass the values
+            editRow(item.name, item.Day, item.meal_type);
+            });
+
+            actionCell.appendChild(editButton);
+
+            row.appendChild(actionCell);
+
+            tbody.appendChild(row);
+        });
+    }
+
+    function DinnerTable(data) {
+        const tbody = document.getElementById('dynamic_Dinner_table');
+        tbody.innerHTML = ''
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+
+            // const idCell = document.createElement('td');
+            // idCell.textContent = item.id;
+            // row.appendChild(idCell);
+
+            const DayCell = document.createElement('td');
+            DayCell.textContent = item.Day;
+            row.appendChild(DayCell);
+
+            const valueCell = document.createElement('td');
+            valueCell.textContent = item.value;
+            row.appendChild(valueCell);
+
+            const actionCell = document.createElement('td');
+
+            const editButton = document.createElement('button');
+            editButton.type = 'button';
+            editButton.className = 'btn btn-sm';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Edit';
+            editButton.style.backgroundColor= '#FF4D00';
+            editButton.style.color= '#fff';
+            editButton.setAttribute('data-toggle', 'modal');
+            editButton.setAttribute('data-target', '#TableEdit');
+            editButton.addEventListener('click', function () {
+            // Call your custom edit function here and pass the values
+            editRow(item.name, item.Day, item.meal_type);
+            });
+
+            actionCell.appendChild(editButton);
+
+            row.appendChild(actionCell);
+
+            tbody.appendChild(row);
+        });
+    }
+
+    function editRow(name, day, meal_type) {
+    // console.log('Edit clicked for row:', { name, day, meal_type });
+    id = name;
+    field = day;
+    }
+
+    function Food_menu_update(){
+    new_value = document.getElementById('new_food').value;
+    // console.log(id,field,new_value)
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.admin_food_menu.index.Food_menu_update',
+    args: {id: id, field : field, value : new_value},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        id = ''
+        field =''
+        new_value = ''
+        document.getElementById('new_food').value = ''
+        GetTableValues();
+
+      } else {
+        id = ''
+        field =''
+        new_value = ''
+        document.getElementById('new_food').value = ''
+        GetTableValues();
+      }
+    }
+  
+    });
+    }
+
+    function GetTableValues(){
+
+    var location_variable = document.getElementById('location').value;
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.admin_food_menu.index.GetTableValues',
+    args: {location: location_variable},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        console.log('hi')
+        console.log(r.message)
+        Breakfast_data = r.message[0].Breakfast
+        Lunch_data = r.message[0].Lunch
+        Dinner_data = r.message[0].Dinner
+        BreakfastTable(Breakfast_data)
+        LunchTable(Lunch_data)
+        DinnerTable(Dinner_data)
+      } else {
+        Breakfast_data = []
+        Lunch_data = []
+        Dinner_data = []
+        BreakfastTable(Breakfast_data)
+        LunchTable(Lunch_data)
+        DinnerTable(Dinner_data)
+      }
+    }
+  
+    });
+    }
+
+</script>
+
+
+<script type="text/javascript" src="/fleet/group_ride/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS (jQuery is required) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+{%endblock%}

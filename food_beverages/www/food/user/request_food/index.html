@@ -1,0 +1,624 @@
+{% extends '/templates/food_user.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+     .tnc{
+        display: flex;
+        justify-content: center;
+    }
+  .input-style {
+    width: 100%;
+    height: 50px;
+    border-color: #305A34;
+    border-radius: 8px;
+  }
+
+  .custom-file-input.input-style {
+    height: 50px;
+    cursor: pointer;
+  }
+
+  .custom-file-label.input-style {
+    height: 50px;
+    overflow: hidden;
+  }
+
+  .custom-file-label::after {
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .content {
+    padding: 10px 100px;
+
+  }
+  .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+  input[type=checkbox]:disabled
+{
+    opacity:3;
+}
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1cm;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  height: max-content; 
+  padding-bottom: 1cm;
+}
+
+.to_style{
+  margin-left: 60px;
+}
+
+.margin_left{
+  margin-left: 15px;
+}
+
+.end_date_margin_left{
+  margin-left: 110px;
+}
+
+.towfour_format{
+  font-size: 13px
+}
+
+.terms_div{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.term_and_condition{
+  text-decoration: none; 
+  color: black;
+}
+
+.text_align_center{
+  text-align: center
+}
+.submit_button{
+  background-color: #305A34; 
+  color: white; 
+  padding: 10px 30px;
+}
+
+.date_div{
+  padding: 45px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+.date_label_style{
+  font-weight: 500;
+  font-size: 19px;
+  margin-right: 15px;
+  margin-left: 179px;
+}
+.date_field_size{
+  font-size: 23px;
+}
+
+.toggle {
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      position: relative;
+      border-radius: 34px;
+      background-color: #2A8532;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .toggle::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      top: 4px;
+      left: 4px;
+      transition: transform 0.3s;
+    }
+
+    .toggle.on {
+      background-color: #b52b2b;
+    }
+
+    .toggle.on::before {
+      transform: translateX(26px);
+    }
+
+    .select_width{
+      width: 73%;
+    }
+    .class_basic_center{
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .button_style_top{
+      margin-top: 40px;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: #FF4D00;
+      color: white;
+      border-radius: 10px;
+    }
+    .label_text_align{
+      text-align: end;
+      font-weight: 500;
+      margin-right: 15px 
+    }
+
+    .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+</style>
+
+<div id="marquee" class="marquee"></div>
+<div class="div_container">
+
+  <form class="row" id="forms">
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div class="date_div">
+      <span class="date_label_style">Date </span> <input class="date_field_size" type="date" id="date" name="date" onchange="validateDate()">
+      </div>
+      
+      <!-- <div class="toggle"></div> -->
+
+      <div class="form-group row class_basic_center">
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Breakfast</div>
+        <div id="Breakfast" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" id="Breakfast_location" name="Breakfast_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row class_basic_center">
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Lunch</div>
+        <div id="Lunch" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" id="Lunch_location" name="Lunch_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+        </div>
+      </div> 
+
+      <div class="form-group row class_basic_center">
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Dinner</div>
+        <div id="Dinner" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" id="Dinner_location" name="Dinner_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+        </div>
+      </div> 
+
+      <div class="form-group row class_basic_center">
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Refreshments</div>
+        <div id="Refreshments" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" id="Refreshments_location" name="Refreshments_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+        </div>
+      </div>
+
+  
+    <div id="myContainer" class="container">
+      <!-- Content of the container goes here -->
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeContainer()"></div>
+
+    <!-- button -->
+    
+    <div  class="row button_style_top">
+      <div class="col-12 text_align_center">
+        <button onclick="submit_form()" type="button" class="btn btn-warning button_width">
+          Save
+        </button>
+        <button onclick="Discardfn()" type="button" class="btn btn-warning button_width">
+          Discard
+        </button>
+      </div>
+    </div>
+    
+  </form>
+</div>
+
+<script type="text/javascript" src="/fleet/group_ride/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      console.log(r);
+      if(r.message){
+        console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+
+  // Initial setup
+  validateDate();
+  toggleSwitchesBasedOnTime();
+
+  // Breakfast.addEventListener('click', function () {
+  //   let alltoggleValues = getToggleValues();
+  //   let Breakfast = alltoggleValues.Breakfast;
+  //   var locationDropdown = document.getElementById('Breakfast_location');
+  //   console.log(Breakfast);
+  //   if(Breakfast === 'No'){
+  //     locationDropdown.disabled = true;
+  //     console.log('locationDropdown.disabled = true;');
+  //   } else {
+  //     locationDropdown.disabled = false;
+  //     console.log('locationDropdown.disabled = false;');
+  //   }
+  // });
+
+const toggles = document.querySelectorAll('.toggle');
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('on');
+      toggle.dataset.value = toggle.classList.contains('on') ? 'No' : 'Yes';
+    });
+
+      // Enable/disable corresponding location dropdown
+    const locationDropdown = document.getElementById(toggle.id + '_location');
+    locationDropdown.disabled = toggle.classList.contains('on');
+  });
+
+  
+  function getToggleValues() {
+    const toggleValues = {};
+    toggles.forEach(toggle => {
+      const toggleId = toggle.id;
+      const toggleValue = toggle.dataset.value;
+      toggleValues[toggleId] = toggleValue;
+    });
+    return toggleValues;
+  }
+  
+
+function toggleSwitchesBasedOnTime() {
+  const selectedDate = document.getElementById('date').value;
+  // const selectedDateobj = Date(selectedDate)
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  // console.log("selectedDate"+selectedDate);
+  // console.log("selectedDateobj"+selectedDateobj);
+  // console.log("currentDate"+currentDate);
+  console.log("today"+today);
+  const currentHour = currentDate.getHours();
+
+  if (today === selectedDate) {
+    console.log('if conditon is run')
+
+  // Toggle Lunch switch if time is after 6am
+  if (currentHour >= 6) {
+    toggleSwitch('Breakfast');
+  }
+
+  // Toggle Lunch switch if time is after 10am
+  if (currentHour >= 10) {
+    toggleSwitch('Lunch');
+  }
+
+  // Toggle Dinner switch if time is after 4pm
+  if (currentHour >= 17) {
+    toggleSwitch('Dinner');
+  }
+} else {
+  toggleSwitchReset('Breakfast');
+  toggleSwitchReset('Lunch');
+  toggleSwitchReset('Dinner');
+}
+}
+
+function toggleSwitch(id) {
+  const toggle = document.getElementById(id);
+  toggle.classList.add('on');
+  toggle.dataset.value = 'no';
+
+  // Disable corresponding location dropdown
+  const locationDropdown = document.getElementById(id + '_location');
+  locationDropdown.disabled = true;
+  locationDropdown.value = '';
+}
+
+function toggleSwitchReset(id) {
+  const toggle = document.getElementById(id);
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'Yes';
+
+  // Disable corresponding location dropdown
+  const locationDropdown = document.getElementById(id + '_location');
+  locationDropdown.disabled = false;
+  locationDropdown.value = '';
+}
+
+function Discardfn(){
+ 
+  const selectedDate = document.getElementById('date').value;
+
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  console.log("today"+today);
+  const currentHour = currentDate.getHours();
+
+  if (today === selectedDate) {
+ 
+  // Toggle Lunch switch if time is after 6am
+  if (currentHour <= 6) {
+    toggleSwitchReset('Breakfast');
+  }
+
+  // Toggle Lunch switch if time is after 10am
+  if (currentHour <= 10) {
+    toggleSwitchReset('Lunch');
+  }
+
+  // Toggle Dinner switch if time is after 4pm
+  if (currentHour <= 17) {
+    toggleSwitchReset('Dinner');
+  }
+} else {
+  toggleSwitchReset('Breakfast');
+  toggleSwitchReset('Lunch');
+  toggleSwitchReset('Dinner');
+}
+}
+
+
+  // function BreakfastLocationDisable(){
+  //   let alltoggleValues = getToggleValues();
+  //   let Breakfast = alltoggleValues.Breakfast;
+  //   var locationDropdown = document.getElementById('Breakfast_location');
+  //   console.log(Breakfast);
+  //   if(Breakfast === 'no'){
+  //     locationDropdown.disabled = true;
+  //     console.log('locationDropdown.disabled = true;');
+  //   } else {
+  //     locationDropdown.disabled = false;
+  //     console.log('locationDropdown.disabled = false;');
+  //   }
+  // }
+
+
+  function validateDate() {
+    console.log('fuction calls initally');
+    var inputDate = new Date(document.getElementById('date').value);
+    var tomorrow = new Date();
+  
+    if (inputDate < tomorrow) {
+      // Reset the input value to tomorrow's date
+      // console.log(inputDate);
+      let dd = String(tomorrow.getDate()).padStart(2, '0');
+      console.log(dd);
+      let mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+      let yyyy = tomorrow.getFullYear();
+      let formattedDate = yyyy + '-' + mm + '-' + dd;
+      // console.log(formattedDate);
+      
+      document.getElementById('date').value = formattedDate;
+    } else {
+      let dd = String(tomorrow.getDate() + 1).padStart(2, '0');
+      console.log(dd);
+      let mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+      let yyyy = tomorrow.getFullYear();
+      let formattedDate = yyyy + '-' + mm + '-' + dd;
+      // console.log(formattedDate);
+      
+      document.getElementById('date').value = formattedDate;
+    }
+  
+    // Set the min and max attributes dynamically
+    document.getElementById('date').setAttribute('min', getCurrentDate());
+    document.getElementById('date').setAttribute('max', getTomorrowDate());
+    toggleSwitchesBasedOnTime();
+  }
+  
+  function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+  
+    return yyyy + '-' + mm + '-' + dd;
+  }
+  
+  function getTomorrowDate() {
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+  
+    var dd = String(tomorrow.getDate()).padStart(2, '0');
+    var mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = tomorrow.getFullYear();
+  
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
+  function submit_form(event) {
+  const toggleValues = getToggleValues();
+  var employeeId = "{{ emp_id.name }}";
+  var employeeName = "{{ emp_id.employee_name }}";
+  let Breakfast = toggleValues.Breakfast;
+  let Breakfast_location = document.getElementById("Breakfast_location").value;
+  let Lunch = toggleValues.Lunch;
+  let Lunch_location = document.getElementById("Lunch_location").value;
+  let Dinner = toggleValues.Dinner;
+  let Dinner_location = document.getElementById("Dinner_location").value;
+  let Refreshments = toggleValues.Refreshments;
+  let Refreshments_location = document.getElementById("Refreshments_location").value;
+  let date = document.getElementById("date").value;
+  
+  if (Breakfast === 'Yes' && Breakfast_location === '') {
+      Swal.fire({
+        title: 'Attention!',
+        text: 'Kindly Select The location For Breakfast!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else if (Lunch === 'Yes' && Lunch_location === '') {
+      Swal.fire({
+        title: 'Attention!',
+        text: 'Kindly Select The location For Lunch!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else if (Dinner === 'Yes' && Dinner_location === '') {
+      Swal.fire({
+        title: 'Attention!',
+        text: 'Kindly Select The location For Dinner!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else if (Refreshments === 'Yes' && Refreshments_location === '') {
+      Swal.fire({
+        title: 'Attention!',
+        text: 'Kindly Select The location For Refreshments!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+
+  // console.log(Breakfast,Breakfast_location,Lunch,Lunch_location,Dinner,Dinner_location,Refreshments,Refreshments_location,date,employeeId,employeeName);
+  
+  frappe.call({
+    method: 'food_beverages.www.food.user.request_food.index.fill_form',
+    args: {
+      Breakfast: Breakfast,
+      Breakfast_location: Breakfast_location,
+      Lunch: Lunch,
+      Lunch_location:Lunch_location,
+      Dinner:Dinner,
+      Dinner_location:Dinner_location,
+      Refreshments: Refreshments,
+      Refreshments_location:Refreshments_location,
+      date:date,
+      employeeId:employeeId,
+      employeeName:employeeName,
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message == "Record Exists!") {
+        Swal.fire({
+          title: 'Attention!',
+          text: 'You Have Already Booked Your Meal If Want Some Changes Modify In Booked Meals Screen',
+          icon: 'warning',
+          confirmButtonText: 'OK',
+          customClass: {
+            confirmButton: 'custom-swal-button' // Custom class for the button
+          },
+          buttonsStyling: false
+        });
+      }
+      else if (r.message == "Request Successfull.."){
+        window.location.href = '/fleet/booking_successful'
+      }
+    }
+  
+  });
+}
+
+}
+
+
+</script>
+
+
+
+
+
+{%endblock%}

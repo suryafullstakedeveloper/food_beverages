@@ -1,0 +1,301 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 11%;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .title_font_style{
+      font-weight: 500;
+      font-size: 30px;
+      margin-left: 5%;
+    }
+
+    .margin_right{
+      margin-right: 1%;
+    }
+
+    .table_width{
+      width: 80%;
+    }
+
+    .table_header{
+      background-color: #FF4D00;
+      color: #fff;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      box-shadow: #FF4D00 0 4px 7px;
+      transform: translateY(-2px);
+    }
+    .margin_left{
+      margin-left: 10px;
+    }
+    .outline_border{
+    border: 1px solid #DEE2E6;
+    border-collapse: collapse;
+    }
+</style>
+
+
+
+<!-- <div id="marquee" class="marquee"></div> -->
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+      <div style="display: block;" id="calendar"></div>
+    </div>
+    
+  </form>
+</div>
+
+
+<script>
+
+var location_change = document.getElementById('location');
+  location_change.addEventListener('change', function(event) {
+    GetTableValues();
+  });
+
+
+    function GetTableValues(){
+
+    var location_variable = document.getElementById('location').value;
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.admin_food_menu.index.GetTableValues',
+    args: {location: location_variable},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        console.log('hi')
+        console.log(r.message)
+      } else {
+      }
+    }
+  
+    });
+    }
+
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+}
+
+
+function extract_date(date) {
+  // console.log('input date');
+  // console.log(date);
+  var datearray = date.split('-')
+  // console.log(datearray);
+
+    
+    return `${datearray[2]}/`;
+}
+    var date = new Date()
+    currentdate = formatDate(date)
+    console.log(currentdate)
+    frappe.call({
+      method: 'frappe.client.get_list',
+      args: {
+        doctype: 'Booking Details', // Replace with the name of your doctype
+        fields: ["driver_name", "start_date", "end_date", "vehicle_number", "naming_series","start_time","end_time"], // Specify the fields you want to display
+        filters: {
+          "status": "Fleet Manager Approved",
+          // "end_date": (">=", currentdate)
+        }, // Apply filters if needed
+      },
+      callback: function (response) {
+        var data_booking_details = response.message;
+
+        var transformedData = data_booking_details.map(item => {
+          return {
+            // Concatenate fields and create a new key
+            title: item.naming_series + ' ' + item.driver_name + ' ' +item.vehicle_number + ' ' + extract_date(item.start_date) + item.start_time + '-' + extract_date(item.end_date) + item.end_time,
+            start: new Date(item.start_date),
+            end: new Date(item.end_date),
+          };
+        });
+
+        console.log(transformedData);
+        var calendarEl = document.getElementById('calendar');
+        // var cardContainer = document.createElement('div');
+        //     cardContainer.className = 'card-container';
+
+        //     for (var i = 1; i <= 3; i++) {
+        //         var cardHtml = `
+        //             <div class="image" style="background-image: url('/dashboard-card.png');">
+        //                 <div class="image-text" id="value${i}">Food<br></div>
+        //             </div>
+        //         `;
+
+        //         var cardElement = document.createElement('div');
+        //         cardElement.innerHTML = cardHtml;
+        //         cardContainer.appendChild(cardElement);
+        //     }
+
+        // calendarEl.appendChild(cardContainer);
+        var eventTooltipContent = transformedData.title;
+        console.log(eventTooltipContent)
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'timeGridDay',
+          headerToolbar: {
+            left: '',
+            center: 'title',
+            // right: ''
+          },
+          
+          initialDate: new Date(),
+          slotMinTime: '10:00:00', // Set the minimum time to 10 am
+          slotMaxTime: '22:00:00', // Set the maximum time to 9 pm
+          navLinks: true, // can click day/week names to navigate views
+          editable: false,
+          startEditable: true,
+          dayMaxEvents: true, // allow "more" link when too many events
+          events: transformedData,
+          // eventClick: function (info) {
+          // // Set the tooltip dynamically
+          // info.el.setAttribute('title', info.event.title);
+          // console.log(info.event.title)
+          // },
+          eventClick: function (info) {
+        // Set the data-tooltip attribute dynamically for all related elements
+        info.el.setAttribute('title', info.event.title);
+        var parentElement = info.el.parentElement;
+        while (parentElement) {
+          if (parentElement.classList.contains('fc-day-grid-event')) {
+            parentElement.setAttribute('title', info.event.title);
+          }
+          parentElement = parentElement.parentElement;
+        }
+      },
+          
+          eventContent: function (arg) {
+                return {
+                    html: getCardContainerHTML(),
+                };
+            },
+        });
+
+        calendar.render();
+      }
+
+    })
+
+  });
+
+  function getCardContainerHTML() {
+    var cardContainerHTML = '';
+    
+    for (var i = 1; i <= 3; i++) {
+        var cardHtml = `
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+                <div class="image-text" id="value${i}">Food<br></div>
+            </div>
+        `;
+        
+        cardContainerHTML += cardHtml;
+    }
+
+    return '<div class="card-container">' + cardContainerHTML + '</div>';
+}
+
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.9/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.9/index.global.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.9/index.global.min.js'></script>
+
+
+{%endblock%}
