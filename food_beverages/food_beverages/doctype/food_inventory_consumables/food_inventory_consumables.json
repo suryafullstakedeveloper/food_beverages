@@ -15,16 +15,18 @@
   "packet_biscuits",
   "paper_cups",
   "water_cans",
+  "butter_sheet",
   "milk_packets",
   "location",
   "date",
   "created_by",
-  "modyfied_by"
+  "modifyed_by"
  ],
  "fields": [
   {
    "fieldname": "id",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Id"
   },
   {
@@ -83,14 +85,19 @@
    "label": "Created By"
   },
   {
-   "fieldname": "modyfied_by",
+   "fieldname": "modifyed_by",
    "fieldtype": "Data",
-   "label": "Modyfied By"
+   "label": "Modified By"
+  },
+  {
+   "fieldname": "butter_sheet",
+   "fieldtype": "Data",
+   "label": "Packet of butter sheet"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-12-29 11:35:57.714092",
+ "modified": "2023-12-29 16:33:10.984884",
  "modified_by": "Administrator",
  "module": "food_beverages",
  "name": "Food Inventory Consumables",

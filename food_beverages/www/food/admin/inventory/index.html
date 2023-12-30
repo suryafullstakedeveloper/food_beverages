@@ -101,6 +101,15 @@
       margin-bottom: 40px;
     }
 
+    /* #table2 {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      height: 100%;
+      border: 2px solid #000000;
+    } */
+
     th, td {
       border: 1px solid #ddd;
       padding: 8px;
@@ -182,11 +191,24 @@
     justify-content: center;
     display: flex;
   }
+
+  .space_evently{
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .submit_margin{
+    margin-left: 1%;
+  }
+
+  .margin_top_for_lc{
+    margin-top: 1%;
+  }
 </style>
 
 
 <div class="location_container">
-  <select class="form-select select_width" id="location" name="location">
+  <select class="form-select select_width margin_top_for_lc" id="location" name="location">
     <option value="">Location</option>
     <option  value="IITM RP">IITM RP</option>
     <option  value="Thaiyur">Thaiyur</option>
@@ -225,29 +247,100 @@
             <div class="column margin_top">
               <label for="Asset_Quantity">Quantity:</label>
               <div>
-                  <input type="text" class="form-control input-style" id="Asset_Quantity" required>
+                  <input type="text" class="form-control input-style" id="Asset_Quantity" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
               </div>
             </div>
-            <button onclick="Add_Asset()" type="button" id="Button_new" class="btn button_width button margin_top">
+            <div class="inner_div">
+            <button onclick="CancelBtn()" type="button" id="Button_new" class="btn button_width button margin_top">
+              Cancel</button>
+            <button onclick="Add_Asset()" type="button" id="Button_new" class="btn button_width button margin_top submit_margin">
               Submit</button>
+            </div>
           </div>
           </div>
           
 
         <div id="B_view">
-          <div class="column">
-            <label class="col-md-3 col-form-label" for="emp_name">Employee Name:</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control input-style" id="emp_name" required readonly value="{{emp_id.employee_name}}" >
-            </div>
-          </div>
+          <div class="space_evently">
           
-          <div class="column">
-            <label class="col-md-3 col-form-label" for="emp_name">Employee Name:</label>
-            <div class="col-md-4">
-                <input type="text" class="form-control input-style" id="emp_name" required readonly value="{{emp_id.employee_name}}" >
+          <div class="display_center">
+            <div class="column margin_top">
+              <label  for="coffee_beans">Packet of coffee beans:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="coffee_beans" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
             </div>
+            
+            <div class="column margin_top">
+              <label for="coffee_stirrers">Packet of coffee stirrers:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="coffee_stirrers" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top">
+              <label for="tea_bags">Tea bags:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="tea_bags" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top">
+              <label for="sugar_sachet">Sugar Sachet:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="sugar_sachet" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top">
+              <label for="butter_sheet">packet of butter sheet:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="butter_sheet" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
           </div>
+
+          <div class="display_center">
+
+            <div class="column margin_top">
+              <label for="packet_biscuits">Packet of Biscuits:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="packet_biscuits" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top">
+              <label for="paper_cups">Number of Paper Cups:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="paper_cups" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top">
+              <label for="water_cans">No.of water cans:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="water_cans" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top">
+              <label for="milk_packets">Number of milk packets:</label>
+              <div>
+                  <input type="text" class="form-control input-style" id="milk_packets" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+          </div>
+          </div>
+
+          <div class="inner_div">
+          <button onclick="CancelBtn()" type="button" id="Button_new" class="btn button_width button margin_top">
+            Cancel</button>
+            <button onclick="Submit_Consumables()" type="button" id="Button_new" class="btn button_width button margin_top submit_margin">
+              Submit</button>
+          </div>
+
         </div>
 
       </div>
@@ -290,12 +383,17 @@
   Aview.style.display = 'none';
   Lview.style.display = 'block';
   Bview.style.display = 'none';
+
+  
+  var table = document.createElement('table');
+  var table2 = document.createElement('table');
   var Asset_id;
+  var consumable_id;
   var data = [];
   var Consumables_data = [];
 
-  var table = document.createElement('table');
-  var table2 = document.createElement('table2');
+  createTable();
+  createConsumablesTable();
 
   var location_variable = document.getElementById('location');
   location_variable.addEventListener('change', function(event) {
@@ -307,6 +405,24 @@
   function createTable() {
     table.innerHTML = '';
 
+    if (data.length === 0) {
+        var noDataRow = document.createElement('tr');
+        var noDataCell = document.createElement('td');
+        noDataCell.setAttribute('colspan', '3'); // Set the colspan to the number of columns
+        noDataCell.appendChild(document.createTextNode('No data found'));
+        noDataRow.appendChild(noDataCell);
+
+        var tbody = document.createElement('tbody');
+        tbody.appendChild(noDataRow);
+        table.appendChild(tbody);
+
+        var tableDiv = document.getElementById('table');
+        tableDiv.appendChild(table);
+
+        return;
+    }
+   
+    
     // Create table header
     var thead = document.createElement('thead');
     var headerRow = document.createElement('tr');
@@ -391,10 +507,27 @@
   function createConsumablesTable() {
     table2.innerHTML = '';
 
+    if (Consumables_data.length === 0) {
+        var noDataRow = document.createElement('tr');
+        var noDataCell = document.createElement('td');
+        noDataCell.setAttribute('colspan', '3'); // Set the colspan to the number of columns
+        noDataCell.appendChild(document.createTextNode('No data found'));
+        noDataRow.appendChild(noDataCell);
+
+        var tbody = document.createElement('tbody');
+        tbody.appendChild(noDataRow);
+        table2.appendChild(tbody);
+
+        var tableDiv = document.getElementById('table2');
+        tableDiv.appendChild(table2);
+
+        return;
+    }
+
     // Create table header
     var thead = document.createElement('thead');
     var headerRow = document.createElement('tr');
-    var headers = ['Item', 'Quantity', 'Actions'];
+    var headers = ['Coffee Beans', 'Coffee Stirrers', 'Tea Bags','Sugar Sachet','Biscuits','Paper Cups','Water Cans','Milk Packets','Butter Sheet','Date','Actions'];
 
     headers.forEach(function (headerText) {
       var th = document.createElement('th');
@@ -433,7 +566,7 @@
       editButton.style.border= '1px solid #1A1A1A';
       editButton.addEventListener('click', function () {
         // Call your custom edit function here and pass the values
-        editRow(rowData);
+        editConsumables(rowData);
       });
       actionsCell.appendChild(editButton);
 
@@ -451,12 +584,12 @@
   table2.appendChild(tbody);
 
     // Get the div with id 'table' and append the table to it
-    var tableDiv = document.getElementById('table');
-    tableDiv.appendChild(table);
+    var tableDiv = document.getElementById('table2');
+    tableDiv.appendChild(table2);
   }
  
   function editRow(event) {
-    console.log('Edit clicked for item:',event);
+    // console.log('Edit clicked for item:',event);
 
   Aview.style.display = 'block';
   Lview.style.display = 'none';
@@ -465,6 +598,27 @@
   document.getElementById('Asset_Quantity').value = event.quantity;
   Asset_id = event.name;
   console.log(Asset_id)
+
+  }
+
+  function editConsumables(event) {
+    // console.log('Edit clicked for item:',event);
+
+  Aview.style.display = 'none';
+  Lview.style.display = 'none';
+  Bview.style.display = 'block';
+  document.getElementById('coffee_beans').value = event.coffee_beans
+  document.getElementById('coffee_stirrers').value = event.coffee_stirrers
+  document.getElementById('tea_bags').value = event.tea_bags
+  document.getElementById('sugar_sachet').value = event.sugar_sachet
+  document.getElementById('butter_sheet').value = event.butter_sheet
+  document.getElementById('packet_biscuits').value = event.packet_biscuits
+  document.getElementById('paper_cups').value = event.paper_cups
+  document.getElementById('water_cans').value = event.water_cans
+  document.getElementById('milk_packets').value = event.milk_packets
+
+  consumable_id = event.name
+console.log(consumable_id)
 
   }
 
@@ -541,6 +695,12 @@ function Asset_New(){
   Aview.style.display = 'block';
   Lview.style.display = 'none';
   Bview.style.display = 'none';
+}
+
+function Add_Consumables(){
+  Aview.style.display = 'none';
+  Lview.style.display = 'none';
+  Bview.style.display = 'block';
 }
 
 function Add_Asset(){
@@ -641,6 +801,209 @@ function Add_Asset(){
   });
 }
   }
+}
+
+
+function Submit_Consumables(){
+
+var coffeeBeansInput = document.getElementById('coffee_beans');
+var coffee_beans = coffeeBeansInput.value && !isNaN(coffeeBeansInput.value) ? parseInt(coffeeBeansInput.value, 10) : 0;
+
+
+var coffee_stirrersInput = document.getElementById('coffee_stirrers');
+var coffee_stirrers = coffee_stirrersInput.value && !isNaN(coffee_stirrersInput.value) ? parseInt(coffee_stirrersInput.value, 10) : 0;
+
+
+var tea_bagsInput = document.getElementById('tea_bags');
+var tea_bags = tea_bagsInput.value && !isNaN(tea_bagsInput.value) ? parseInt(tea_bagsInput.value, 10) : 0;
+
+
+var sugar_sachetInput = document.getElementById('sugar_sachet');
+var sugar_sachet = sugar_sachetInput.value && !isNaN(sugar_sachetInput.value) ? parseInt(sugar_sachetInput.value, 10) : 0;
+
+var butter_sheetInput = document.getElementById('butter_sheet');
+var butter_sheet = butter_sheetInput.value && !isNaN(butter_sheetInput.value) ? parseInt(butter_sheetInput.value, 10) : 0;
+
+var packet_biscuitsInput = document.getElementById('packet_biscuits');
+var packet_biscuits = packet_biscuitsInput.value && !isNaN(packet_biscuitsInput.value) ? parseInt(packet_biscuitsInput.value, 10) : 0;
+
+
+var paper_cupsInput = document.getElementById('paper_cups');
+var paper_cups = paper_cupsInput.value && !isNaN(paper_cupsInput.value) ? parseInt(paper_cupsInput.value, 10) : 0;
+
+
+var water_cansInput = document.getElementById('water_cans');
+var water_cans = water_cansInput.value && !isNaN(water_cansInput.value) ? parseInt(water_cansInput.value, 10) : 0;
+
+
+var milk_packetsInput = document.getElementById('milk_packets');
+var milk_packets = milk_packetsInput.value && !isNaN(milk_packetsInput.value) ? parseInt(milk_packetsInput.value, 10) : 0;
+
+var employeeId = "{{ emp_id.name }}";
+var location_variable = document.getElementById('location').value;
+
+if(consumable_id){
+
+  if (location_variable === '') {
+      Swal.fire({
+        title: 'Attention!',
+        text: 'Kindly Select The location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+
+frappe.call({
+    method: 'food_beverages.www.food.admin.inventory.index.Edit_Consumables',
+    args: {
+      coffee_beans: coffee_beans,
+      coffee_stirrers: coffee_stirrers,
+      tea_bags: tea_bags,
+      sugar_sachet: sugar_sachet,
+      butter_sheet: butter_sheet,
+      packet_biscuits: packet_biscuits,
+      paper_cups: paper_cups,
+      water_cans: water_cans,
+      milk_packets: milk_packets,
+      employeeId: employeeId,
+      id:consumable_id
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message == 'recordExists') {
+      
+        Swal.fire({
+        title: 'Attention!',
+        text: 'Today You Have Already Added The Data For This Location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+        
+      }
+      else {
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+    
+        document.getElementById('coffee_beans').value = '';
+        document.getElementById('coffee_stirrers').value = '';
+        document.getElementById('tea_bags').value = '';
+        document.getElementById('sugar_sachet').value = '';
+        document.getElementById('butter_sheet').value = '';
+        document.getElementById('packet_biscuits').value = '';
+        document.getElementById('paper_cups').value = '';
+        document.getElementById('water_cans').value = '';
+        document.getElementById('milk_packets').value = '';
+        document.getElementById('Asset_Quantity').value = '';
+        document.getElementById('Asset_Item').value = '';
+        consumable_id = ''
+        GetConsumables_data();
+        
+      }
+    }
+  
+  });
+}
+} else {
+
+if (location_variable === '') {
+      Swal.fire({
+        title: 'Attention!',
+        text: 'Kindly Select The location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+
+frappe.call({
+    method: 'food_beverages.www.food.admin.inventory.index.Add_Consumables',
+    args: {
+      coffee_beans: coffee_beans,
+      coffee_stirrers: coffee_stirrers,
+      tea_bags: tea_bags,
+      sugar_sachet: sugar_sachet,
+      butter_sheet: butter_sheet,
+      packet_biscuits: packet_biscuits,
+      paper_cups: paper_cups,
+      water_cans: water_cans,
+      milk_packets: milk_packets,
+      employeeId: employeeId,
+      location_variable:location_variable,
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message == 'recordExists') {
+      
+        Swal.fire({
+        title: 'Attention!',
+        text: 'Today You Have Already Added The Data For This Location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+        
+      }
+      else {
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+    
+        document.getElementById('coffee_beans').value = '';
+        document.getElementById('coffee_stirrers').value = '';
+        document.getElementById('tea_bags').value = '';
+        document.getElementById('sugar_sachet').value = '';
+        document.getElementById('butter_sheet').value = '';
+        document.getElementById('packet_biscuits').value = '';
+        document.getElementById('paper_cups').value = '';
+        document.getElementById('water_cans').value = '';
+        document.getElementById('milk_packets').value = '';
+        document.getElementById('Asset_Quantity').value = '';
+        document.getElementById('Asset_Item').value = '';
+        GetConsumables_data();
+        
+      }
+    }
+  
+  });
+}
+}
+
+}
+
+function CancelBtn(){
+  Aview.style.display = 'none';
+  Lview.style.display = 'block';
+  Bview.style.display = 'none';
+  document.getElementById('coffee_beans').value = '';
+  document.getElementById('coffee_stirrers').value = '';
+  document.getElementById('tea_bags').value = '';
+  document.getElementById('sugar_sachet').value = '';
+  document.getElementById('butter_sheet').value = '';
+  document.getElementById('packet_biscuits').value = '';
+  document.getElementById('paper_cups').value = '';
+  document.getElementById('water_cans').value = '';
+  document.getElementById('milk_packets').value = '';
+  document.getElementById('Asset_Quantity').value = '';
+  document.getElementById('Asset_Item').value = '';
 }
  
 </script>

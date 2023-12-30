@@ -1,0 +1,182 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+    display: flex; 
+  justify-content: center; 
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-x: hidden; /* Hide horizontal overflow */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.image {
+    flex: 0 0 48%;
+    margin-bottom: 2%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 267px;
+    border-radius: 8%;
+}
+
+.margin_content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+        .image-text {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+
+    .margin_right{
+      margin-right: 1%;
+    }
+    
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 100%;
+      margin-top: 5%;
+    }
+
+</style>
+
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+
+      <div class="display_center">
+        <!-- <div class="margin_content">
+          
+          <div class="image" style="background-image: url('/dashboard-card.png');">
+            <div class="image-text" id="milk_packets">ji</div>
+          </div>
+
+        </div> -->
+        <div id="cardContainer" class="margin_content"></div>
+      </div>
+    
+      
+    </div>
+    
+  </form>
+</div>
+
+
+
+<script>
+
+// data = [
+//     {'vendar_name': 'surya', 'vendar_Id': 123},
+//     {'vendar_name': 'aravind', 'vendar_Id': 124},
+//     {'vendar_name': 'vignash', 'vendar_Id': 125}
+// ]
+
+document.addEventListener('DOMContentLoaded', function () {
+  var data = [
+      { 'vendar_name': 'surya', 'vendar_Id': 123 },
+      { 'vendar_name': 'aravind', 'vendar_Id': 124 },
+      { 'vendar_name': 'vignash', 'vendar_Id': 125 },
+      { 'vendar_name': 'karthick', 'vendar_Id': 126 }
+    ];
+
+    // Get the container where cards will be added
+    var cardContainer = document.getElementById('cardContainer');
+
+    // Loop through the data and create cards
+    data.forEach(function (entry) {
+      // Create a new card div
+      var card = document.createElement('div');
+      card.className = 'image';
+      card.style.backgroundImage = "url('/dashboard-card.png')";
+
+      // Create a text div inside the card
+      var textDiv = document.createElement('div');
+      textDiv.className = 'image-text';
+      textDiv.id = 'milk_packets';
+      textDiv.textContent = entry.vendar_name;
+
+      // Append the text div to the card
+      card.appendChild(textDiv);
+
+      // Append the card to the container
+      cardContainer.appendChild(card);
+    });
+});
+  
+
+</script>
+
+
+{%endblock%}

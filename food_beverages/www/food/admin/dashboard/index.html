@@ -177,31 +177,43 @@
           <div class="image-container">
             <!-- Image 1 -->
             <div class="image" style="background-image: url('/dashboard-card.png');">
-                <div class="image-text" id="value1">Food<br></div>
+                <div class="image-text" id="coffee_beans"> Packet of Coffee Beans<br></div>
             </div>
         
             <!-- Image 2 -->
             <div class="image" style="background-image: url('/dashboard-card.png');">
-                <div class="image-text" id="value2">Food<br></div>
+                <div class="image-text" id="coffee_stirrers">Packet of Coffee Stirrers<br></div>
             </div>
         
             <!-- Image 3 -->
             <div class="image" style="background-image: url('/dashboard-card.png');">
-                <div class="image-text" id="value3">Food<br></div>
+                <div class="image-text" id="tea_bags">Tea bags<br></div>
+            </div>
+
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+              <div class="image-text" id="milk_packets">number of milk packets<br></div>
             </div>
              
             <div class="image" style="background-image: url('/dashboard-card.png');">
-              <div class="image-text" id="value1">Food<br></div>
+              <div class="image-text" id="sugar_sachet">Sugar Sachet<br></div>
             </div>
       
             <!-- Image 2 -->
             <div class="image" style="background-image: url('/dashboard-card.png');">
-              <div class="image-text" id="value2">Food<br></div>
+              <div class="image-text" id="biscuits">Packet of Biscuits<br></div>
             </div>
       
             <!-- Image 3 -->
             <div class="image" style="background-image: url('/dashboard-card.png');">
-              <div class="image-text" id="value3">Food<br></div>
+              <div class="image-text" id="butter_sheet">packet of butter sheet<br></div>
+            </div>
+
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+              <div class="image-text" id="paper_cups">Number of Paper Cups<br></div>
+            </div>
+
+            <div class="image" style="background-image: url('/dashboard-card.png');">
+              <div class="image-text" id="water_cans">No. of water cans<br></div>
             </div>
         
             <!-- Add more images with text as needed -->
@@ -231,39 +243,10 @@ var total_food_count = document.getElementById('total_food_count');
 
 total_food_count.innerHTML = ('Total Food Count : '+todalfood)
 
-var dynamicValues = [
-        { id: 'value1', totalDrivers: 10 },
-        { id: 'value2', totalDrivers: 15 },
-        { id: 'value3', totalDrivers: 8 }
-        // Add more objects for additional images
-    ];
-
-    // Update the text content with dynamic values
-    dynamicValues.forEach(function (item) {
-        var element = document.getElementById(item.id);
-        if (element) {
-            element.innerHTML += item.totalDrivers;
-        }
-    });
-  
-// document.addEventListener('DOMContentLoaded', function () {
-
-// frappe.call({
-//     method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
-//     args: {},
-//     callback: function (r) {
-//       console.log(r);
-//       if(r.message){
-//         console.log(r.message);
-//         var marqueeElement = document.getElementById('marquee');
-//         marqueeElement.innerHTML = r.message;
-//       } 
-//     }
-//   });
-// });
 
 document.addEventListener('DOMContentLoaded', function () {
   chart_initial_values();
+  GetCardvalues()
 });
   
 
@@ -275,8 +258,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if(location_variable == 'All' && meal_variable == 'All' && date_period_variable == 'Day'){
       chart_initial_values();
+      GetCardvalues()
     } else{
       Get_Chart_Value();
+      GetCardvalues()
     }
   });
 
@@ -301,8 +286,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if(location_variable == 'All' && meal_variable == 'All' && date_period_variable == 'Day'){
       chart_initial_values();
+      GetCardvalues()
     } else{
       Get_Chart_Value();
+      GetCardvalues()
     }
   });
 
@@ -432,6 +419,56 @@ document.addEventListener('DOMContentLoaded', function () {
   chart = new ApexCharts(document.querySelector("#chart"), options);
   chart.render();
 }
+
+  function GetCardvalues(){
+
+    var location_variable = document.getElementById('location').value;
+    var date_period_variable = document.getElementById('date_period').value;
+
+    var coffee_beans = document.getElementById('coffee_beans');
+    var coffee_stirrers = document.getElementById('coffee_stirrers');
+    var tea_bags = document.getElementById('tea_bags');
+    var milk_packets = document.getElementById('milk_packets');
+    var sugar_sachet = document.getElementById('sugar_sachet');
+    var biscuits = document.getElementById('biscuits');
+    var butter_sheet = document.getElementById('butter_sheet');
+    var paper_cups = document.getElementById('paper_cups');
+    var water_cans = document.getElementById('water_cans');
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.dashboard.index.GetCardvalues',
+    args: {date_period: date_period_variable,location : location_variable},
+    callback: function (r) {
+      console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+       console.log(r.message);
+
+       coffee_beans.innerHTML = ('Packet of Coffee Beans<br>'+r.message.coffee_beans)
+       coffee_stirrers.innerHTML = ('Packet of Coffee Stirrers<br>'+r.message.coffee_stirrers)
+       tea_bags.innerHTML = ('Tea bags<br>'+r.message.tea_bags)
+       milk_packets.innerHTML = ('Number of milk packets<br>'+r.message.milk_packets)
+       sugar_sachet.innerHTML = ('Sugar Sachet<br>'+r.message.sugar_sachet)
+       biscuits.innerHTML = ('Packet of Biscuits<br>'+r.message.packet_biscuits)
+       butter_sheet.innerHTML = ('packet of butter sheet<br>'+r.message.butter_sheet)
+       paper_cups.innerHTML = ('Number of Paper Cups<br>'+r.message.paper_cups)
+       water_cans.innerHTML = ('No. of water cans<br>'+r.message.water_cans)
+
+      } else {
+        coffee_beans.innerHTML = ('Packet of Coffee Beans<br>')
+       coffee_stirrers.innerHTML = ('Packet of Coffee Stirrers<br>')
+       tea_bags.innerHTML = ('Tea bags<br>')
+       milk_packets.innerHTML = ('Number of milk packets<br>')
+       sugar_sachet.innerHTML = ('Sugar Sachet<br>')
+       biscuits.innerHTML = ('Packet of Biscuits<br>')
+       butter_sheet.innerHTML = ('packet of butter sheet<br>')
+       paper_cups.innerHTML = ('Number of Paper Cups<br>')
+       water_cans.innerHTML = ('No. of water cans<br>')
+      }
+    }
+  
+  });
+
+  }
 
 </script>
 
