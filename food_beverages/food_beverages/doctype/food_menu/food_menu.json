@@ -1,0 +1,153 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2023-12-22 14:21:22.173839",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id",
+  "meal_type",
+  "mon",
+  "tue",
+  "wed",
+  "thu",
+  "fri",
+  "sat",
+  "sun",
+  "location",
+  "created_by",
+  "modyfied_by",
+  "mon_f_type",
+  "tue_f_type",
+  "wed_f_type",
+  "thu_f_type",
+  "fri_f_type",
+  "sat_f_type",
+  "sun_f_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Id"
+  },
+  {
+   "fieldname": "meal_type",
+   "fieldtype": "Data",
+   "label": "Meal Type"
+  },
+  {
+   "fieldname": "mon",
+   "fieldtype": "Long Text",
+   "label": "Mon"
+  },
+  {
+   "fieldname": "tue",
+   "fieldtype": "Long Text",
+   "label": "Tue"
+  },
+  {
+   "fieldname": "wed",
+   "fieldtype": "Long Text",
+   "label": "Wed"
+  },
+  {
+   "fieldname": "thu",
+   "fieldtype": "Long Text",
+   "label": "Thu"
+  },
+  {
+   "fieldname": "fri",
+   "fieldtype": "Long Text",
+   "label": "Fri"
+  },
+  {
+   "fieldname": "sat",
+   "fieldtype": "Long Text",
+   "label": "Sat"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Data",
+   "label": "Created By"
+  },
+  {
+   "fieldname": "modyfied_by",
+   "fieldtype": "Data",
+   "label": "Modified By"
+  },
+  {
+   "fieldname": "mon_f_type",
+   "fieldtype": "Data",
+   "label": "Mon Preference"
+  },
+  {
+   "fieldname": "tue_f_type",
+   "fieldtype": "Data",
+   "label": "tue Preference"
+  },
+  {
+   "fieldname": "wed_f_type",
+   "fieldtype": "Data",
+   "label": "Wed Preference"
+  },
+  {
+   "fieldname": "thu_f_type",
+   "fieldtype": "Data",
+   "label": "Thu Preference"
+  },
+  {
+   "fieldname": "fri_f_type",
+   "fieldtype": "Data",
+   "label": "Fri Preference"
+  },
+  {
+   "fieldname": "sat_f_type",
+   "fieldtype": "Data",
+   "label": "Sat Preference"
+  },
+  {
+   "fieldname": "sun",
+   "fieldtype": "Long Text",
+   "label": "Sun"
+  },
+  {
+   "fieldname": "sun_f_type",
+   "fieldtype": "Data",
+   "label": " Sun Preference"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-25 18:20:53.246877",
+ "modified_by": "Administrator",
+ "module": "food_beverages",
+ "name": "Food Menu",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

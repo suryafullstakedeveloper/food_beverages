@@ -1,0 +1,859 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/assets/frappe/js/frappe.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+    display: flex; 
+  justify-content: center; 
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 600px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 65%;
+}
+
+.field_width{
+  width: 50%;
+}
+
+.flex_center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.cancel_button_common{
+      width: 139px;
+      background-color: #ddd;
+      color: black;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .cancel_button_common:hover{
+      width: 139px;
+      background-color: #ddd;
+      color: #000;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .submit_button_common{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+    }
+  
+    .submit_button_common:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .margin_top{
+      margin-top: 30px;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+
+  .col-1_custom{
+    padding-left: 0px;
+  }
+
+  .css-disable-true{
+    pointer-events: none;
+    user-select: none;
+    background-color: #e9ecef;
+  }
+
+
+ 
+</style>
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+
+      <div class="container" style="margin: 1%;">
+        <div class="row" style="margin-top: 1%;">
+          <div class="col-6" style="display: flex;align-items: center;">
+            <h3>Additional Food Count</h3>
+          </div>
+          <div id="EditButton" class="col-6" style="display: flex; justify-content: end;">
+            <button onclick="Editfucntion()" type="button" id="Button_new" class="button_width button">
+            Edit</button>
+        </div>
+        </div>
+
+        <div class="row" style="margin-top: 2%;">
+
+          <div class="col-12 flex_center">
+            <div class="flex_center" style="width: 30%;">
+              <input class="form-select" style="background-image: none; padding: 6px;" type="date" id="date" onchange="validateDate()" name="date">
+            </div>
+          </div>
+          
+          <div class="col-12 flex_center" style="margin-top: 1%;">
+            <div class="flex_center" style="width: 30%;">
+              <select class="form-select" id="Selected_location" name="Selected_location">
+                <option disabled selected hidden value="">Location</option>
+                <option value="IITM RP">IITM RP</option>
+                <option value="Thaiyur">Thaiyur</option>
+                <option value="Shar">Shar</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-5 flex_center" style="justify-content: end;padding-right: 45px;">
+            <label>Breakfast</label>
+          </div>
+
+          <div class="col-2 flex_center">
+            <label>Lunch</label>
+          </div>
+          
+          <div class="col-3 flex_center" style="justify-content: flex-start;padding-left: 45px;">
+            <label>Dinner</label>
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-1"></div>
+
+          <div class="col-1"></div>
+
+          <div class="col-1"></div>
+
+          <div class="col-1">
+            <label style="font-size: 0.8vw;">Veg</label>
+          </div>
+
+          <div style="padding-left: 10px;" class="col-1">
+            <label style="font-size: 0.8vw;">N-Veg</label>
+          </div>
+
+          <div class="col-1">
+            <label style="font-size: 0.8vw;">Veg</label>
+          </div>
+
+          <div style="padding-left: 10px;" class="col-1">
+            <label style="font-size: 0.8vw;">N-Veg</label>
+          </div>
+
+          <div class="col-1">
+            <label style="font-size: 0.8vw;">Veg</label>
+          </div>
+
+          <div style="padding-left: 10px;" class="col-1">
+            <label style="font-size: 0.8vw;">N-Veg</label>
+          </div>
+
+          <div class="col-1"></div>
+
+          <div class="col-1"></div>
+
+          <div class="col-1"></div>
+          
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-3 flex_center" style="justify-content: end;">
+            <label>Painters</label>
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Painters_breakfast" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Painters_breakfast_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+          
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Painters_lunch" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Painters_lunch_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Painters_dinner" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Painters_dinner_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-3 flex_center" style="justify-content: end;">
+            <label>Security Guards</label>
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="SecurityGuards_breakfast" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="SecurityGuards_breakfast_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+          
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="SecurityGuards_lunch" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="SecurityGuards_lunch_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="SecurityGuards_dinner" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="SecurityGuards_dinner_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-3 flex_center" style="justify-content: end;">
+            <label>Housekeepers</label>
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Housekeepers_breakfast" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Housekeepers_breakfast_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+          
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Housekeepers_lunch" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Housekeepers_lunch_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Housekeepers_dinner" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Housekeepers_dinner_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-3 flex_center" style="justify-content: end;">
+            <label>Advisors</label>
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Advisors_breakfast" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Advisors_breakfast_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+          
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Advisors_lunch" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Advisors_lunch_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Advisors_dinner" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Advisors_dinner_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-3 flex_center" style="justify-content: end;">
+            <label>Investors</label>
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Investors_breakfast" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Investors_breakfast_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+          
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Investors_lunch" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Investors_lunch_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Investors_dinner" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Investors_dinner_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 1%;">
+
+          <div class="col-3 flex_center" style="justify-content: end;">
+            <label>Others</label>
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Others_breakfast" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Others_breakfast_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+          
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Others_lunch" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Others_lunch_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Others_dinner" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+          <div class="col-1 col-1_custom flex_center">
+            <input type="text" class="form-control box_shodow_remove input-style" id="Others_dinner_Nveg" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="3">
+          </div>
+
+        </div>
+
+        <div class="flex_center">
+          <button onclick="CancelBtn()" type="button" id="CancelButton" class="cancel_button_common button margin_top">
+            Cancel</button>
+          <button onclick="Add()" type="button" id="SubmitButton" class="submit_button_common button margin_top">
+            Submit</button>
+          </div>
+
+      </div>
+      
+    </div>
+    
+  </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/frappe/2.1.1/frappe.min.js"></script>
+<script>
+
+  
+validateDate()
+
+
+  Locationvariabe = document.getElementById('Selected_location')
+  Locationvariabe.addEventListener('change', function(event) {
+    GetExistingValues();
+  });
+
+  var EditButton = document.getElementById('EditButton');
+  var CancelButton = document.getElementById('CancelButton');
+  var SubmitButton = document.getElementById('SubmitButton');
+
+  EditButton.style.display = 'none';
+  CancelButton.style.display = 'block';
+  SubmitButton.style.display = 'block';
+
+  function Editfucntion(){
+    EditButton.style.display = 'none';
+    CancelButton.style.display = 'block';
+    SubmitButton.style.display = 'block';
+    var inputfields = ["Others","Investors","Advisors","Housekeepers","SecurityGuards","Painters"]
+    for(var i =0; i < inputfields.length; i++){
+    document.getElementById(inputfields[i]+'_breakfast').disabled  = false;
+    document.getElementById(inputfields[i]+'_lunch').disabled  = false;
+    document.getElementById(inputfields[i]+'_dinner').disabled  = false;
+    document.getElementById(inputfields[i]+'_breakfast_Nveg').disabled  = false;
+    document.getElementById(inputfields[i]+'_lunch_Nveg').disabled  = false;
+    document.getElementById(inputfields[i]+'_dinner_Nveg').disabled  = false;
+    }
+  }
+
+function Add(){
+
+var Painters_breakfast = document.getElementById('Painters_breakfast').value ? document.getElementById('Painters_breakfast').value : 0;
+var Painters_lunch = document.getElementById('Painters_lunch').value ? document.getElementById('Painters_lunch').value : 0;
+var Painters_dinner = document.getElementById('Painters_dinner').value ? document.getElementById('Painters_dinner').value : 0;
+var SecurityGuards_breakfast = document.getElementById('SecurityGuards_breakfast').value ? document.getElementById('SecurityGuards_breakfast').value : 0;
+var SecurityGuards_lunch = document.getElementById('SecurityGuards_lunch').value ? document.getElementById('SecurityGuards_lunch').value : 0;
+var SecurityGuards_dinner = document.getElementById('SecurityGuards_dinner').value ? document.getElementById('SecurityGuards_dinner').value : 0;
+var Housekeepers_breakfast = document.getElementById('Housekeepers_breakfast').value ? document.getElementById('Housekeepers_breakfast').value : 0;
+var Housekeepers_lunch = document.getElementById('Housekeepers_lunch').value ? document.getElementById('Housekeepers_lunch').value : 0;
+var Housekeepers_dinner = document.getElementById('Housekeepers_dinner').value ? document.getElementById('Housekeepers_dinner').value : 0;
+var Advisors_breakfast = document.getElementById('Advisors_breakfast').value ? document.getElementById('Advisors_breakfast').value : 0;
+var Advisors_lunch = document.getElementById('Advisors_lunch').value ? document.getElementById('Advisors_lunch').value : 0;
+var Advisors_dinner = document.getElementById('Advisors_dinner').value ? document.getElementById('Advisors_dinner').value : 0;
+var Investors_breakfast = document.getElementById('Investors_breakfast').value ? document.getElementById('Investors_breakfast').value : 0;
+var Investors_lunch = document.getElementById('Investors_lunch').value ? document.getElementById('Investors_lunch').value : 0;
+var Investors_dinner = document.getElementById('Investors_dinner').value ? document.getElementById('Investors_dinner').value : 0;
+var Others_breakfast = document.getElementById('Others_breakfast').value ? document.getElementById('Others_breakfast').value : 0;
+var Others_lunch = document.getElementById('Others_lunch').value ? document.getElementById('Others_lunch').value : 0;
+var Others_dinner = document.getElementById('Others_dinner').value ? document.getElementById('Others_dinner').value : 0;
+var Painters_breakfast_Nveg = document.getElementById('Painters_breakfast_Nveg').value ? document.getElementById('Painters_breakfast_Nveg').value : 0;
+var Painters_lunch_Nveg = document.getElementById('Painters_lunch_Nveg').value ? document.getElementById('Painters_lunch_Nveg').value : 0;
+var Painters_dinner_Nveg = document.getElementById('Painters_dinner_Nveg').value ? document.getElementById('Painters_dinner_Nveg').value : 0;
+var SecurityGuards_breakfast_Nveg = document.getElementById('SecurityGuards_breakfast_Nveg').value ? document.getElementById('SecurityGuards_breakfast_Nveg').value : 0;
+var SecurityGuards_lunch_Nveg = document.getElementById('SecurityGuards_lunch_Nveg').value ? document.getElementById('SecurityGuards_lunch_Nveg').value : 0;
+var SecurityGuards_dinner_Nveg = document.getElementById('SecurityGuards_dinner_Nveg').value ? document.getElementById('SecurityGuards_dinner_Nveg').value : 0;
+var Housekeepers_breakfast_Nveg = document.getElementById('Housekeepers_breakfast_Nveg').value ? document.getElementById('Housekeepers_breakfast_Nveg').value : 0;
+var Housekeepers_lunch_Nveg = document.getElementById('Housekeepers_lunch_Nveg').value ? document.getElementById('Housekeepers_lunch_Nveg').value : 0;
+var Housekeepers_dinner_Nveg = document.getElementById('Housekeepers_dinner_Nveg').value ? document.getElementById('Housekeepers_dinner_Nveg').value : 0;
+var Advisors_breakfast_Nveg = document.getElementById('Advisors_breakfast_Nveg').value ? document.getElementById('Advisors_breakfast_Nveg').value : 0;
+var Advisors_lunch_Nveg = document.getElementById('Advisors_lunch_Nveg').value ? document.getElementById('Advisors_lunch_Nveg').value : 0;
+var Advisors_dinner_Nveg = document.getElementById('Advisors_dinner_Nveg').value ? document.getElementById('Advisors_dinner_Nveg').value : 0;
+var Investors_breakfast_Nveg = document.getElementById('Investors_breakfast_Nveg').value ? document.getElementById('Investors_breakfast_Nveg').value : 0;
+var Investors_lunch_Nveg = document.getElementById('Investors_lunch_Nveg').value ? document.getElementById('Investors_lunch_Nveg').value : 0;
+var Investors_dinner_Nveg = document.getElementById('Investors_dinner_Nveg').value ? document.getElementById('Investors_dinner_Nveg').value : 0;
+var Others_breakfast_Nveg = document.getElementById('Others_breakfast_Nveg').value ? document.getElementById('Others_breakfast_Nveg').value : 0;
+var Others_lunch_Nveg = document.getElementById('Others_lunch_Nveg').value ? document.getElementById('Others_lunch_Nveg').value : 0;
+var Others_dinner_Nveg = document.getElementById('Others_dinner_Nveg').value ? document.getElementById('Others_dinner_Nveg').value : 0;
+
+var location = document.getElementById('Selected_location').value;
+var date = document.getElementById('date').value
+var employeeId = "{{ emp_id.name }}";
+if(location == ''){
+  Swal.fire({
+      // title: 'Attention!',
+      text: 'Kindly select Location!',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-swal-button' // Custom class for the button
+      },
+      buttonsStyling: false
+    });
+}
+else {
+frappe.call({
+method: 'food_beverages.www.food.admin.admin_manual_food_count.index.Add',
+args: {Painters_breakfast,Painters_lunch,Painters_dinner,
+SecurityGuards_breakfast,SecurityGuards_lunch,SecurityGuards_dinner,
+Housekeepers_breakfast,Housekeepers_lunch,Housekeepers_dinner,Advisors_breakfast,
+Advisors_lunch,Advisors_dinner,Investors_breakfast,Investors_lunch,
+Investors_dinner,Others_breakfast,Others_lunch,Others_dinner,Painters_breakfast_Nveg,
+Painters_lunch_Nveg,Painters_dinner_Nveg,SecurityGuards_breakfast_Nveg,
+SecurityGuards_lunch_Nveg,SecurityGuards_dinner_Nveg,Housekeepers_breakfast_Nveg,
+Housekeepers_lunch_Nveg,Housekeepers_dinner_Nveg,Advisors_breakfast_Nveg,
+Advisors_lunch_Nveg,Advisors_dinner_Nveg,Investors_breakfast_Nveg,
+Investors_lunch_Nveg,Investors_dinner_Nveg,Others_breakfast_Nveg,Others_lunch_Nveg,
+Others_dinner_Nveg,date,location,employeeId},
+callback: function (r) {
+  if(r.message == 'Record exists!'){
+    Swal.fire({
+      // title: 'Attention!',
+      text: 'Record already exists!',
+      icon: 'warning',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-swal-button' // Custom class for the button
+      },
+      buttonsStyling: false
+    });
+    return;
+  } else {
+  document.getElementById('Painters_breakfast').value = '';
+  document.getElementById('Painters_lunch').value = '';
+  document.getElementById('Painters_dinner').value = '';
+  document.getElementById('SecurityGuards_breakfast').value = '';
+  document.getElementById('SecurityGuards_lunch').value = '';
+  document.getElementById('SecurityGuards_dinner').value = '';
+  document.getElementById('Housekeepers_breakfast').value = '';
+  document.getElementById('Housekeepers_lunch').value = '';
+  document.getElementById('Housekeepers_dinner').value = '';
+  document.getElementById('Advisors_breakfast').value = '';
+  document.getElementById('Advisors_lunch').value = '';
+  document.getElementById('Advisors_dinner').value = '';
+  document.getElementById('Investors_breakfast').value = '';
+  document.getElementById('Investors_lunch').value = '';
+  document.getElementById('Investors_dinner').value = '';
+  document.getElementById('Others_breakfast').value = '';
+  document.getElementById('Others_lunch').value = '';
+  document.getElementById('Others_dinner').value = '';
+  document.getElementById('Painters_breakfast_Nveg').value = '';
+  document.getElementById('Painters_lunch_Nveg').value = '';
+  document.getElementById('Painters_dinner_Nveg').value = '';
+  document.getElementById('SecurityGuards_breakfast_Nveg').value = '';
+  document.getElementById('SecurityGuards_lunch_Nveg').value = '';
+  document.getElementById('SecurityGuards_dinner_Nveg').value = '';
+  document.getElementById('Housekeepers_breakfast_Nveg').value = '';
+  document.getElementById('Housekeepers_lunch_Nveg').value = '';
+  document.getElementById('Housekeepers_dinner_Nveg').value = '';
+  document.getElementById('Advisors_breakfast_Nveg').value = '';
+  document.getElementById('Advisors_lunch_Nveg').value = '';
+  document.getElementById('Advisors_dinner_Nveg').value = '';
+  document.getElementById('Investors_breakfast_Nveg').value = '';
+  document.getElementById('Investors_lunch_Nveg').value = '';
+  document.getElementById('Investors_dinner_Nveg').value = '';
+  document.getElementById('Others_breakfast_Nveg').value = '';
+  document.getElementById('Others_lunch_Nveg').value = '';
+  document.getElementById('Others_dinner_Nveg').value = '';
+  document.getElementById('Selected_location').value = '';
+  Swal.fire({
+      // title: 'Attention!',
+      text: 'Request Success',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      customClass: {
+        confirmButton: 'custom-swal-button' // Custom class for the button
+      },
+      buttonsStyling: false
+    });
+  }
+  }
+  });
+  }
+
+  }
+
+function validateDate() {
+    // console.log('fuction calls initally');
+
+    var tomorrow = new Date();
+  
+      let dd = String(tomorrow.getDate() + 1).padStart(2, '0');
+      // console.log(dd);
+      let mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+      let yyyy = tomorrow.getFullYear();
+      let formattedDate = getTomorrowDate();
+      // // console.log(formattedDate);
+      
+      document.getElementById('date').value = formattedDate;
+    }
+  
+    // Set the min and max attributes dynamically
+    document.getElementById('date').setAttribute('min', getTomorrowDate());
+    document.getElementById('date').setAttribute('max', getTomorrowDate());
+  
+  function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    // console.log('today date'+yyyy + '-' + mm + '-' + dd)
+    return yyyy + '-' + mm + '-' + dd;
+  }
+  
+  function getTomorrowDate() {
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+  
+    var dd = String(tomorrow.getDate()).padStart(2, '0');
+    var mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = tomorrow.getFullYear();
+  
+    // Check if tomorrow's day is in the next month
+    if (tomorrow.getDate() === 1) {
+        mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        // Reset the day to 01
+        dd = '01';
+    }
+    //  console.log("date_with time " + tomorrow)
+
+    // console.log('tomorrow date: ' + yyyy + '-' + mm + '-' + dd)
+    return yyyy + '-' + mm + '-' + dd;
+}
+
+function GetExistingValues(){
+  var location = document.getElementById('Selected_location').value;
+  var date = document.getElementById('date').value
+  document.getElementById('Painters_breakfast').value = '';
+  document.getElementById('Painters_lunch').value = '';
+  document.getElementById('Painters_dinner').value = '';
+  document.getElementById('SecurityGuards_breakfast').value = '';
+  document.getElementById('SecurityGuards_lunch').value = '';
+  document.getElementById('SecurityGuards_dinner').value = '';
+  document.getElementById('Housekeepers_breakfast').value = '';
+  document.getElementById('Housekeepers_lunch').value = '';
+  document.getElementById('Housekeepers_dinner').value = '';
+  document.getElementById('Advisors_breakfast').value = '';
+  document.getElementById('Advisors_lunch').value = '';
+  document.getElementById('Advisors_dinner').value = '';
+  document.getElementById('Investors_breakfast').value = '';
+  document.getElementById('Investors_lunch').value = '';
+  document.getElementById('Investors_dinner').value = '';
+  document.getElementById('Others_breakfast').value = '';
+  document.getElementById('Others_lunch').value = '';
+  document.getElementById('Others_dinner').value = '';
+  document.getElementById('Painters_breakfast_Nveg').value = '';
+  document.getElementById('Painters_lunch_Nveg').value = '';
+  document.getElementById('Painters_dinner_Nveg').value = '';
+  document.getElementById('SecurityGuards_breakfast_Nveg').value = '';
+  document.getElementById('SecurityGuards_lunch_Nveg').value = '';
+  document.getElementById('SecurityGuards_dinner_Nveg').value = '';
+  document.getElementById('Housekeepers_breakfast_Nveg').value = '';
+  document.getElementById('Housekeepers_lunch_Nveg').value = '';
+  document.getElementById('Housekeepers_dinner_Nveg').value = '';
+  document.getElementById('Advisors_breakfast_Nveg').value = '';
+  document.getElementById('Advisors_lunch_Nveg').value = '';
+  document.getElementById('Advisors_dinner_Nveg').value = '';
+  document.getElementById('Investors_breakfast_Nveg').value = '';
+  document.getElementById('Investors_lunch_Nveg').value = '';
+  document.getElementById('Investors_dinner_Nveg').value = '';
+  document.getElementById('Others_breakfast_Nveg').value = '';
+  document.getElementById('Others_lunch_Nveg').value = '';
+  document.getElementById('Others_dinner_Nveg').value = '';
+
+  frappe.call({
+method: 'food_beverages.www.food.admin.admin_manual_food_count.index.GetExistingValues',
+args: {date,location},
+callback: function (r) {
+  if(r.message && Object.keys(r.message).length > 0){
+    // console.log(r.message)
+    for(var i =0; i < r.message.length; i++){
+    document.getElementById(r.message[i].category+'_breakfast').value = r.message[i].breakfast ? r.message[i].breakfast : '';
+    document.getElementById(r.message[i].category+'_lunch').value = r.message[i].lunch ? r.message[i].lunch : '';
+    document.getElementById(r.message[i].category+'_dinner').value = r.message[i].dinner ? r.message[i].dinner : '';
+    document.getElementById(r.message[i].category+'_breakfast_Nveg').value = r.message[i].breakfast ? r.message[i].breakfast_nveg : '';
+    document.getElementById(r.message[i].category+'_lunch_Nveg').value = r.message[i].lunch ? r.message[i].lunch_nveg : '';
+    document.getElementById(r.message[i].category+'_dinner_Nveg').value = r.message[i].dinner ? r.message[i].dinner_nveg : '';
+    }
+    var inputfields = ["Others","Investors","Advisors","Housekeepers","SecurityGuards","Painters"]
+    for(var i =0; i < inputfields.length; i++){
+    document.getElementById(inputfields[i]+'_breakfast').disabled  = true;
+    document.getElementById(inputfields[i]+'_lunch').disabled  = true;
+    document.getElementById(inputfields[i]+'_dinner').disabled  = true;
+    document.getElementById(inputfields[i]+'_breakfast_Nveg').disabled  = true;
+    document.getElementById(inputfields[i]+'_lunch_Nveg').disabled  = true;
+    document.getElementById(inputfields[i]+'_dinner_Nveg').disabled  = true;
+  }
+    EditButton.style.display = 'block';
+    EditButton.style.display = 'flex';
+    EditButton.style.justifyContent = 'end';
+    CancelButton.style.display = 'none';
+    SubmitButton.style.display = 'none';
+  
+  } else {
+  
+  EditButton.style.display = 'none';
+  CancelButton.style.display = 'block';
+  SubmitButton.style.display = 'block';
+  var inputfields = ["Others","Investors","Advisors","Housekeepers","SecurityGuards","Painters"]
+    for(var i =0; i < inputfields.length; i++){
+    document.getElementById(inputfields[i]+'_breakfast').disabled  = false;
+    document.getElementById(inputfields[i]+'_lunch').disabled  = false;
+    document.getElementById(inputfields[i]+'_dinner').disabled  = false;
+    document.getElementById(inputfields[i]+'_breakfast_Nveg').disabled  = false;
+    document.getElementById(inputfields[i]+'_lunch_Nveg').disabled  = false;
+    document.getElementById(inputfields[i]+'_dinner_Nveg').disabled  = false;
+  }
+  }
+  }
+  });
+  get_food_prefrence_data()
+}
+
+function CancelBtn(){
+  document.getElementById('Painters_breakfast').value = '';
+  document.getElementById('Painters_lunch').value = '';
+  document.getElementById('Painters_dinner').value = '';
+  document.getElementById('SecurityGuards_breakfast').value = '';
+  document.getElementById('SecurityGuards_lunch').value = '';
+  document.getElementById('SecurityGuards_dinner').value = '';
+  document.getElementById('Housekeepers_breakfast').value = '';
+  document.getElementById('Housekeepers_lunch').value = '';
+  document.getElementById('Housekeepers_dinner').value = '';
+  document.getElementById('Advisors_breakfast').value = '';
+  document.getElementById('Advisors_lunch').value = '';
+  document.getElementById('Advisors_dinner').value = '';
+  document.getElementById('Investors_breakfast').value = '';
+  document.getElementById('Investors_lunch').value = '';
+  document.getElementById('Investors_dinner').value = '';
+  document.getElementById('Others_breakfast').value = '';
+  document.getElementById('Others_lunch').value = '';
+  document.getElementById('Others_dinner').value = '';
+  document.getElementById('Selected_location').value = '';
+  document.getElementById('Painters_breakfast_Nveg').value = '';
+  document.getElementById('Painters_lunch_Nveg').value = '';
+  document.getElementById('Painters_dinner_Nveg').value = '';
+  document.getElementById('SecurityGuards_breakfast_Nveg').value = '';
+  document.getElementById('SecurityGuards_lunch_Nveg').value = '';
+  document.getElementById('SecurityGuards_dinner_Nveg').value = '';
+  document.getElementById('Housekeepers_breakfast_Nveg').value = '';
+  document.getElementById('Housekeepers_lunch_Nveg').value = '';
+  document.getElementById('Housekeepers_dinner_Nveg').value = '';
+  document.getElementById('Advisors_breakfast_Nveg').value = '';
+  document.getElementById('Advisors_lunch_Nveg').value = '';
+  document.getElementById('Advisors_dinner_Nveg').value = '';
+  document.getElementById('Investors_breakfast_Nveg').value = '';
+  document.getElementById('Investors_lunch_Nveg').value = '';
+  document.getElementById('Investors_dinner_Nveg').value = '';
+  document.getElementById('Others_breakfast_Nveg').value = '';
+  document.getElementById('Others_lunch_Nveg').value = '';
+  document.getElementById('Others_dinner_Nveg').value = '';
+}
+
+
+function get_food_prefrence_data(){
+
+var inputDate = new Date(document.getElementById('date').value);
+var location = document.getElementById('Selected_location').value;
+var day = inputDate.getDay()
+// console.log(day);
+veg_data_details = []
+frappe.call({
+  method: 'food_beverages.www.food.user.request_food.index.get_prefrence_data',
+  args: {
+    day
+  },
+  callback: function (r) {
+    // console.log(r);
+    veg_data_details = r.message
+    // console.log(veg_data_details);
+
+    var inputfields = ["Others","Investors","Advisors","Housekeepers","SecurityGuards","Painters"]
+for(var i =0; i < inputfields.length; i++){
+    document.getElementById(inputfields[i]+'_breakfast_Nveg').classList.remove('css-disable-true');
+    document.getElementById(inputfields[i]+'_lunch_Nveg').classList.remove('css-disable-true');
+    document.getElementById(inputfields[i]+'_dinner_Nveg').classList.remove('css-disable-true');
+    document.getElementById(inputfields[i]+'_breakfast_Nveg').tabIndex = null;
+    document.getElementById(inputfields[i]+'_lunch_Nveg').tabIndex = null;
+    document.getElementById(inputfields[i]+'_dinner_Nveg').tabIndex = null;
+  }
+for (i = 0; i < veg_data_details.length; i++){
+    if(veg_data_details[i].meal_type == 'Breakfast' && veg_data_details[i].type == 'Veg' && veg_data_details[i].location == location){
+      // console.log('hi')
+    for(var s =0; s < inputfields.length; s++){
+    document.getElementById(inputfields[s]+'_breakfast_Nveg').classList.add('css-disable-true');
+    document.getElementById(inputfields[s]+'_breakfast_Nveg').tabIndex = -1;
+  }
+  }
+  if(veg_data_details[i].meal_type == 'Lunch' && veg_data_details[i].type == 'Veg' && veg_data_details[i].location == location){
+    // console.log('hi2')
+    for(var s =0; s < inputfields.length; s++){
+    document.getElementById(inputfields[s]+'_lunch_Nveg').classList.add('css-disable-true');
+    document.getElementById(inputfields[s]+'_lunch_Nveg').tabIndex = -1;
+  }
+  }
+  if(veg_data_details[i].meal_type == 'Dinner' && veg_data_details[i].type == 'Veg' && veg_data_details[i].location == location){
+    // console.log('hi3')
+    for(var s =0; s < inputfields.length; s++){
+    document.getElementById(inputfields[s]+'_dinner_Nveg').classList.add('css-disable-true');
+    document.getElementById(inputfields[s]+'_dinner_Nveg').tabIndex = -1;
+  }
+  }
+  }
+
+  }
+});
+
+}
+
+</script>
+
+
+{%endblock%}

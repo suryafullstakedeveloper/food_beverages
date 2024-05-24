@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    {% extends '/templates/food_user.html' %}
+
+    {% block webform %}
+
+
+<style>
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1cm;
+}
+
+.content {
+    padding: 10px 100px;
+
+  }
+
+#forms{
+  
+  height: max-content; 
+  padding-bottom: 1cm;
+}
+
+.form_class{
+    border-radius: 10px;
+    width: 900px;
+    height: 720px;
+    height: max-content; 
+    padding-bottom: 1cm;
+}
+
+body {
+margin: 0;
+}
+
+.png_size{
+  height: 15%;
+  width: 21%;
+}
+
+.get_started_element{
+  position: absolute;
+  top: 39%;
+  left: 50%;
+}
+
+.button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      box-shadow: #FF4D00 0 4px 7px;
+      transform: translateY(-2px);
+    }
+    .center_button{
+    display: flex;
+    justify-content: center;
+    }
+
+    .margin_top_btn{
+      margin-top: 10%;
+    }
+
+    @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+
+  }
+
+</style>
+{% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+<div id="marquee" class="marquee"></div>
+<div class="div_container">
+
+  <form class="row form_class">
+    <div class="content">
+      <img id="home" style="width: 100%;" src="/landing_png.png" alt="Home">
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      console.log(r);
+      if(r.message){
+        console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+</script>
+
+{%endblock%}
+
+</body>
+
+</html>

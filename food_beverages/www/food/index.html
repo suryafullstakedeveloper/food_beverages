@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Food & Beverages</title>
+
+
+  <link rel="shortcut icon" href="https://example.in/small-logo.png" type="image/x-icon">
+
+</head>
+
+<body>
+    {% extends '/templates/food_landing.html' %}
+
+    {% block webform %}
+
+
+<style>
+/* General styles */
+
+:root {
+--rotate-speed: 10;
+--count: 8; /* Default count, the DOM element should override this */
+--easeInOutSine: cubic-bezier(0.37, 0, 0.63, 1);
+--easing: cubic-bezier(0.000, 0.37, 1.000, 0.63);
+}
+
+body {
+margin: 0;
+}
+
+.void {
+width: 100%;
+max-width: 1024px;
+margin: auto;
+position: relative;
+aspect-ratio: 1 / 1;
+}
+/* ul:hover * {
+animation-play-state: paused;
+} */
+ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+/* position: relative; */
+position: absolute;
+top: -8%;
+width: 100%;
+aspect-ratio: 1 / 1;
+/* outline: 2px dotted magenta; */
+z-index: 1;
+}
+li {
+position: absolute;
+top: 50%;
+transform: translateY(-100%);
+/* 	outline: 2px dashed cyan; */
+width: 100%;
+animation: rotateCCW calc(var(--rotate-speed) * 1s) var(--easing) infinite;
+}
+.card {
+width: 27%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 16px 24px;
+gap: 8px;
+background: #FFFFFF;
+box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 16px 32px rgba(0, 0, 0, 0.1);
+border-radius: 12px;
+font-family: 'Inter', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+color: #535062;
+animation: rotateCW calc(var(--rotate-speed) * 1s) var(--easing) infinite;
+}
+a {
+text-decoration: none;
+color: unset;
+}
+.model-name {
+font-weight: 500;
+font-size: 18px;
+line-height: 150%;
+color: #3B2ED0;
+display: block;
+}
+svg {
+position: absolute;
+top: 0;
+left: 0;
+z-index: 0;
+}
+
+
+
+
+li:nth-child(2), li:nth-child(2) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -1s);
+}
+li:nth-child(3), li:nth-child(3) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -2s);
+}
+li:nth-child(4), li:nth-child(4) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -3s);
+}
+li:nth-child(5), li:nth-child(5) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -4s);
+}
+li:nth-child(6), li:nth-child(6) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -5s);
+}
+li:nth-child(7), li:nth-child(7) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -6s);
+}
+li:nth-child(8), li:nth-child(8) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -7s);
+} 
+
+@keyframes rotateCW {
+  from {
+    transform: translate3d(0px, -50%, 0px) rotate(0deg);
+  }
+  to {
+    transform: translate3d(0px, -50%, 0px) rotate(360deg);
+  }
+}
+
+@keyframes rotateCCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes pulseGlow {
+from {
+  background-size: 60%;
+}
+to {
+  background-size: 100%;
+}
+}
+
+.center-circle {
+position: absolute;
+width: 30%;
+aspect-ratio: 1 / 1;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+background: #FFFFFF;
+box-shadow: 0px 18px 36px -18px rgba(12, 5, 46, 0.3), 0px 30px 60px -12px rgba(12, 5, 46, 0.25);
+border-radius: 50%;
+}
+.second-circle {
+position: absolute;
+width: 50%;
+aspect-ratio: 1 / 1;
+left: 50%;
+top: 57%;
+transform: translate(-50%, -50%);
+/* background: #F5F4FE;
+opacity: 0.5;
+box-shadow: 0px 18px 36px -18px rgba(12, 5, 46, 0.3), 0px 30px 60px -12px rgba(12, 5, 46, 0.25);
+border-radius: 50%; */
+}
+.last-circle {
+position: absolute;
+width: 70%;
+aspect-ratio: 1 / 1;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+background: #FF4D00;
+/* opacity: 0.25; */
+/* box-shadow: 0px 18px 36px -18px rgba(12, 5, 46, 0.3), 0px 30px 60px -12px rgba(12, 5, 46, 0.25); */
+border-radius: 50%;
+}
+
+.mask {
+position: absolute;
+top: 0;
+left: 0;
+bottom: 0;
+width: 50%;
+animation: pulseGlow 5s linear infinite alternate;
+background-position: 100% 50%;
+background-repeat: no-repeat;
+background-image: radial-gradient(100% 50% at 100% 50%, rgba(60, 26, 229, 0.25) 0%, rgba(60, 26, 229, 0.247904) 11.79%, rgba(59, 26, 229, 0.241896) 21.38%, rgba(58, 26, 229, 0.2324) 29.12%, rgba(57, 26, 229, 0.219837) 35.34%, rgba(55, 26, 229, 0.20463) 40.37%, rgba(53, 26, 229, 0.1872) 44.56%, rgba(51, 26, 229, 0.16797) 48.24%, rgba(48, 26, 229, 0.147363) 51.76%, rgba(46, 26, 229, 0.1258) 55.44%, rgba(44, 26, 229, 0.103704) 59.63%, rgba(41, 26, 229, 0.0814963) 64.66%, rgba(39, 26, 229, 0.0596) 70.88%, rgba(36, 26, 229, 0.038437) 78.62%, rgba(34, 26, 229, 0.0184296) 88.21%, rgba(32, 26, 229, 0) 100%);
+}
+.mask:after {
+content: "";
+position: absolute;
+width: 1px;
+height: 100%;
+right: 0;
+display: block;
+background-image: linear-gradient(180deg, rgba(60, 26, 229, 0) 0%, #3C1AE5 50%, rgba(60, 26, 229, 0) 100%);
+}
+
+.png_size{
+  height: 15%;
+  width: 21%;
+}
+
+.get_started_element{
+  position: absolute;
+  top: 46%;
+  left: 44%;
+}
+
+.button_width{
+      width: 139px;
+      /* background-color: white;
+      color: black; */
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #FF4D00;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #FF4D00;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      box-shadow:none;
+      /* transform: translateY(-2px); */
+    }
+
+    .button_width_admin{
+      width: 139px;
+      /* background-color: white;
+      color: black; */
+      background-color: #fff;
+      color: #000;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width_admin:hover{
+      width: 139px;
+      background-color: #fff;
+      color: #000;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      box-shadow:none;
+      /* transform: translateY(-2px); */
+    }
+    .center_button{
+    display: flex;
+    justify-content: center;
+    }
+
+    .margin_top_btn{
+      margin-top: 3%;
+    }
+
+    .bottom_text{
+    margin-top: 24%;
+    font-size: 1.2vw;
+    font-style: italic;
+    }
+
+    @media (max-width: 575px) {
+      .corroshol_for_mobile{
+      width: 70% !important;
+      position: absolute;
+      left: 14% !important;
+      top: 17% !important;
+      }
+
+    .get_started_element {
+    position: absolute;
+    top: 58%;
+    left: 5%;
+    }
+    #Admin_button{
+      display: none !important;
+    }
+    #Welcome{
+      font-size: 8vw;
+    }
+    .button_width{
+      width: 40vw;
+      /* background-color: white;
+      color: black; */
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #FF4D00;
+      border-radius: 8px;
+      height: 10vw;
+      font-size: 4vw;
+    }
+  
+    .button_width:hover{
+      width: 40vw;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #FF4D00;
+      border-radius: 8px;
+      height: 10vw;
+      font-size: 4vw;
+      box-shadow:none;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      /* transform: translateY(-2px); */
+    }
+
+    .bottom_text {
+    margin-top: 24%;
+    font-size: 2.4vw;
+    font-style: italic;
+    }
+    }
+
+
+</style>
+
+    <script>
+        window.location = "/food/scanning";
+    </script>
+    {% set emp_id = {'employee_name': ''} %}
+{% else %}
+
+{% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+{% set role = frappe.get_all('Has Role',filters ={'parent': frappe.session.user}, fields=['role'])%}
+
+{% endif %}
+
+<div class="void corroshol_for_mobile" id="void" style="width: 38%; position: absolute;"> 
+<div class="crop">
+<ul id="card-list" style="--count: 6;">
+  <li><div ><img class="png_size" src="parota.png" alt="Preview"></div></li>
+  <li><div ><img class="png_size" src="side_dish.png" alt="Preview"></div></li>
+  <li><div ><img class="png_size" src="idly.png" alt="Preview"></div></li>
+  <li><div ><img class="png_size" src="boori.png" alt="Preview"></div></li>
+  <li><div ><img class="png_size" src="veg_rice.png" alt="Preview"></div></li>
+  <li><div ><img class="png_size" src="chaps.png" alt="Preview"></div></li>
+  <!-- <li><div class="card"><a href=""><span class="model-name">Gretel-ACTGAN</span></a></div></li> -->
+</ul>
+<div class="last-circle"></div>
+<div  class="second-circle" style="background-image: url('/full_meals.png');background-size: 100%;background-repeat: no-repeat;"></div>
+</div>
+<!-- <div class="mask"></div> -->
+<!-- <div class="center-circle"></div> -->
+</div>
+<div class="get_started_element">
+  <div class="center_button">
+    <h1 id="Welcome">Welcome {{ emp_id.employee_name }}</h1>
+  </div>
+  <div class="center_button margin_top_btn">
+    <button type="button" id="Get_started" onclick="goto_respective_home()" data-dismiss="modal" class="btn button_width button">
+      Get Started
+    </button>
+    <button style="display: none; margin-left: 10px;" type="button" id="Admin_button" onclick="goto_Admin()" data-dismiss="modal" class="btn button_width_admin button">
+      Admin
+    </button>
+  </div>
+  <h4 class="bottom_text">To waste food is to steal from the table of those who are poor and hungry</h4>
+</div>
+
+<script>
+
+var rolevar = "{{role}}"
+
+var validJSON = rolevar.replace(/'/g, '"');
+
+var rolesArray = JSON.parse(validJSON);
+
+console.log(rolesArray)
+
+var foodManagerExists = false;
+
+for (var i = 0; i < rolesArray.length; i++) {
+if (rolesArray[i].role === 'Food Manager') {
+  foodManagerExists = true;
+  break;
+}
+}
+
+if (foodManagerExists == true) {
+  console.log('hi ji')
+  var admin_button = document.getElementById('Admin_button')
+  admin_button.style.display = 'block'
+} 
+
+  function goto_respective_home(){
+    var email = '{{frappe.session.user}}'
+    console.log(email);
+    if(email == 'openworkspace2@example.in' || email == 'thaiyur@example.in' || email == 'shar@example.in'){
+      window.location = '/food/scanning'
+    } else {
+      window.location = '/food/user/food_menu'
+    }
+  }
+
+ function goto_Admin(){
+    window.location = '/food/admin/dashboard'
+  }
+
+</script>
+
+
+
+{%endblock%}
+
+</body>
+
+</html>

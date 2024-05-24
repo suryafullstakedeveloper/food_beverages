@@ -1,0 +1,578 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 11%;
+}
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .title_font_style{
+      font-weight: 500;
+      font-size: 30px;
+      margin-left: 5%;
+    }
+
+    .margin_right{
+      margin-right: 1%;
+    }
+
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      box-shadow: none;
+      /* transform: translateY(-2px); */
+    }
+    .margin_left{
+      margin-left: 10px;
+    }
+    .outline_border{
+    border: 1px solid #DEE2E6;
+    border-collapse: collapse;
+    }
+
+    
+    .image-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #fff transparent; /* Firefox */
+        }
+
+        .image-container::-webkit-scrollbar {
+          width: 12px; /* Chrome, Safari, Edge */ 
+        }
+
+        .image-container::-webkit-scrollbar-thumb {
+          background-color: transparent; /* Chrome, Safari, Edge */
+        }
+
+        .image-container::-webkit-scrollbar-track {
+          background-color: #fff; /* Chrome, Safari, Edge */
+        }
+
+        .image {
+            flex: 0 0 auto;
+            margin-right: 10px; /* Adjust margin as needed */
+            position: relative;
+            width: 20vw;
+            height: auto;
+            /* height: 20vw; */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-text {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+  .calendar-container {
+    position: relative;
+  }
+
+  .card-hover {
+    position: absolute;
+    /* top: 50%; 
+    left: 50%;  */
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .card-hover:hover {
+    transform: translate(-50%, -60%); /* Adjust the hover effect as needed */
+  }
+
+  .p_style_css{
+    margin-bottom: 4px; 
+    text-align: right;
+  }
+
+  .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1vw 2vw 1vw 1vw;
+    font-size: 1.2vw;
+}
+
+.card_header_style{
+  float: right;
+  padding: 0.5vw 0vw 0vw 15vw;
+  margin-bottom: 0px;
+  font-size: 1vw;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+     text-transform: capitalize;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    margin-left: -1px;
+     text-transform: capitalize;
+}
+</style>
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    <div class="content calendar-container">
+      <div id='calendar'></div>
+      
+      <div  class="card card-hover image" style="background-image: url('/dashboard-card.png'); top: 36%;left: 18%;">
+        <p class="card-title card_header_style">IITM RP</p>
+        <div class="card-body">
+          <p id="IITM_RP_BF" class="card-text p_style_css">Breakfast Veg : </p>
+          <p id="IITM_RP_BF_Nveg" class="card-text p_style_css">Breakfast Non-Veg : </p>
+          <p id="IITM_RP_Lunch" class="card-text p_style_css">Lunch Veg : </p>
+          <p id="IITM_RP_Lunch_Nveg" class="card-text p_style_css">Lunch Non-Veg : </p>
+          <p id="IITM_RP_Dinner" class="card-text p_style_css">Dinner Veg : </p>
+          <p id="IITM_RP_Dinner_Nveg" class="card-text p_style_css">Dinner Non-Veg : </p>
+          <p id="IITM_RP_Ref" class="card-text p_style_css">Refreshments : </p>
+        </div>
+      </div>
+      <div  class="card card-hover image" style="background-image: url('/dashboard-card.png'); top: 36%;left: 50%;">
+        <p class="card-title card_header_style">Thaiyur</p>
+          <div class="card-body">
+          <p id="Thaiyur_BF" class="card-text p_style_css">Breakfast Veg : </p>
+          <p id="Thaiyur_BF_Nveg" class="card-text p_style_css">Breakfast Non-Veg : </p>
+          <p id="Thaiyur_Lunch" class="card-text p_style_css">Lunch Veg : </p>
+          <p id="Thaiyur_Lunch_Nveg" class="card-text p_style_css">Lunch Non-Veg : </p>
+          <p id="Thaiyur_Dinner" class="card-text p_style_css">Dinner Veg : </p>
+          <p id="Thaiyur_Dinner_Nveg" class="card-text p_style_css">Dinner Non-Veg : </p>
+          <p id="Thaiyur_Ref" class="card-text p_style_css">Refreshments : </p>
+        </div>
+      </div>
+      <div  class="card card-hover image" style="background-image: url('/dashboard-card.png'); top: 36%;left: 82%;">
+        <p class="card-title card_header_style">Shar</p>
+          <div class="card-body">
+          <p id="Shar_BF" class="card-text p_style_css">Breakfast Veg : </p>
+          <p id="Shar_BF_Nveg" class="card-text p_style_css">Breakfast Non-Veg : </p>
+          <p id="Shar_Lunch" class="card-text p_style_css">Lunch Veg : </p>
+          <p id="Shar_Lunch_Nveg" class="card-text p_style_css">Lunch Non-Veg : </p>
+          <p id="Shar_BF_Dinner" class="card-text p_style_css">Dinner Veg : </p>
+          <p id="Shar_BF_Dinner_Nveg" class="card-text p_style_css">Dinner Non-Veg : </p>
+          <p id="Shar_BF_Ref" class="card-text p_style_css">Refreshments : </p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+ 
+var veg_data_details = []
+var calendar_data;
+
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridDay',
+      headerToolbar: {
+        left: 'prevYear,prev,next,nextYear',
+        center: 'title',
+        right: 'dayGridMonth,dayGridWeek,dayGridDay'
+      },
+      // Add an event listener to handle view changes
+      datesSet: function (info) {
+        displayDateRange(info.view);
+      }
+    });
+
+    // Function to display the date range
+  function displayDateRange(view) {
+  var startDate, endDate;
+
+  // Check if the current view is 'month'
+  if (view.type == 'dayGridMonth') {
+    // // console.log('dayGridMonth')
+    // If in month view, get the first and last day of the month
+    startDate = calendar.view.currentStart;
+    endDate = calendar.view.currentEnd;
+
+    Veg_detail_display(view,startDate);
+    
+    var formattedStartDate = convertDate(startDate)
+    var formattedEndDate = convertDate(endDate)
+
+  // Display the date range or single date
+  // // console.log("Start Date: " + formattedStartDate);
+  // // console.log("End Date: " + formattedEndDate);
+  // // console.log('view',view)
+
+  frappe.call({
+  method: 'food_beverages.www.food.admin.calender.index.Food_details_Month',
+  args: {startDate :formattedStartDate},
+  callback: function (r) {
+    console.log('month value');
+    console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      document.getElementById('IITM_RP_BF_Nveg').innerHTML = ('Breakfast : '+r.message.RP_BF_count)
+      document.getElementById('Thaiyur_BF_Nveg').innerHTML = ('Breakfast : '+r.message.Thaiyur_BF_count)
+      document.getElementById('Shar_BF_Nveg').innerHTML = ('Breakfast : '+r.message.Shar_BF_count)
+
+      document.getElementById('IITM_RP_Lunch_Nveg').innerHTML = ('Lunch : '+r.message.RP_Lunch_count)
+      document.getElementById('Thaiyur_Lunch_Nveg').innerHTML = ('Lunch : '+r.message.Thaiyur_Lunch_count)
+      document.getElementById('Shar_Lunch_Nveg').innerHTML = ('Lunch : '+r.message.Shar_Lunch_count)
+
+      document.getElementById('IITM_RP_Dinner_Nveg').innerHTML = ('Dinner : '+r.message.RP_Dinner_count)
+      document.getElementById('Thaiyur_Dinner_Nveg').innerHTML = ('Dinner : '+r.message.Thaiyur_Dinner_count)
+      document.getElementById('Shar_BF_Dinner_Nveg').innerHTML = ('Dinner : '+r.message.Shar_Dinner_count)
+
+      document.getElementById('IITM_RP_Ref').innerHTML = ('Refreshments : '+r.message.RP_Ref_count)
+      document.getElementById('Thaiyur_Ref').innerHTML = ('Refreshments : '+r.message.Thaiyur_Ref_count)
+      document.getElementById('Shar_BF_Ref').innerHTML = ('Refreshments : '+r.message.Shar_Ref_count)
+    } 
+  }
+});
+
+  } else if(view.type == 'dayGridWeek') {
+    // // console.log('dayGridWeek')
+
+    // For other views (day and week), get the active start and end
+    startDate = calendar.view.activeStart;
+    endDate = calendar.view.activeEnd;
+
+    Veg_detail_display(view,startDate);
+    // // console.log(startDate);
+    // // console.log(endDate);
+  
+
+  // Format the dates as needed (you can use a library like Moment.js for better formatting)
+  var formattedStartDate = convertDate(startDate)
+  var formattedEndDate = convertDate(endDate)
+
+  // Display the date range or single date
+  // // console.log("Start Date: " + formattedStartDate);
+  // // console.log("End Date: " + formattedEndDate);
+  // // console.log('view',view)
+
+  frappe.call({
+  method: 'food_beverages.www.food.admin.calender.index.Food_details_Week',
+  args: {startdate :formattedStartDate , enddate :formattedEndDate},
+  callback: function (r) {
+    console.log('week value');
+    console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      
+      document.getElementById('IITM_RP_BF_Nveg').innerHTML = ('Breakfast : '+r.message.RP_BF_count)
+      document.getElementById('Thaiyur_BF_Nveg').innerHTML = ('Breakfast : '+r.message.Thaiyur_BF_count)
+      document.getElementById('Shar_BF_Nveg').innerHTML = ('Breakfast : '+r.message.Shar_BF_count)
+
+      document.getElementById('IITM_RP_Lunch_Nveg').innerHTML = ('Lunch : '+r.message.RP_Lunch_count)
+      document.getElementById('Thaiyur_Lunch_Nveg').innerHTML = ('Lunch : '+r.message.Thaiyur_Lunch_count)
+      document.getElementById('Shar_Lunch_Nveg').innerHTML = ('Lunch : '+r.message.Shar_Lunch_count)
+
+      document.getElementById('IITM_RP_Dinner_Nveg').innerHTML = ('Dinner : '+r.message.RP_Dinner_count)
+      document.getElementById('Thaiyur_Dinner_Nveg').innerHTML = ('Dinner : '+r.message.Thaiyur_Dinner_count)
+      document.getElementById('Shar_BF_Dinner_Nveg').innerHTML = ('Dinner : '+r.message.Shar_Dinner_count)
+
+      document.getElementById('IITM_RP_Ref').innerHTML = ('Refreshments : '+r.message.RP_Ref_count)
+      document.getElementById('Thaiyur_Ref').innerHTML = ('Refreshments : '+r.message.Thaiyur_Ref_count)
+      document.getElementById('Shar_BF_Ref').innerHTML = ('Refreshments : '+r.message.Shar_Ref_count)
+    } 
+  }
+});
+
+  } else if(view.type == 'dayGridDay'){
+    
+
+    console.log('dayGridDay')
+
+    startDate = calendar.view.activeStart;
+    endDate = calendar.view.activeEnd;
+  // // console.log(startDate)
+  // // console.log(endDate)
+
+  // Format the dates as needed (you can use a library like Moment.js for better formatting)
+  var formattedStartDate = convertDate(startDate);
+  var formattedEndDate = convertDate(endDate);
+
+  // Display the date range or single date
+  // // console.log("Start Date: " + formattedStartDate);
+  // // console.log("End Date: " + formattedEndDate);
+  // // console.log('view',view)
+
+  frappe.call({
+  method: 'food_beverages.www.food.admin.calender.index.Food_details_Day',
+  args: {Targetdate :formattedStartDate},
+  callback: function (r) {
+    // console.log('day value');
+    // // console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      calendar_data = r.message;
+      Veg_detail_display(view,startDate);
+      document.getElementById('IITM_RP_BF').innerHTML = ('Breakfast Veg : '+r.message.RP_BF_count_veg)
+      document.getElementById('Thaiyur_BF').innerHTML = ('Breakfast Veg : '+r.message.Thaiyur_BF_count_veg)
+      document.getElementById('Shar_BF').innerHTML = ('Breakfast Veg : '+r.message.Shar_BF_count_veg)
+
+      document.getElementById('IITM_RP_Lunch').innerHTML = ('Lunch Veg : '+r.message.RP_Lunch_count_veg)
+      document.getElementById('Thaiyur_Lunch').innerHTML = ('Lunch Veg : '+r.message.Thaiyur_Lunch_count_veg)
+      document.getElementById('Shar_Lunch').innerHTML = ('Lunch Veg : '+r.message.Shar_Lunch_count_veg)
+
+      document.getElementById('IITM_RP_Dinner').innerHTML = ('Dinner Veg : '+r.message.RP_Dinner_count_veg)
+      document.getElementById('Thaiyur_Dinner').innerHTML = ('Dinner Veg : '+r.message.Thaiyur_Dinner_count_veg)
+      document.getElementById('Shar_BF_Dinner').innerHTML = ('Dinner Veg : '+r.message.Shar_Dinner_count_veg)
+
+      document.getElementById('IITM_RP_BF_Nveg').innerHTML = ('Breakfast : '+(r.message.RP_BF_count_Nveg + r.message.RP_BF_count_veg))
+      document.getElementById('Thaiyur_BF_Nveg').innerHTML = ('Breakfast : '+(r.message.Thaiyur_BF_count_Nveg + r.message.Thaiyur_BF_count_veg))
+      document.getElementById('Shar_BF_Nveg').innerHTML = ('Breakfast : '+(r.message.Shar_BF_count_Nveg + r.message.Shar_BF_count_veg))
+
+      document.getElementById('IITM_RP_Lunch_Nveg').innerHTML = ('Lunch : '+(r.message.RP_Lunch_count_Nveg + r.message.RP_Lunch_count_veg))
+      document.getElementById('Thaiyur_Lunch_Nveg').innerHTML = ('Lunch : '+(r.message.Thaiyur_Lunch_count_Nveg + r.message.Thaiyur_Lunch_count_veg))
+      document.getElementById('Shar_Lunch_Nveg').innerHTML = ('Lunch : '+(r.message.Shar_Lunch_count_Nveg + r.message.Shar_Lunch_count_veg))
+
+      document.getElementById('IITM_RP_Dinner_Nveg').innerHTML = ('Dinner : '+(r.message.RP_Dinner_count_Nveg + r.message.RP_Dinner_count_veg))
+      document.getElementById('Thaiyur_Dinner_Nveg').innerHTML = ('Dinner : '+(r.message.Thaiyur_Dinner_count_Nveg + r.message.Thaiyur_Dinner_count_veg))
+      document.getElementById('Shar_BF_Dinner_Nveg').innerHTML = ('Dinner : '+(r.message.Shar_Dinner_count_Nveg + r.message.Shar_Dinner_count_veg))
+
+      document.getElementById('IITM_RP_Ref').innerHTML = ('Refreshments : '+r.message.RP_Ref_count)
+      document.getElementById('Thaiyur_Ref').innerHTML = ('Refreshments : '+r.message.Thaiyur_Ref_count)
+      document.getElementById('Shar_BF_Ref').innerHTML = ('Refreshments : '+r.message.Shar_Ref_count)
+
+    } 
+  }
+});
+
+  }
+
+}
+
+  calendar.render();
+  });
+
+
+ function Veg_detail_display(view,date){
+   // console.log('function called success')
+   var day = date.getDay()
+   // console.log(day)
+   if(view.type == 'dayGridDay'){
+
+     document.getElementById('IITM_RP_BF').style.display = 'none'
+     document.getElementById('Thaiyur_BF').style.display = 'none'
+     document.getElementById('Shar_BF').style.display = 'none'
+
+     document.getElementById('IITM_RP_Lunch').style.display = 'none'
+     document.getElementById('Thaiyur_Lunch').style.display = 'none'
+     document.getElementById('Shar_Lunch').style.display = 'none'
+
+     document.getElementById('IITM_RP_Dinner').style.display = 'none'
+     document.getElementById('Thaiyur_Dinner').style.display = 'none'
+     document.getElementById('Shar_BF_Dinner').style.display = 'none'
+
+     get_prefrence_data(day)
+  
+   } else {
+     // console.log('hi gooo2')
+     document.getElementById('IITM_RP_BF').style.display = 'none'
+     document.getElementById('Thaiyur_BF').style.display = 'none'
+     document.getElementById('Shar_BF').style.display = 'none'
+
+     document.getElementById('IITM_RP_Lunch').style.display = 'none'
+     document.getElementById('Thaiyur_Lunch').style.display = 'none'
+     document.getElementById('Shar_Lunch').style.display = 'none'
+
+     document.getElementById('IITM_RP_Dinner').style.display = 'none'
+     document.getElementById('Thaiyur_Dinner').style.display = 'none'
+     document.getElementById('Shar_BF_Dinner').style.display = 'none'
+   }
+ }
+
+function findDay(inputDate) {
+    try {
+        // Parse the input date string
+        var dateParts = inputDate.split("/");
+        var year = parseInt(dateParts[2], 10);
+        var month = parseInt(dateParts[0], 10) - 1; // Month is zero-based
+        var day = parseInt(dateParts[1], 10);
+
+        // Create a Date object
+        var selectedDate = new Date(year, month, day);
+
+        // Get the day of the week (0 for Sunday, 1 for Monday, and so on)
+        var dayOfWeek = selectedDate.getDay();
+
+        // Array of day names
+        var daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        // Return the day name
+        return daysOfWeek[dayOfWeek];
+    } catch (error) {
+        // Handle the case where the input date is not in the expected format
+        return "Invalid date format";
+    }
+}
+
+function convertDate(inputDateStr) {
+    // Parse the input date string
+    var inputDate = new Date(inputDateStr);
+
+    // Get year, month, and day
+    var year = inputDate.getFullYear();
+    var month = (inputDate.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because months are zero-indexed
+    var day = inputDate.getDate().toString().padStart(2, '0');
+
+    // Format the date in the 'YYYY-MM-DD' format
+    var outputDateStr = year + '-' + month + '-' + day;
+
+    return outputDateStr;
+}
+
+
+function get_prefrence_data(day){
+
+// console.log(day);
+
+frappe.call({
+  method: 'food_beverages.www.food.user.request_food.index.get_prefrence_data',
+  args: {
+    day
+  },
+  callback: function (r) {
+    // console.log(r);
+    veg_data_details = r.message
+    // console.log('calendar_data');
+    // console.log(calendar_data);
+    for (i = 0; i < veg_data_details.length; i++){
+    
+    if(veg_data_details[i].meal_type == 'Breakfast' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'IITM RP'){
+      document.getElementById('IITM_RP_BF').style.display = 'block'
+      document.getElementById('IITM_RP_BF_Nveg').innerHTML = ('Breakfast Non-Veg : '+calendar_data.RP_BF_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Breakfast' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'Thaiyur'){
+      document.getElementById('Thaiyur_BF').style.display = 'block'
+      document.getElementById('Thaiyur_BF_Nveg').innerHTML = ('Breakfast Non-Veg : '+calendar_data.Thaiyur_BF_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Breakfast' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'Shar'){
+      document.getElementById('Shar_BF').style.display = 'block'
+      document.getElementById('Shar_BF_Nveg').innerHTML = ('Breakfast Non-Veg : '+calendar_data.Shar_BF_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Lunch' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'IITM RP'){
+      document.getElementById('IITM_RP_Lunch').style.display = 'block'
+      document.getElementById('IITM_RP_Lunch_Nveg').innerHTML = ('Lunch Non-Veg : '+calendar_data.RP_Lunch_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Lunch' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'Thaiyur'){
+      document.getElementById('Thaiyur_Lunch').style.display = 'block'
+      document.getElementById('Thaiyur_Lunch_Nveg').innerHTML = ('Lunch Non-Veg : '+calendar_data.Thaiyur_Lunch_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Lunch' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'Shar'){
+      document.getElementById('Shar_Lunch').style.display = 'block'
+      document.getElementById('Shar_Lunch_Nveg').innerHTML = ('Lunch Non-Veg : '+calendar_data.Shar_Lunch_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Dinner' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'IITM RP'){
+      document.getElementById('IITM_RP_Dinner').style.display = 'block'
+      document.getElementById('IITM_RP_Dinner_Nveg').innerHTML = ('Dinner Non-Veg : '+calendar_data.RP_Dinner_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Dinner' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'Thaiyur'){
+      document.getElementById('Thaiyur_Dinner').style.display = 'block'
+      document.getElementById('Thaiyur_Dinner_Nveg').innerHTML = ('Dinner Non-Veg : '+calendar_data.Thaiyur_Dinner_count_Nveg)
+    }
+
+    if(veg_data_details[i].meal_type == 'Dinner' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == 'Shar'){
+      document.getElementById('Shar_BF_Dinner').style.display = 'block'
+      document.getElementById('Shar_BF_Dinner_Nveg').innerHTML = ('Dinner Non-Veg : '+calendar_data.Shar_Dinner_count_Nveg)
+    }
+
+    }
+  }
+});
+}
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{%endblock%}

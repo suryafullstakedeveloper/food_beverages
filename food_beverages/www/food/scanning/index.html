@@ -1,0 +1,633 @@
+{% extends '/templates/food_landing.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</head>
+
+<style>
+
+.custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5%;
+    }
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.landing_img {
+      background: url('/landing_png.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+  
+
+  
+:root {
+--rotate-speed: 10;
+--count: 8; /* Default count, the DOM element should override this */
+--easeInOutSine: cubic-bezier(0.37, 0, 0.63, 1);
+--easing: cubic-bezier(0.000, 0.37, 1.000, 0.63);
+}
+
+body {
+margin: 0;
+}
+
+.void {
+width: 100%;
+max-width: 1024px;
+margin: auto;
+position: relative;
+aspect-ratio: 1 / 1;
+}
+/* ul:hover * {
+animation-play-state: paused;
+} */
+ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+/* position: relative; */
+position: absolute;
+top: -8%;
+width: 100%;
+aspect-ratio: 1 / 1;
+/* outline: 2px dotted magenta; */
+z-index: 1;
+}
+li {
+position: absolute;
+top: 50%;
+transform: translateY(-100%);
+/* 	outline: 2px dashed cyan; */
+width: 100%;
+animation: rotateCCW calc(var(--rotate-speed) * 1s) var(--easing) infinite;
+}
+.card {
+width: 27%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 16px 24px;
+gap: 8px;
+background: #FFFFFF;
+box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1), 0px 16px 32px rgba(0, 0, 0, 0.1);
+border-radius: 12px;
+font-family: 'Inter', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+color: #535062;
+animation: rotateCW calc(var(--rotate-speed) * 1s) var(--easing) infinite;
+}
+a {
+text-decoration: none;
+color: unset;
+}
+.model-name {
+font-weight: 500;
+font-size: 18px;
+line-height: 150%;
+color: #3B2ED0;
+display: block;
+}
+svg {
+position: absolute;
+top: 0;
+left: 0;
+z-index: 0;
+}
+
+
+
+
+li:nth-child(2), li:nth-child(2) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -1s);
+}
+li:nth-child(3), li:nth-child(3) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -2s);
+}
+li:nth-child(4), li:nth-child(4) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -3s);
+}
+li:nth-child(5), li:nth-child(5) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -4s);
+}
+li:nth-child(6), li:nth-child(6) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -5s);
+}
+li:nth-child(7), li:nth-child(7) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -6s);
+}
+li:nth-child(8), li:nth-child(8) .card {
+animation-delay: calc((var(--rotate-speed)/var(--count)) * -7s);
+} 
+
+@keyframes rotateCW {
+  from {
+    transform: translate3d(0px, -50%, 0px) rotate(0deg);
+  }
+  to {
+    transform: translate3d(0px, -50%, 0px) rotate(360deg);
+  }
+}
+
+@keyframes rotateCCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes pulseGlow {
+from {
+  background-size: 60%;
+}
+to {
+  background-size: 100%;
+}
+}
+
+.center-circle {
+position: absolute;
+width: 30%;
+aspect-ratio: 1 / 1;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+background: #FFFFFF;
+box-shadow: 0px 18px 36px -18px rgba(12, 5, 46, 0.3), 0px 30px 60px -12px rgba(12, 5, 46, 0.25);
+border-radius: 50%;
+}
+.second-circle {
+position: absolute;
+width: 50%;
+aspect-ratio: 1 / 1;
+left: 50%;
+top: 57%;
+transform: translate(-50%, -50%);
+/* background: #F5F4FE;
+opacity: 0.5;
+box-shadow: 0px 18px 36px -18px rgba(12, 5, 46, 0.3), 0px 30px 60px -12px rgba(12, 5, 46, 0.25);
+border-radius: 50%; */
+}
+.last-circle {
+position: absolute;
+width: 70%;
+aspect-ratio: 1 / 1;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+background: #FF4D00;
+/* opacity: 0.25; */
+/* box-shadow: 0px 18px 36px -18px rgba(12, 5, 46, 0.3), 0px 30px 60px -12px rgba(12, 5, 46, 0.25); */
+border-radius: 50%;
+}
+
+.mask {
+position: absolute;
+top: 0;
+left: 0;
+bottom: 0;
+width: 50%;
+animation: pulseGlow 5s linear infinite alternate;
+background-position: 100% 50%;
+background-repeat: no-repeat;
+background-image: radial-gradient(100% 50% at 100% 50%, rgba(60, 26, 229, 0.25) 0%, rgba(60, 26, 229, 0.247904) 11.79%, rgba(59, 26, 229, 0.241896) 21.38%, rgba(58, 26, 229, 0.2324) 29.12%, rgba(57, 26, 229, 0.219837) 35.34%, rgba(55, 26, 229, 0.20463) 40.37%, rgba(53, 26, 229, 0.1872) 44.56%, rgba(51, 26, 229, 0.16797) 48.24%, rgba(48, 26, 229, 0.147363) 51.76%, rgba(46, 26, 229, 0.1258) 55.44%, rgba(44, 26, 229, 0.103704) 59.63%, rgba(41, 26, 229, 0.0814963) 64.66%, rgba(39, 26, 229, 0.0596) 70.88%, rgba(36, 26, 229, 0.038437) 78.62%, rgba(34, 26, 229, 0.0184296) 88.21%, rgba(32, 26, 229, 0) 100%);
+}
+.mask:after {
+content: "";
+position: absolute;
+width: 1px;
+height: 100%;
+right: 0;
+display: block;
+background-image: linear-gradient(180deg, rgba(60, 26, 229, 0) 0%, #3C1AE5 50%, rgba(60, 26, 229, 0) 100%);
+}
+
+.png_size{
+  height: 15%;
+  width: 21%;
+}
+
+.get_started_element{
+  position: absolute;
+  /* top: 39%;
+  left: 50%; */
+  top: 39%;
+  left: 43%;
+}
+
+.button_width{
+  width: 139px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  border: 1px solid #1A1A1A;
+  border-radius: 8px;
+  height: 50px
+  }
+  
+  .button_width:hover{
+    width: 139px;
+    background-color: #FF4D00;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid #1A1A1A;
+    border-radius: 8px;
+    height: 50px;
+    box-shadow: #FF4D00 0 4px 7px;
+    transform: translateY(-2px);
+  }
+    .center_button{
+    display: flex;
+    justify-content: center;
+    }
+
+    .margin_top_btn{
+      margin-top: 3%;
+    }
+
+    .bottom_text{
+    margin-top: 24%;
+    font-size: 1.2vw;
+    font-style: italic;
+    }
+    .select_width{
+    width: 139px;
+    }
+    .box_shadow_remove{
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+    }
+
+</style>
+
+
+<div id="landing_view">
+
+<div class="void" id="void" style="width: 38%; position: absolute;"> 
+  <div class="crop">
+  <ul id="card-list" style="--count: 6;">
+    <li><div ><img class="png_size" src="/parota.png" alt="Preview"></div></li>
+    <li><div ><img class="png_size" src="/side_dish.png" alt="Preview"></div></li>
+    <li><div ><img class="png_size" src="/idly.png" alt="Preview"></div></li>
+    <li><div ><img class="png_size" src="/boori.png" alt="Preview"></div></li>
+    <li><div ><img class="png_size" src="/veg_rice.png" alt="Preview"></div></li>
+    <li><div ><img class="png_size" src="/chaps.png" alt="Preview"></div></li>
+    <!-- <li><div class="card"><a href=""><span class="model-name">Gretel-ACTGAN</span></a></div></li> -->
+  </ul>
+  <div class="last-circle"></div>
+  <div  class="second-circle" style="background-image: url('/full_meals.png');background-size: 100%;background-repeat: no-repeat;"></div>
+  </div>
+  <!-- <div class="mask"></div> -->
+  <!-- <div class="center-circle"></div> -->
+  </div>
+  <div class="get_started_element">
+    <div class="center_button">
+      <h1>Welcome</h1>
+    </div>
+    <!-- <div class="center_button margin_top_btn">
+      <select class="form-select box_shadow_remove select_width" id="Meal_type" name="Meal_type">
+        <option selected disabled hidden value="">Meal Type</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+      </select>
+    </div> -->
+    <div class="center_button margin_top_btn">
+      <button type="button" id="Get_started" onclick="scanning_view()" class="button_width button">
+      Scanner
+      </button>
+    </div>
+    <h4 class="bottom_text">Food Waste is like stealing from the table of the those who are poor and hungry</h4>
+    
+  </div>
+
+</div>
+
+<div id="scanning_view">
+<div class="div_container">
+
+  <form class="row" id="forms">
+    <div>
+      <div class="display_center">
+        <div style="transform: scaleX(-0.8);" id="camera"></div>
+     </div>
+     <div class="display_center">
+      <button type="button" id="Get_started" onclick="welcome_view()" class="button_width button">
+        Home
+        </button>
+     </div>
+    </div>
+  </form>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% set User = frappe.get_doc('User',{'email':frappe.session.user})%}
+
+<script>
+
+var UserName = "{{ User.name }}";
+var location_value;
+var request_type = '';
+
+
+var Success_audio = new Audio('/Success.mp3');
+var Error_audio = new Audio('/Error.mp3');
+
+
+const currentDate = new Date();
+const today = getCurrentDate();
+const currentHour = currentDate.getHours();
+const currentMinute = currentDate.getMinutes();
+function food_type() {
+  const currentTimeInMinutes = currentHour * 60 + currentMinute;
+
+  if (currentTimeInMinutes <= 10 * 60 + 30) {
+    request_type = 'Breakfast';
+  } else if (currentTimeInMinutes <= 15 * 60 + 30) {
+    request_type = 'Lunch';
+  } else if (currentTimeInMinutes <= 22 * 60 + 30) {
+    request_type = 'Dinner';
+  } else{
+    request_type = '';
+  }
+
+  console.log(request_type+'request_type');
+}
+
+  // shar@example.in
+
+  // var meal_type = document.getElementById('Meal_type')
+//   meal_type.addEventListener('change', function () {
+//   request_type = document.getElementById('Meal_type').value ? document.getElementById('Meal_type').value : '';
+// });
+
+// function meal_type_take(){
+//   request_type = document.getElementById('Meal_type').value ? document.getElementById('Meal_type').value : '';
+// }
+
+console.log(UserName)
+console.log(request_type)
+location_value = ''
+
+
+if(UserName == "openworkspace2@example.in"){
+  location_value = 'IITM RP'
+} 
+else if (UserName =="thaiyur@example.in"){
+  location_value = 'Thaiyur'
+} 
+else if (UserName =="shar@example.in"){
+  location_value = 'Shar'
+}
+ else {
+  window.location = '/food/Forbidden'
+}
+
+
+var scan = document.getElementById('scanning_view');
+  var welcome = document.getElementById('landing_view');
+  var scanner; // Declare the scanner variable outside the functions to make it accessible in both functions
+
+  scan.style.display = 'none';
+  welcome.style.display = 'block';
+
+  function welcome_view() {
+    scan.style.display = 'none';
+    welcome.style.display = 'block';
+
+    // Stop the scanner if it is already initialized
+    if (scanner) {
+      scanner.stop();
+    }
+    request_type = '';
+  }
+
+  function scanning_view() {
+    // meal_type_take();
+    food_type()
+    if(request_type == ''){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly Select Meal Type',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button', // Custom class for the button
+          popup: 'custom-swal-popup' // Custom class for the popup
+        },
+        buttonsStyling: false
+      })
+    } else {
+    console.log('function calles')
+    scan.style.display = 'block';
+    welcome.style.display = 'none';
+
+    var camera = document.getElementById('camera');
+    var videoElement = document.createElement('video');
+    videoElement.autoplay = true;
+    var resultDiv = document.createElement('div');
+    camera.appendChild(videoElement);
+    camera.appendChild(resultDiv);
+
+    scanner = new Instascan.Scanner({ video: videoElement });
+
+    scanner.addListener('scan', function (content) {
+      // alert('Found QR code with content: ' + content);
+      // console.log(content)
+      Qrcontent = content
+      console.log(Qrcontent)
+      // console.log(request_type)
+      // console.log(today)
+      // console.log(location_value)
+      console.log(content)
+      food_type()
+
+    if(location_value == "Shar"){
+      frappe.call({
+    method: 'food_beverages.www.food.scanning.index.QrValidation_shar',
+    args: {
+      Qrcontent,
+      location_value,
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message == "Success") {
+        playAudio_success()
+        Swal.fire({
+          title: 'Request Success!!!',
+          text: 'Thank You For Your Patience.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          customClass: {
+            confirmButton: 'custom-swal-button' // Custom class for the button
+          },
+          buttonsStyling: false,
+          timer: 3000,  // Close the Swal after 2 seconds
+          timerProgressBar: true,  // Display a progress bar
+          showConfirmButton: false  
+          });
+      }
+      else {
+        playAudio_error();
+        if (scanner) {
+        scanner.stop();
+        camera.innerHTML=''
+        }
+        Swal.fire({
+        // title: 'Attention!',
+        text: r.message,
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button', // Custom class for the button
+          popup: 'custom-swal-popup' // Custom class for the popup
+        },
+        buttonsStyling: false
+      }).then(() => {
+        scanning_view();
+      });
+        
+      }
+    }
+  
+  });
+    } else {
+      frappe.call({
+    method: 'food_beverages.www.food.scanning.index.QrValidation',
+    args: {
+      Qrcontent,
+      location_value,
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message == "Success") {
+        playAudio_success()
+        Swal.fire({
+          title: 'Request Success!!!',
+          text: 'Thank You For Your Patience.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          customClass: {
+            confirmButton: 'custom-swal-button' // Custom class for the button
+          },
+          buttonsStyling: false,
+          timer: 3000,  // Close the Swal after 2 seconds
+          timerProgressBar: true,  // Display a progress bar
+          showConfirmButton: false  
+          });
+      }
+      else {
+        playAudio_error();
+        if (scanner) {
+        scanner.stop();
+        camera.innerHTML=''
+        }
+        Swal.fire({
+        // title: 'Attention!',
+        text: r.message,
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button', // Custom class for the button
+          popup: 'custom-swal-popup' // Custom class for the popup
+        },
+        buttonsStyling: false
+      }).then(() => {
+        scanning_view();
+      });
+        
+      }
+    }
+  
+  });
+    }
+      
+    });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+      if (cameras.length > 0) {
+        scanner.start(cameras[0]);
+      } else {
+        console.error('No cameras found.');
+      }
+    }).catch(function (error) {
+      console.error('Error accessing camera:', error);
+    });
+
+  }
+  }
+
+
+  function getSecondElement(inputString) {
+    // Split the string based on the "/" delimiter
+    console.log(inputString)
+    var array = inputString.split('/'); 
+    return array[1];
+}
+
+function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+  
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
+
+  function playAudio_success() {
+    Success_audio.play();
+    }
+
+    function playAudio_error() {
+      Error_audio.play();
+    }
+
+</script>
+
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+{%endblock%}

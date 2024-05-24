@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!-- Built on Frappe. https://frappeframework.com/ -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="generator" content="frappe">
+
+
+  <meta name="name" content="home">
+  <meta property="og:type" content="website">
+  <meta name="title" content="home">
+  <meta name="language" content="en">
+  <meta property="og:title" content="home">
+  <meta name="twitter:title" content="home">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- <title>home</title>
+
+
+  <link rel="shortcut icon" href="/assets/frappe/images/frappe-favicon.svg" type="image/x-icon"> -->
+
+  <title>Food & Beverages</title>
+
+
+  <link rel="shortcut icon" href="https://example.in/small-logo.png" type="image/x-icon">
+
+
+
+  <link rel="canonical" href="http://127.0.0.1:8001/home">
+  <link type="text/css" rel="stylesheet" href="/assets/frappe/dist/css/website.bundle.MA7XHIZR.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="/files/website_theme/user_theme_0fdc3674.css">
+  <link type="text/css" rel="stylesheet" href="/assets/erpnext/dist/css/erpnext-web.bundle.2JRVHXNB.css">
+
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+  </head>
+  <style>
+    .input-style {
+      width: 100%;
+      height: 50px;
+      border-color: #305A34;
+      border-radius: 8px;
+    }
+
+    .link:hover {
+      cursor: pointer;
+    }
+
+    .custom-file-input.input-style {
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .custom-file-label.input-style {
+      height: 50px;
+      overflow: hidden;
+    }
+
+    .custom-file-label::after {
+      height: 50px;
+      line-height: 50px;
+    }
+
+    .content {
+      padding: 10px 100px;
+
+    }
+  </style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-boxs;
+    }
+
+    body {
+      background: url('/food-bg.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #dropdown-style {
+      width: 176px;
+      height: 60px;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+    }
+
+    #dropdown-style:hover {
+      color: #FF4D00;
+    }
+
+    #logo {
+      width: 80px;
+      height: 80px;
+
+    }
+
+    #userlogo {
+      margin-left: 20px;
+      padding: 20px;
+      margin-right: 100px;
+    }
+
+    .nav-container {
+      width: 100vw;
+      padding: 10px 50px;
+      display: flex;
+      justify-content: space-around;
+      background-color: white;
+    }
+
+    #user-achor {
+      width: 60px;
+      height: 60px;
+      margin-right: 120px;
+      background-color: rgb(30, 136, 299);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      color: white;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 100px);
+    }
+
+    #forms {
+      background-color: white;
+      border-radius: 10px;
+      width: 900px;
+      height: 720px;
+      border: 1px solid #989898;
+    }
+
+    /* #image{
+          margin-top: -20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        } */
+
+        @media only screen and (max-width: 768px) {
+  /* Add styles for smaller screens here */
+  .nav-container {
+    padding: 10px 20px; /* Adjust padding for smaller screens */
+    width: 100vw;
+    /* padding: 10px 50px; */
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+  }
+
+  .stop_overflow{
+    overflow-x: hidden;
+  }
+}
+  </style>
+
+<script type="text/javascript" src="/assets/frappe/js/dialog.bundle.js"></script>
+  <script>
+    window.frappe = {};
+    frappe.ready_events = [];
+    frappe.ready = function (fn) {
+      frappe.ready_events.push(fn);
+    }
+    window.dev_server = 1;
+    window.socketio_port = 9001;
+    window.show_language_picker = false;
+  </script>
+</head>
+
+<body frappe-session-status="logged-in" data-path="home" style="overflow-x: hidden; font-family: 'Poppins'">
+  <nav class="navbar navbar-light navbar-expand-lg" style="padding: 0;">
+    <div style="height: 100px; " class='container-fluid nav-container'>
+      <a href="#" id="logo">
+        <img id="image" src="https://example.in/small-logo.png" style="height: 80px; width: 80px;" />
+
+      </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+      </div>
+
+    </div>
+  </nav>
+
+  {% block webform %}
+  {% endblock %}
+
+
+
+
+
+
+
+
+
+  <!-- js should be loaded in body! -->
+  <script>
+    frappe.boot = { 'sysdefaults': { 'float_precision': 3, 'date_format': 'dd-mm-yyyy', 'time_format': 'HH:mm:ss' }, 'time_zone': { 'system': 'Asia/Kolkata', 'user': 'Asia/Kolkata' } }
+    // for backward compatibility of some libs
+    frappe.sys_defaults = frappe.boot.sysdefaults;
+  </script>
+  <script type="text/javascript" src="/assets/frappe/dist/js/frappe-web.bundle.67ZVCQN2.js"></script>
+  <script type="text/javascript" src="/assets/frappe/dist/js/frappe-web.bundle.ZTJNSQRM.js"></script>
+  <script type="text/javascript" src="/website_script.js"></script>
+  <script type="text/javascript" src="/assets/erpnext/dist/js/erpnext-web.bundle.5YR4TMQD.js"></script>
+  <script>frappe.csrf_token = "{{frappe.session.csrf_token}}";</script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,1209 @@
+{% extends '/templates/food_user.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/assets/frappe/js/frappe-web.min.js"></script>
+  <script src="/assets/frappe/js/frappe-website.min.js"></script>
+
+
+</head>
+
+<style>
+     .tnc{
+        display: flex;
+        justify-content: center;
+    }
+  .input-style {
+    width: 100%;
+    height: 50px;
+    border-color: #305A34;
+    border-radius: 8px;
+  }
+
+  .custom-file-input.input-style {
+    height: 50px;
+    cursor: pointer;
+  }
+
+  .custom-file-label.input-style {
+    height: 50px;
+    overflow: hidden;
+  }
+
+  .custom-file-label::after {
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .content {
+    padding: 10px 100px;
+
+  }
+  .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+  input[type=checkbox]:disabled
+{
+    opacity:3;
+}
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1cm;
+}
+
+#forms{
+  /* border: 8px solid #252525;  */
+  background-color: rgba(255, 255, 255, 0.9);
+  height: max-content; 
+  padding-bottom: 1cm;
+  width: 770px;
+}
+.col-sm-1 {
+    max-width: 80px;
+}
+
+.to_style{
+  margin-left: 60px;
+}
+
+.margin_left{
+  margin-left: 15px;
+}
+
+.end_date_margin_left{
+  margin-left: 110px;
+}
+
+.towfour_format{
+  font-size: 13px
+}
+
+.terms_div{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.term_and_condition{
+  text-decoration: none; 
+  color: black;
+}
+
+.text_align_center{
+  text-align: center
+}
+.submit_button{
+  background-color: #305A34; 
+  color: white; 
+  padding: 10px 30px;
+}
+
+.date_div{
+  padding: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.date_label_style{
+  font-weight: 500;
+  font-size: 19px;
+  margin-right: 15px;
+  margin-left: 168px;
+}
+.date_field_size{
+  font-size: 22px;
+}
+
+.toggle {
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      position: relative;
+      border-radius: 34px;
+      background-color: #b52b2b;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .toggle::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      top: 4px;
+      left: 4px;
+      transition: transform 0.3s;
+    }
+
+    .toggle.on {
+      background-color: #2A8532;
+    }
+
+    .toggle.on::before {
+      transform: translateX(26px);
+    }
+
+    .select_width{
+      box-shadow: none !important;
+      /* width: 80%; */
+      border-color: #ced4da !important;
+    }
+
+
+    .class_basic_center{
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .margin-top-17{
+      margin-top: 17px;
+    }
+
+    .button_style_top{
+      margin-top: 40px;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: #FF4D00;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .label_text_align{
+      text-align: end;
+      font-weight: 500;
+      margin-right: 15px 
+    }
+
+    .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+    width: fit-content;
+
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .checkbox_style{
+    position: absolute;
+    top: 378px;
+    left: 80vw;
+  }
+
+
+@media only screen and (min-width: 899px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 78vw;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 75.9vw;
+  }
+}
+
+@media only screen and (min-width: 1050px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 72vw;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 69vw;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 67vw;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 65vw;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 63vw;
+  }
+}
+
+@media only screen and (min-width: 1900px) {
+  .checkbox_style{
+      position: absolute;
+    top: 378px;
+    left: 63vw;
+  }
+}
+
+
+
+.veg_r_non_veg {
+      display: inline-block;
+      width: 52px;
+      height: 26px;
+      position: relative;
+      border-radius: 34px;
+      background-color: #b52b2b;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .veg_r_non_veg::before {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      top: 5px;
+      left: 4px;
+      transition: transform 0.3s;
+    }
+
+    .veg_r_non_veg.on {
+      background-color: #2A8532;
+    }
+
+    .veg_r_non_veg.on::before {
+      transform: translateX(26px);
+    }
+
+    .date_field_cs {
+    text-align: center;
+    margin-left: 7%;
+    font-size: 17px;
+}
+.bookbuttonmarginleft{
+  margin-left: 10px;
+}
+
+  .frozen {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.5; /* Optionally, reduce opacity to visually indicate the frozen state */
+  /* Add any other styling to indicate the frozen state */
+}
+
+
+  @media (max-width: 575px) {
+  #forms{
+  height: max-content; 
+  padding-bottom: 1cm;
+  border: none;
+}
+.row{
+  flex-wrap: nowrap !important;
+}
+
+.text_align_center {
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.toggle {
+    display: inline-block;
+    width: 15vw;
+    height: 8vw;
+    position: relative;
+    border-radius: 34px;
+    background-color: #b52b2b;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 16px;
+}
+
+.toggle::before {
+    content: "";
+    position: absolute;
+    width: 6vw;
+    height: 6vw;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    top: 4px;
+    left: 4px;
+    transition: transform 0.3s;
+}
+
+.select_width {
+    box-shadow: none !important;
+    width: 30vw;
+    border-color: #ced4da !important;
+}
+.date_field_cs {
+    text-align: center;
+    margin-left: 4vw;
+    font-size: 19px;
+}
+.label_text_align {
+    text-align: end;
+    font-weight: 500;
+    margin-right: 0px;
+}
+
+.checkbox_style {
+    position: absolute;
+    top: 418px;
+    left: 68vw;
+}
+
+
+.veg_r_non_veg {
+      display: inline-block;
+      width: 10vw;
+      height: 5vw;
+      position: relative;
+      border-radius: 34px;
+      background-color: #b52b2b;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .veg_r_non_veg::before {
+      content: "";
+      position: absolute;
+      width: 2.5vw;
+      height: 2.5vw;
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      top: 5px;
+      left: 4px;
+      transition: transform 0.3s;
+    }
+
+    .veg_r_non_veg.on {
+      background-color: #2A8532;
+    }
+
+    .veg_r_non_veg.on::before {
+      transform: translateX(26px);
+    }
+
+    .mobile_style{
+    color: rgb(167, 40, 40);
+    font-weight: 500;
+    cursor: pointer;
+    position: absolute;
+    margin-left: 3px !important;
+    margin-top: 20px !important;
+    font-size: 2.5vw !important;
+}
+
+.marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    width: fit-content;
+    font-size: 4vw;
+    margin-top: 5px;
+}
+
+.button_width{
+      width: 30vw;
+      background-color: #FF4D00;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .button_width:hover{
+      width: 30vw;
+      background-color: #FF4D00;
+      color: white;
+      border-radius: 10px;
+    }
+
+    #food_icon{
+      display: none;
+    }
+
+    .bookbuttonmarginleft{
+      margin-left: 0px;
+    }
+
+    .mobile_veg_show{
+      margin-left: -42px !important;
+    }
+
+    .content {
+    padding: 0px;
+    }
+    
+    .margin_bottom_for_preference{
+      margin-bottom: 0rem !important;
+    }
+
+    }
+
+    .margin_bottom_for_preference{
+      margin-bottom: 1rem;
+    }
+
+    .margin_bottom_0{
+      margin-bottom: -1px;
+      margin-left: 6px;
+    }
+
+    input[type="radio"] {
+  appearance: none; /* Hide the default radio button */
+  -webkit-appearance: none; /* Hide the default radio button for Safari */
+  width: 15px; /* Set width and height to desired size */
+  height: 15px;
+  border-radius: 50%; /* Make it circular */
+  border: 1px solid #ddd; /* Set border color */
+  outline: none; /* Remove outline */
+}
+
+/* Style the radio button labels */
+input[type="radio"] + label {
+  margin-left: 5px; /* Add some space between the radio button and label */
+}
+
+/* Style the radio button when checked */
+input[type="radio"]:checked {
+  background-color: #FF4D00; /* Change background color when checked */
+  border: 1px solid #ddd;
+}
+
+
+</style>
+
+<div id="marquee" class="marquee"></div>
+<div class="div_container">
+
+  <form class="row" id="forms">
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div class="date_div">
+     <input class="date_field_size date_field_cs" type="date" id="date" name="date" onchange="validateDate()">
+      </div>
+      
+      <!-- <div class="toggle"></div> -->
+
+      <div class="form-group row class_basic_center">
+        <span id="food_icon" class="col-sm-1"><img src="/bf-icon.png" alt="" width="35" height="35"></span>
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Breakfast</div>
+        <div id="Breakfast" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" onchange="Breakfast_lc_check()" id="Breakfast_location" name="Breakfast_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: none;" id="breakfast_preference" class="class_basic_center margin_bottom_for_preference">
+        <label style="margin-right: 10px;" class="margin_bottom_0" for="food_type_breakfast">Preference :</label><br>
+        <input type="radio" id="food_type_breakfast" name="food_type_breakfast" value="Casual" checked>
+        <label class="margin_bottom_0" for="food_type_breakfast">N-Veg</label><br>
+        <input class="margin_left" type="radio" id="food_type_breakfast" name="food_type_breakfast" value="Veg">
+        <label class="margin_bottom_0" for="food_type_breakfast">Veg</label><br>
+        </div>
+
+      <div class="form-group row class_basic_center">
+        <span id="food_icon" class="col-sm-1"><img src="/Icon-Lunch.png" alt="" width="35" height="35"></span>
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Lunch</div>
+        <div id="Lunch" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" onchange="Lunch_lc_check()" id="Lunch_location" name="Lunch_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+         
+        </div>
+
+      </div> 
+
+       <div style="display: none;" id="lunch_preference" class="class_basic_center margin_bottom_for_preference">
+        <label style="margin-right: 10px;" class="margin_bottom_0" for="food_type_lunch">Preference :</label><br>
+        <input type="radio" id="food_type_lunch" name="food_type_lunch" value="Casual" checked>
+        <label class="margin_bottom_0" for="food_type_lunch">N-Veg</label><br>
+        <input class="margin_left" type="radio" id="food_type_lunch" name="food_type_lunch" value="Veg">
+        <label class="margin_bottom_0" for="food_type_lunch">Veg</label><br>
+        </div>
+
+      <div class="form-group row class_basic_center">
+        <span id="food_icon" class="col-sm-1"><img src="/Icon-Dinner.png" alt="" width="35" height="35"></span>
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Dinner</div>
+        <div id="Dinner" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" onchange="Dinner_lc_check()" id="Dinner_location" name="Dinner_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+        </div>
+      </div> 
+
+       <div style="display: none;" id="dinner_preference" class="class_basic_center margin_bottom_for_preference">
+          <label style="margin-right: 10px;" class="margin_bottom_0" for="food_type_dinner">Preference :</label><br>
+          <input type="radio" id="food_type_dinner" name="food_type_dinner" value="Casual" checked>
+          <label class="margin_bottom_0" for="food_type_dinner">N-Veg</label><br>
+          <input class="margin_left" type="radio" id="food_type_dinner" name="food_type_dinner" value="Veg">
+          <label class="margin_bottom_0" for="food_type_dinner">Veg</label><br>
+          </div>
+
+      <div class="form-group row class_basic_center">
+        <span id="food_icon" class="col-sm-1"><img src="/ref-icon.png" alt="" width="35" height="35"></span>
+        <div style="padding: 0px 15px 0px 0px;" class="col-md-2 mt-3 mt-md-0 label_text_align">Refreshments</div>
+        <div id="Refreshments" class="toggle" data-value="Yes"></div>
+        <div class="col-md-3 mt-3 mt-md-0">
+          <select class="form-select select_width" onchange="Refreshments_lc_check()" id="Refreshments_location" name="Refreshments_location">
+            <option value="">Location</option>
+            <option value="IITM RP">IITM RP</option>
+            <option value="Thaiyur">Thaiyur</option>
+            <option value="Shar">Shar</option>
+          </select>
+        </div>
+      </div>
+
+  
+    <!-- button -->
+    
+    <div  class="row button_style_top">
+      <div class="col-12 text_align_center">
+        <button style="background-color: #D9D9D9; color: #000;" onclick="Discardfn()" type="button" class="btn button_width">
+          Cancel
+        </button>
+        <button  onclick="submit_form()" type="button" class="btn button_width bookbuttonmarginleft">
+          Book
+        </button>
+      </div>
+    </div>
+    
+  </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+
+var breakfast_preference = document.getElementById('breakfast_preference');
+var lunch_preference = document.getElementById('lunch_preference');
+var dinner_preference = document.getElementById('dinner_preference');
+
+
+var veg_data_details;
+
+var selected_date = document.getElementById('date');
+selected_date.addEventListener('change', function () {
+  get_prefrence_data();
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      // // console.log(r);
+      if(r.message){
+        // // console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+
+  // Initial setup
+  validateDate();
+  toggleSwitchesBasedOnTime();
+
+const toggles = document.querySelectorAll('.toggle');
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      if (toggle.id != 'food_preference'){
+      toggle.classList.toggle('on');
+      toggle.dataset.value = toggle.classList.contains('on') ? 'Yes' : 'No';
+      } else {
+      toggle.classList.toggle('on');
+      toggle.dataset.value = toggle.classList.contains('on') ? 'Veg' : 'Casual';
+      }
+    });
+
+    if (toggle.id != 'food_preference'){
+
+      toggle.dataset.value = 'No';
+    }
+    if (toggle.id != 'food_preference'){
+    const locationDropdown = document.getElementById(toggle.id + '_location');
+
+    }
+  });
+
+  
+  function getToggleValues() {
+    const toggleValues = {};
+    toggles.forEach(toggle => {
+      const toggleId = toggle.id;
+      const toggleValue = toggle.dataset.value;
+      toggleValues[toggleId] = toggleValue;
+    });
+    return toggleValues;
+  }
+  
+
+function toggleSwitchesBasedOnTime() {
+  const selectedDate = document.getElementById('date').value;
+
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  var minutes = currentDate.getMinutes();
+
+  // // console.log("today"+today);
+  const currentHour = currentDate.getHours();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if (today === selectedDate) {
+    // // console.log('if conditon is run')
+
+  // Toggle Lunch switch if time is after 6am
+  if (currentHour >= 5) {
+    toggleSwitch('Breakfast');
+  }
+
+  // Toggle Lunch switch if time is after 10am
+  if (current_time_in_minutes >= 9 * 60 + 30) {
+    // currentHour >= 9 && currentDate.getMinutes() >= 30
+    // // console.log('current hour and current minute')
+    // // console.log(currentHour);
+    // // console.log(currentDate.getMinutes());
+    toggleSwitch('Lunch');
+  }
+
+  // Toggle Dinner switch if time is after 4pm
+  if (currentHour >= 16) {
+    toggleSwitch('Dinner');
+  }
+} else {
+  toggleSwitchReset('Breakfast');
+  toggleSwitchReset('Lunch');
+  toggleSwitchReset('Dinner');
+  toggleSwitchReset('Refreshments');
+}
+}
+
+function toggleSwitch(id) {
+  const toggle = document.getElementById(id);
+  // toggle.classList.add('on');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+
+  toggle.classList.add('frozen');
+
+  // Disable corresponding location dropdown
+  const locationDropdown = document.getElementById(id + '_location');
+  locationDropdown.disabled = true;
+  locationDropdown.value = '';
+}
+
+function toggleSwitchReset(id) {
+  const toggle = document.getElementById(id);
+  toggle.classList.remove('frozen');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+
+  // Disable corresponding location dropdown
+  const locationDropdown = document.getElementById(id + '_location');
+  locationDropdown.disabled = false;
+  locationDropdown.value = '';
+}
+
+function Discardfn(){
+ 
+  const selectedDate = document.getElementById('date').value;
+
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  // // console.log("today"+today);
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if (today === selectedDate) {
+ 
+  // Toggle Lunch switch if time is after 6am
+  if (currentHour <= 5) {
+    toggleSwitchReset('Breakfast');
+  }
+
+  // Toggle Lunch switch if time is after 10am
+  if (current_time_in_minutes >= 9 * 60 + 30) {
+    toggleSwitchReset('Lunch');
+  }
+
+  // Toggle Dinner switch if time is after 4pm
+  if (currentHour <= 16) {
+    toggleSwitchReset('Dinner');
+  }
+  toggleSwitchReset('Refreshments');
+} else {
+  toggleSwitchReset('Breakfast');
+  toggleSwitchReset('Lunch');
+  toggleSwitchReset('Dinner');
+  toggleSwitchReset('Refreshments');
+}
+}
+
+
+  function validateDate() {
+    // // console.log('fuction calls initally');
+    var inputDate = new Date(document.getElementById('date').value);
+    var tomorrow = new Date();
+
+    // // console.log('date checking');
+    // // console.log(inputDate.getDate());
+    // // console.log(tomorrow.getDate());
+    // // console.log('date checking');
+  
+    if (inputDate.getDate() == tomorrow.getDate()) {
+      // Reset the input value to tomorrow's date
+      // // // console.log(inputDate);
+      let dd = String(tomorrow.getDate()).padStart(2, '0');
+      // // console.log(dd);
+      let mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+      let yyyy = tomorrow.getFullYear();
+      let formattedDate = yyyy + '-' + mm + '-' + dd;
+      // // // console.log(formattedDate);
+      
+      document.getElementById('date').value = formattedDate;
+    } else {
+      let dd = String(tomorrow.getDate() + 1).padStart(2, '0');
+      // // console.log(dd);
+      let mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+      let yyyy = tomorrow.getFullYear();
+      let formattedDate = getTomorrowDate();
+      // // // console.log(formattedDate);
+      
+      document.getElementById('date').value = formattedDate;
+    }
+  
+    // Set the min and max attributes dynamically
+    document.getElementById('date').setAttribute('min', getCurrentDate());
+    document.getElementById('date').setAttribute('max', getTomorrowDate());
+    toggleSwitchesBasedOnTime();
+    frappe.ready(function (){
+      get_prefrence_data();
+    })
+  }
+  
+  function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    // // console.log('current date'+yyyy + '-' + mm + '-' + dd)
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
+  function getTomorrowDate() {
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+  
+    var dd = String(tomorrow.getDate()).padStart(2, '0');
+    var mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = tomorrow.getFullYear();
+  
+    // Check if tomorrow's day is in the next month
+    if (tomorrow.getDate() === 1) {
+        mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        // Reset the day to 01
+        dd = '01';
+    }
+
+    // // console.log('tomorrow date: ' + yyyy + '-' + mm + '-' + dd)
+    return yyyy + '-' + mm + '-' + dd;
+}
+
+  function submit_form(event) {
+  const toggleValues = getToggleValues();
+  var employeeId = "{{ emp_id.name }}";
+  var employeeName = "{{ emp_id.employee_name }}";
+  let Breakfast = toggleValues.Breakfast;
+  let Breakfast_location = document.getElementById("Breakfast_location").value;
+  let Lunch = toggleValues.Lunch;
+  let Lunch_location = document.getElementById("Lunch_location").value;
+  let Dinner = toggleValues.Dinner;
+  let Dinner_location = document.getElementById("Dinner_location").value;
+  let Refreshments = toggleValues.Refreshments;
+  let Refreshments_location = document.getElementById("Refreshments_location").value;
+  let date = document.getElementById("date").value;
+  let food_type_breakfast_data = document.querySelector('input[name="food_type_breakfast"]:checked').value;
+  let food_type_lunch_data = document.querySelector('input[name="food_type_lunch"]:checked').value;
+  let food_type_dinner_data = document.querySelector('input[name="food_type_dinner"]:checked').value;
+  
+  if (Breakfast === 'Yes' && Breakfast_location === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly Select the location For Breakfast!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else if (Lunch === 'Yes' && Lunch_location === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly Select the location For Lunch!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else if (Dinner === 'Yes' && Dinner_location === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly Select the location For Dinner!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else if (Refreshments != 'Yes' && Dinner != 'Yes' && Lunch != 'Yes' && Breakfast != 'Yes') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'You have not booked any meal',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else if (Refreshments === 'Yes' && Refreshments_location === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly Select the location For Refreshments!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+
+  // // // console.log(Breakfast,Breakfast_location,Lunch,Lunch_location,Dinner,Dinner_location,Refreshments,Refreshments_location,date,employeeId,employeeName);
+  
+  frappe.call({
+    method: 'food_beverages.www.food.user.request_food.index.fill_form',
+    args: {
+      Breakfast,Breakfast_location,Lunch,Lunch_location,
+      Dinner,Dinner_location,Refreshments,Refreshments_location,food_type_breakfast_data,
+      food_type_lunch_data,food_type_dinner_data,date,employeeId,employeeName,
+    },
+    callback: function (r) {
+      // // console.log(r);
+      if (r.message == "Record Exists!") {
+        Swal.fire({
+          // title: 'Attention!',
+          text: 'You have already booked your meal, Go to Booked Meals Screen to make changes',
+          icon: 'warning',
+          confirmButtonText: 'OK',
+          customClass: {
+            confirmButton: 'custom-swal-button' // Custom class for the button
+          },
+          buttonsStyling: false
+        });
+      }
+      else if (r.message == "Request Successfull.."){
+        Swal.fire({
+          // title: 'Attention!',
+          text: 'Your request has been booked successfully',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          customClass: {
+            confirmButton: 'custom-swal-button' // Custom class for the button
+          },
+          buttonsStyling: false
+        });
+        window.location="/food/user/booked_food"
+      }
+    }
+  
+  });
+}
+
+}
+
+
+
+function Breakfast_lc_check(){
+  // // console.log('VP')
+  let Breakfast_location = document.getElementById("Breakfast_location").value;
+  var inputDate = new Date(document.getElementById('date').value);
+  var today = new Date();
+  // // console.log(inputDate.getDate());
+  // // console.log(today.getDate());
+  // // console.log(Breakfast_location);
+
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if (Breakfast_location == 'Shar' && inputDate.getDate() == today.getDate()) {
+  // // console.log('in the if conditon')
+  const toggle = document.getElementById('Breakfast');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+  toggle.classList.add('frozen');
+  }
+  else if(Breakfast_location == 'Shar' && inputDate.getDate() > today.getDate() && current_time_in_minutes >= 22 * 60 + 30){
+  // // console.log('in the else if conditon')
+  const toggle = document.getElementById('Breakfast');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+  toggle.classList.add('frozen');
+  } 
+  else {
+    const toggle = document.getElementById('Breakfast');
+    toggle.classList.remove('frozen');
+    toggle.classList.add('on');
+    toggle.dataset.value = 'Yes';
+  }
+  breakfast_preference_enable()
+}
+
+
+function Lunch_lc_check(){
+  // // console.log('VP')
+  let Lunch_location = document.getElementById("Lunch_location").value;
+  var inputDate = new Date(document.getElementById('date').value);
+  var today = new Date();
+  // // console.log(inputDate.getDate());
+  // // console.log(today.getDate());
+  // // console.log(Lunch_location);
+
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if (Lunch_location == 'Shar' && inputDate.getDate() == today.getDate()) {
+  // // console.log('in the if conditon')
+  const toggle = document.getElementById('Lunch');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+  toggle.classList.add('frozen');
+  }
+  else if(Lunch_location == 'Shar' && inputDate.getDate() > today.getDate() && current_time_in_minutes >= 22 * 60 + 30){
+  // // console.log('in the else if conditon')
+  const toggle = document.getElementById('Lunch');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+  toggle.classList.add('frozen');
+  } 
+  else {
+    const toggle = document.getElementById('Lunch');
+    toggle.classList.remove('frozen');
+    toggle.classList.add('on');
+    toggle.dataset.value = 'Yes';
+  }
+  lunch_preference_enable()
+}
+
+function Dinner_lc_check(){
+  // // console.log('VP')
+  let Dinner_location = document.getElementById("Dinner_location").value;
+  var inputDate = new Date(document.getElementById('date').value);
+  var today = new Date();
+  // // console.log(inputDate.getDate());
+  // // console.log(today.getDate());
+  // // console.log(Dinner_location);
+
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if (Dinner_location == 'Shar' && inputDate.getDate() == today.getDate()) {
+  // // console.log('in the if conditon')
+  const toggle = document.getElementById('Dinner');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+  toggle.classList.add('frozen');
+  }
+  else if(Dinner_location == 'Shar' && inputDate.getDate() > today.getDate() && current_time_in_minutes >= 22 * 60 + 30){
+  // // console.log('in the else if conditon')
+  const toggle = document.getElementById('Dinner');
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+  toggle.classList.add('frozen');
+  } 
+  else {
+    const toggle = document.getElementById('Dinner');
+    toggle.classList.remove('frozen');
+    toggle.classList.add('on');
+    toggle.dataset.value = 'Yes';
+  }
+  dinner_preference_enable()
+}
+
+
+
+function Refreshments_lc_check(){
+  // // console.log('VP')
+  let Refreshments_location = document.getElementById("Refreshments_location").value;
+
+  const toggle = document.getElementById('Refreshments');
+  if (Refreshments_location == '') {
+  toggle.classList.remove('on');
+  toggle.dataset.value = 'No';
+  } else {
+  toggle.classList.add('on');
+  toggle.dataset.value = 'Yes';
+  }
+
+}
+
+
+function get_prefrence_data(){
+
+  var inputDate = new Date(document.getElementById('date').value);
+  var day = inputDate.getDay()
+  // // console.log(day);
+
+  document.querySelector('input[name="food_type_breakfast"][value="Casual"]').checked = true;
+  document.querySelector('input[name="food_type_lunch"][value="Casual"]').checked = true;
+  document.querySelector('input[name="food_type_dinner"][value="Casual"]').checked = true;
+  breakfast_preference.style.display = 'none';
+  lunch_preference.style.display = 'none';
+  dinner_preference.style.display = 'none';
+  
+  frappe.call({
+    method: 'food_beverages.www.food.user.request_food.index.get_prefrence_data',
+    args: {
+      day
+    },
+    callback: function (r) {
+      // // console.log(r);
+      veg_data_details = r.message
+      // // console.log(veg_data_details);
+    }
+  });
+}
+
+
+function breakfast_preference_enable(){
+  document.querySelector('input[name="food_type_breakfast"][value="Casual"]').checked = true;
+  let Breakfast_location = document.getElementById("Breakfast_location").value;
+  breakfast_preference.style.display = 'none';
+  for (i = 0; i < veg_data_details.length; i++){
+    if(veg_data_details[i].meal_type == 'Breakfast' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == Breakfast_location){
+      breakfast_preference.style.display = 'flex';
+    }
+  }
+
+}
+
+function lunch_preference_enable(){
+  document.querySelector('input[name="food_type_lunch"][value="Casual"]').checked = true;
+  let Lunch_location = document.getElementById("Lunch_location").value;
+  lunch_preference.style.display = 'none';
+  for (i = 0; i < veg_data_details.length; i++){
+    if(veg_data_details[i].meal_type == 'Lunch' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == Lunch_location){
+      lunch_preference.style.display = 'flex';
+    }
+  }
+
+}
+
+function dinner_preference_enable(){
+  document.querySelector('input[name="food_type_dinner"][value="Casual"]').checked = true;
+  let Dinner_location = document.getElementById("Dinner_location").value;
+  dinner_preference.style.display = 'none';
+  for (i = 0; i < veg_data_details.length; i++){
+    if(veg_data_details[i].meal_type == 'Dinner' && veg_data_details[i].type == 'N-Veg' && veg_data_details[i].location == Dinner_location){
+      dinner_preference.style.display = 'flex';
+    }
+  }
+
+}
+
+
+</script>
+
+
+
+
+
+{%endblock%}

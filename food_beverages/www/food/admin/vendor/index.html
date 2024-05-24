@@ -1,0 +1,590 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/assets/frappe/js/frappe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 35px 10px;
+    display: flex; 
+  justify-content: center; 
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 685px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-x: hidden; /* Hide horizontal overflow */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.image {
+    flex: 0 0 48%;
+    margin-bottom: 2%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 121px;
+    border-radius: 6%;
+}
+
+.margin_content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .image-text {
+      font-size: 15px;
+    font-weight: 400;
+    border-radius: 18px 1px 1px 18px;
+    background: black;
+    padding: 7px 34px 9px 19px;
+    }
+
+    /* img {
+  border-radius: 5px 5px 0 0;
+} */
+
+
+    .margin_right{
+      margin-right: 1%;
+    }
+    
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 100%;
+      margin-top: 2%;
+    }
+
+    .margin_top{
+      margin-top: 20px;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .cancel_button_common{
+      width: 139px;
+      background-color: #ddd;
+      color: black;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .cancel_button_common:hover{
+      width: 139px;
+      background-color: #ddd;
+      color: #000;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .submit_button_common{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+    }
+  
+    .submit_button_common:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 13%;
+}
+
+.display_center_for_Aview{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    }
+
+  .column {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+
+  .margin_top_0{
+    margin-top: 0px;
+  }
+  .box_shodow_remove{
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+  }
+
+  .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+
+  .modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 64%;
+    margin-left: 17%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+</style>
+
+
+
+<div class="location_container">
+  <button onclick="Vendor_new()" type="button" id="Button_new" class="button_width button margin_top submit_margin">
+  Add Vendor</button>
+  </div>
+   
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+
+      <div id="L_view" class="display_center">
+        <!-- <div class="margin_content">
+          
+          <div class="image" style="background-image: url('/dashboard-card.png');">
+            <div class="image-text" id="milk_packets">ji</div>
+          </div>
+
+        </div> -->
+        <div id="cardContainer" class="margin_content"></div>
+      </div>
+
+      <button style="position: absolute;top: 16%;left: 77%;" id="delete_view"  data-toggle="modal" data-target="#TableDelete"  type="button" class="button_width button margin_top">
+        Delete</button>
+        <div id="A_view">
+
+          <div class="display_center_for_Aview">
+
+            <div class="column margin_top_0" style="width: 170%;">
+              <label  for="vendor_id">Vendor Id:</label>
+              <div>
+                  <input type="text" class="form-control box_shodow_remove  input-style" id="vendor_id" required>
+              </div>
+            </div>
+            
+            <div class="column margin_top" style="width: 170%;">
+              <label for="vendor_name">Vendor Name:</label>
+              <div>
+                  <input type="text" class="form-control box_shodow_remove input-style" id="vendor_name" required>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 170%;">
+              <label for="phone_number">Phone Number:</label>
+              <div>
+                  <input type="text" class="form-control box_shodow_remove input-style" id="phone_number" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 170%;">
+              <label for="alternate_number">Alternate Number:</label>
+              <div>
+                  <input type="text" class="form-control box_shodow_remove input-style" id="alternate_number" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 170%;">
+              <label for="address">Address:</label>
+              <div>
+                  <input type="text" class="form-control box_shodow_remove input-style" id="address" required>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 170%;">
+              <label for="gst_Number">GST Number:</label>
+              <div>
+                  <input type="text" class="form-control box_shodow_remove input-style" id="gst_Number" required>
+              </div>
+            </div>
+
+            <div class="inner_div">
+            <button onclick="CancelBtn()"  type="button" class="cancel_button_common button margin_top">
+              Cancel</button>
+            <button onclick="Add_vendor()" type="button" class="submit_button_common button margin_top submit_margin">
+              Submit</button>
+            </div>
+          </div>
+          </div>
+     
+      
+    </div>
+    
+  </form>
+</div>
+
+<div class="modal fade" id="TableDelete" tabindex="-1" role="dialog" aria-labelledby="TableDeleteTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="display_center_model modal-title">Are You Sure For Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="display_center_model">
+          <button type="button" onclick="vendor_delete()" id="yes_button" data-dismiss="modal" class="btn button_width button">
+            Yes
+          </button>
+          <button type="button" id="no_button" data-dismiss="modal" data-dismiss="modal" class="btn button_width button margin_left">
+            No
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/frappe/2.1.1/frappe.min.js"></script>
+<script>
+
+var L_view = document.getElementById('L_view');
+var Button_new = document.getElementById('Button_new');
+var A_view = document.getElementById('A_view');
+var delete_view = document.getElementById('delete_view');
+var edit_id;
+
+L_view.style.display='Block';
+Button_new.style.display='Block';
+A_view.style.display='none';
+delete_view.style.display='none';
+var data = [];
+
+frappe.ready(function (){
+  GetVendorList()
+})
+
+
+// var data = [
+//       { 'vendar_name': 'Vendor Name', 'vendar_Id': 123 },
+//       { 'vendar_name': 'Vendor Name', 'vendar_Id': 124 },
+//       { 'vendar_name': 'Vendor Name', 'vendar_Id': 125 },
+//       { 'vendar_name': 'Vendor Name', 'vendar_Id': 126 }
+//     ];
+
+// document.addEventListener('DOMContentLoaded', function () {
+  
+// });
+
+function listing(){
+  if(data){
+  var cardContainer = document.getElementById('cardContainer');
+  cardContainer.innerHTML = '';
+
+// Loop through the data and create cards
+data.forEach(function (entry) {
+  // Create a new card div
+  var card = document.createElement('div');
+  card.innerHTML = '';
+  card.className = 'image';
+  card.style.backgroundImage = "url('/vendorcards.png')";
+  card.style.backgroundRepeat = "no-repeat";
+
+  // Create a text div inside the card
+  var textDiv = document.createElement('div');
+  textDiv.innerHTML = '';
+  textDiv.className = 'image-text';
+  textDiv.id = 'listing';
+  textDiv.textContent = entry.vendor_name;
+
+  textDiv.style.position = 'absolute';
+  textDiv.style.top = '41px';
+  textDiv.style.right = '0';
+  card.addEventListener('click', function () {
+  EditVendor(entry);
+  });
+
+  // Append the text div to the card
+  card.appendChild(textDiv);
+
+  // Append the card to the container
+  cardContainer.appendChild(card);
+});
+}
+}
+
+function CancelBtn(){
+L_view.style.display='Block';
+Button_new.style.display='Block';
+A_view.style.display='none';
+delete_view.style.display='none';
+var vendor_id = document.getElementById('vendor_id').value = ''
+var vendor_name = document.getElementById('vendor_name').value = ''
+var phone_number = document.getElementById('phone_number').value = ''
+var alternate_number = document.getElementById('alternate_number').value = ''
+var address = document.getElementById('address').value = ''
+var gst_Number = document.getElementById('gst_Number').value = ''
+edit_id = '';
+}
+  
+
+function Vendor_new(){
+L_view.style.display='none';
+Button_new.style.display='none';
+A_view.style.display='Block';
+// delete_view.style.display='Block';
+}
+
+function EditVendor(rowData){
+  var vendor_id = document.getElementById('vendor_id').value = rowData.vendor_id;
+  var vendor_name = document.getElementById('vendor_name').value = rowData.vendor_name;
+  var phone_number = document.getElementById('phone_number').value = rowData.phone_number;
+  var alternate_number = document.getElementById('alternate_number').value = rowData.alternate_number;
+  var address = document.getElementById('address').value = rowData.address;
+  var gst_Number = document.getElementById('gst_Number').value = rowData.gst_number;
+  edit_id = rowData.name;
+  L_view.style.display='none';
+  Button_new.style.display='none';
+  A_view.style.display='Block';
+  delete_view.style.display='Block';
+}
+
+
+function GetVendorList(){
+
+frappe.call({
+  method: 'food_beverages.www.food.admin.vendor.index.Get_VendorList',
+  args: {},
+  callback: function (r) {
+    console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      data = r.message;
+      console.log(data)
+      listing()
+    } 
+  }
+});
+
+}
+
+
+function Add_vendor(){
+
+  var vendor_id = document.getElementById('vendor_id').value;
+  var vendor_name = document.getElementById('vendor_name').value;
+  var phone_number = document.getElementById('phone_number').value;
+  var alternate_number = document.getElementById('alternate_number').value;
+  var address = document.getElementById('address').value;
+  var gst_Number = document.getElementById('gst_Number').value;
+  var employeeId = "{{ emp_id.name }}";
+
+  if(edit_id){
+  frappe.call({
+  method: 'food_beverages.www.food.admin.vendor.index.Edit_vendor',
+  args: {vendor_id,vendor_name,phone_number,alternate_number,address,gst_Number,employeeId,id :edit_id},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Vendor Id already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+    var vendor_id = document.getElementById('vendor_id').value = ''
+    var vendor_name = document.getElementById('vendor_name').value = ''
+    var phone_number = document.getElementById('phone_number').value = ''
+    var alternate_number = document.getElementById('alternate_number').value = ''
+    var address = document.getElementById('address').value = ''
+    var gst_Number = document.getElementById('gst_Number').value = ''
+    edit_id = '';
+    GetVendorList()
+    L_view.style.display='Block';
+    Button_new.style.display='Block';
+    A_view.style.display='none';
+    delete_view.style.display='none';
+    }
+  }
+  });
+  } else {
+    frappe.call({
+  method: 'food_beverages.www.food.admin.vendor.index.Add_vendor',
+  args: {vendor_id,vendor_name,phone_number,alternate_number,address,gst_Number,employeeId},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Vendor Id already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+    GetVendorList()
+    L_view.style.display='Block';
+    Button_new.style.display='Block';
+    A_view.style.display='none';
+    delete_view.style.display='none';
+    var vendor_id = document.getElementById('vendor_id').value = ''
+    var vendor_name = document.getElementById('vendor_name').value = ''
+    var phone_number = document.getElementById('phone_number').value = ''
+    var alternate_number = document.getElementById('alternate_number').value = ''
+    var address = document.getElementById('address').value = ''
+    var gst_Number = document.getElementById('gst_Number').value = ''
+    edit_id = '';
+    }
+  }
+  });
+  }
+}
+
+
+
+function vendor_delete(){
+  frappe.call({
+  method: 'food_beverages.www.food.admin.vendor.index.vendor_delete',
+  args: {id: edit_id},
+  callback: function (r) {
+  console.log(r);
+  if(r.message && Object.keys(r.message).length > 0){
+    edit_id = '';
+    GetVendorList()
+    CancelBtn()
+  } else {
+    edit_id = '';
+    GetVendorList()
+    CancelBtn()
+  }
+}
+
+});
+  }
+
+
+</script>
+
+
+{%endblock%}

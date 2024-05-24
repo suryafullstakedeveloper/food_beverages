@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<!-- Built on Frappe. https://frappeframework.com/ -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="generator" content="frappe">
+
+
+  <meta name="name" content="home">
+  <meta property="og:type" content="website">
+  <meta name="title" content="home">
+  <meta name="language" content="en">
+  <meta property="og:title" content="home">
+  <meta name="twitter:title" content="home">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <title>Food & Beverages</title>
+
+
+  <link rel="shortcut icon" href="https://example.in/small-logo.png" type="image/x-icon">
+
+
+  <link rel="canonical" href="http://127.0.0.1:8001/home">
+  <link type="text/css" rel="stylesheet" href="/assets/frappe/dist/css/website.bundle.MA7XHIZR.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="/files/website_theme/user_theme_0fdc3674.css">
+  <link type="text/css" rel="stylesheet" href="/assets/erpnext/dist/css/erpnext-web.bundle.2JRVHXNB.css">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <style>
+
+    .input-style {
+      width: 100%;
+      height: 50px;
+      border-color: #305A34;
+      border-radius: 8px;
+    }
+
+    .link:hover {
+      cursor: pointer;
+    }
+
+    .custom-file-input.input-style {
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .custom-file-label.input-style {
+      height: 50px;
+      overflow: hidden;
+    }
+
+    .custom-file-label::after {
+      height: 50px;
+      line-height: 50px;
+    }
+
+    .content {
+      padding: 10px 100px;
+
+    }
+  </style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-boxs;
+    }
+
+    body {
+      background: url('/food-bg.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #dropdown-style {
+      width: 10vw;
+      height: 60px;
+      font-size: 1.1vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+    }
+
+    #dropdown-style:hover {
+      color: red;
+    }
+
+    .dropdown-style {
+      width: 10vw;
+      height: 60px;
+      font-size: 1.1vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none !important;
+    }
+
+    .dropdown-style:hover {
+      color: red !important;
+    }
+    .dropdown-item:hover{
+      color: red;
+    }
+
+    #logo {
+      width: 80px;
+      height: 80px;
+
+    }
+
+    #userlogo {
+      margin-left: 20px;
+      padding: 20px;
+      margin-right: 100px;
+    }
+
+    .nav-container {
+      width: 100vw;
+      padding: 10px 50px;
+      display: flex;
+      justify-content: space-around;
+      background-color: white;
+    }
+
+    #user-achor {
+      width: 60px;
+      height: 60px;
+      margin-right: 120px;
+      background-color: rgb(30, 136, 299);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      color: white;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 100px);
+    }
+
+    #forms {
+      background-color: white;
+      border-radius: 10px;
+      width: 900px;
+      height: 720px;
+      border: 1px solid #989898;
+    }
+
+    /* #image{
+          margin-top: -20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        } */
+
+  
+    @media (max-width: 799px) {
+      #dropdown-style {
+      width: 12vw;
+      /* height: 60px; */
+      font-size: 1.5vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+      font-weight: 100;
+    }
+    .dropdown-style {
+      width: 12vw;
+      /* height: 60px; */
+      font-size: 1.5vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none !important;
+      font-weight: 100;
+    }
+    
+}
+
+#fandbdropdown{
+  width: 10vw;
+  font-size: 1.1vw;
+  box-shadow: none;
+}
+
+.fandbdropdown{
+  width: 10vw;
+  font-size: 1.1vw;
+  box-shadow: none;
+}
+
+      #mobile_menu{
+        display: none;
+      }
+
+ @media (max-width: 575px) {
+      #mobile_menu{
+        display: block;
+      }
+      #dropdown-style {
+      width: 28vw;
+      height: 45px;
+      font-size: 3vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+      font-weight: 100;
+      padding: 1vw;
+    }
+    .dropdown-style {
+      width: 28vw;
+      height: 45px;
+      font-size: 3vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none !important;
+      font-weight: 100;
+      padding: 1vw;
+    }
+    .fandb_width{
+    width: 19vw !important;
+    }
+
+    #fandbdropdown{
+    width: 10vw;
+    font-size: 3vw;
+    box-shadow: none;
+    margin-left: 3vw;
+    }
+    .fandbdropdown{
+    width: 10vw;
+    font-size: 3vw;
+    box-shadow: none;
+    margin-left: 3vw;
+    }
+    .qr_width{
+      width: 21vw !important;
+    }
+    .margin_for_png{
+      margin-left: 6vw;
+    }
+    .navbar-nav{
+      background-color: #fff;
+    }
+
+    .navbar {border: 1px solid #ddd;}
+
+    #mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust the transparency as needed */
+    z-index: 999;
+  }
+
+  /* #navbarSupportedContent{
+    position: fixed;
+    top: 101px;
+    left: 0px;
+    width: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    background-color: #FEFEFA;
+    height: 100%;
+
+} */
+
+.side-drawer {
+  position: fixed;
+    top: 102px;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #FEFEFA;
+    z-index: 999;
+    transition: left 0.3s ease;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.side-drawer.open {
+  left: 0; /* Slide the drawer to the left to make it visible */
+}
+
+.toggle-btn {
+  /* position: absolute;
+  top: 20px;
+  right: 20px; */
+  z-index: 1000;
+}
+#website-notify{
+  display: none !important;
+} 
+#website-post-login{
+  display: none !important;
+}
+
+#mobile_notifiction{
+  display: block !important;
+}
+
+#mobile_profile{
+  display: block !important;
+}
+
+#logo{
+  display: none !important;
+}
+
+.dropdown-item{
+  width: fit-content !important;
+}
+.dropdown-menu{
+  display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* .nav-item{
+  display: flex;
+  justify-content: end;
+} */
+
+
+.navbar-nav {
+    background-color: #FEFEFA;
+}
+
+}
+
+  .navbar-light .navbar-toggler {
+    height: 12vw;
+    color: rgba(0,0,0,.5);
+    border-color: rgba(0,0,0,.1);
+    margin-left: 3%;
+    width: 15vw;
+}
+
+.btn.active, .btn:active {
+    color: #FF4D00;
+    text-decoration: none;
+    background-color: #fff !important;
+}
+
+.fandbdropdown.active, .fandbdropdown:active{
+  color: #FF4D00;
+    text-decoration: none;
+    background-color: #fff !important;
+}
+
+
+#dropdown-style.hover, #dropdown-style:hover{
+  color: #FF4D00;
+  text-decoration: none;
+  background-color: #fff !important;
+}
+
+.mobile_active{
+  color: #FF4D00 !important;
+  text-decoration: none;
+  background-color: #fff !important;
+}
+
+
+.custom-modal {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-modal .modal-content {
+  padding: 0px;
+}
+
+.custom-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-modal .modal-title {
+    margin: 0;
+    font-size: 15px;
+}
+
+.custom-modal .modal-body {
+  padding: 0px;
+}
+
+.custom-modal.show {
+    display: block;
+}
+
+.custom-modal .modal-footer {
+    padding: 1px;
+    /* border-top: 1px solid #ccc; */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.custom-modal .modal-footer button {
+    margin-right: 10px;
+}
+
+.notification-item {
+    padding: 12px;
+    cursor: pointer;
+}
+
+.notification-title {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+
+.notification-time {
+    color: #888;
+    font-size: 9px;
+    margin-bottom: 0px;
+}
+
+.notification_content{
+  margin-bottom: 0px;
+  font-size: 11px;
+}
+
+.notification-location{
+  margin-bottom: 0px;
+    font-size: 10px;
+    color: #888;
+}
+  </style>
+<script type="text/javascript" src="/assets/frappe/js/dialog.bundle.js"></script>
+  <script>
+    window.frappe = {};
+    frappe.ready_events = [];
+    frappe.ready = function (fn) {
+      frappe.ready_events.push(fn);
+    }
+    window.dev_server = 1;
+    window.socketio_port = 9001;
+    window.show_language_picker = false;
+  </script>
+</head>
+
+{% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+{% set emp_details = frappe.get_doc('User',{'email':frappe.session.user})%}
+
+<body frappe-session-status="logged-in" data-path="home" style="overflow-x: hidden; font-family: 'Poppins'">
+  <nav class="navbar navbar-light navbar-expand-sm" style="padding: 0;">
+    <div style="height: 100px; " class='container-fluid nav-container'>
+      
+      <a  class="navbar-brand" href="/food" id="logo">
+        <img id="image" src="https://example.in/small-logo.png" style="height: 80px; width: 80px;" />
+      </a>
+        <button style="box-shadow: none;" class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse"  aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <a style="display: none; position: absolute; right: 60px;" id="mobile_notifiction" href="#">
+          <img id="image_notification" onclick="openCustomModal()" src="/normal_notification.svg" style="height: 35px; width: 35px;margin-top: 7px;" />
+        </a>
+
+        <div style="display: none;" id="mobile_profile" class="nav-item dropdown" data-label="website-post-login">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <img id="image_profile" src="" style="height: 40px; width: 40px; margin-top: 6px; border-radius: 20px;" />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <a class="dropdown-item" href="/me" rel="nofollow">
+              My Account
+            </a>
+            <a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+              Log out
+            </a>
+            <a class="dropdown-item switch-to-desk hidden" href="/app/new-home-page">Switch To Desk</a>
+          </ul>
+        </div>
+
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="ml-auto navbar-nav">
+          <li class="nav-item dropdown">
+            <a style="width: 7vw;" class="btn btn-lg dropdown-toggle fandb_width" id="dropdown-style" id="dropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Menu
+            </a>
+            <ul class="dropdown-menu" style="min-width: 9vw !important;">
+              <a class="dropdown-item" id="fandbdropdown" href="/food/user/food_menu">
+                Food
+              </a>
+              <a class="dropdown-item" id="fandbdropdown" href="/food/user/beverage_menu">
+                Beverages
+              </a>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/user/request_food">
+              Request Food
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/user/booked_food">
+              Booked Meals  
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn qr_width" style="width: 8vw;" id="dropdown-style" aria-expanded="false"
+              href="/food/user/qr">
+              QR Ticket
+            </a>
+          </li>
+         
+          <li class="nav-item dropdown logged-in" data-label="website-notify" id="website-notify"
+            style="display: none">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <img id="image_notification" class="margin_for_png" onclick="openCustomModal()" src="/normal_notification.svg" style="height: 30px; width: 30px;margin-top: 7px" />
+            </a>
+          </li>
+          
+          <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login"
+            style="display: none">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <img id="image_profile_desktop" class="margin_for_png" src="/profile-icon.png" style="height: 30px; width: 30px;margin-top: 6px;border-radius: 15px;" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <a class="dropdown-item" href="/me" rel="nofollow">
+                My Account
+              </a>
+              <a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+                Log out
+              </a>
+              <a class="dropdown-item switch-to-desk hidden" href="/app/new-home-page">Switch To Desk</a>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-login-area" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+
+      <div id="mobile_menu" class="side-drawer">
+        <ul class="ml-auto navbar-nav">
+          <li class="nav-item dropdown">
+            <a id="menu" style="width: 7vw;" class="btn dropdown-toggle fandb_width dropdown-style"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Menu
+            </a>
+            <ul class="dropdown-menu" style="width: auto;">
+              <a id="food_menu" class="dropdown-item fandbdropdown"  href="/food/user/food_menu">
+                Food
+              </a>
+              <a id="beverage_menu" class="dropdown-item fandbdropdown"  href="/food/user/beverage_menu">
+                Beverages
+              </a>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a id="request_food" style="width: auto;" class="btn dropdown-style" aria-expanded="false"
+              href="/food/user/request_food">
+              Request Food
+            </a>
+          </li>
+          <li class="nav-item">
+            <a id="booked_meals" style="width: auto;" class="btn dropdown-style" aria-expanded="false"
+              href="/food/user/booked_food">
+              Booked Meals  
+            </a>
+          </li>
+          <li class="nav-item">
+            <a id="qr" class="btn dropdown-style" style="width: auto;" aria-expanded="false"
+              href="/food/user/qr">
+              QR Ticket
+            </a>
+          </li>
+         
+          <li class="nav-item dropdown logged-in" data-label="website-notify" id="website-notify"
+            style="display: none">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <img id="image_notification" class="margin_for_png" onclick="openCustomModal()" src="/normal_notification.svg" style="height: 30px; width: 30px;margin-top: 7px" />
+            </a>
+          </li>
+          
+          <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login"
+            style="display: none">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <img id="image_profile_desktop" class="margin_for_png" src="/profile-icon.png" style="height: 30px; width: 30px;margin-top: 6px" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <a class="dropdown-item" href="/me" rel="nofollow">
+                My Account
+              </a>
+              <a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+                Log out
+              </a>
+              <a class="dropdown-item switch-to-desk hidden" href="/app/new-home-page">Switch To Desk</a>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-login-area" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+
+
+  <div style="position: absolute;top: 100px;" class="custom-modal" id="Notification">
+    <div class="modal-content" style="width: 100%;">
+        <div class="modal-header">
+            <h5 class="modal-title">Notification</h5>
+            <button type="button" class="close" onclick="closeCustomModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="display_center_model" id="notificationContainer">
+            <!-- Notifications will be dynamically added here -->
+        </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <p style="cursor: pointer;">View All</p>
+      </div> -->
+    </div>
+</div>
+
+  {% block webform %}
+  {% endblock %}
+
+
+
+
+<script>
+
+document.querySelector('.toggle-btn').addEventListener('click', function() {
+  document.querySelector('.side-drawer').classList.toggle('open');
+});
+
+activemenu = [
+  {
+   name:'menu',
+   link:'' 
+  },
+  {
+   name:'food_menu',
+   link:'/food/user/food_menu' 
+  },
+  {
+   name:'beverage_menu',
+   link:'/food/user/beverage_menu' 
+  },
+  {
+   name:'request_food',
+   link:'/food/user/request_food' 
+  },
+  {
+   name:'booked_meals',
+   link:'/food/user/booked_food' 
+  },
+  {
+   name:'qr',
+   link:'/food/user/qr' 
+  },
+]
+
+var employeeId = "{{ emp_id.name }}";
+var userinfo = "{{ emp_details.user_image }}";
+var defaultprofile = "/profile-icon.png"
+
+var image = document.getElementById("image_profile");
+var image_profile_desktop = document.getElementById("image_profile_desktop");
+if(userinfo != 'None' && userinfo != '' && userinfo != undefined && userinfo != null){
+  image_profile_desktop.setAttribute("src", userinfo);
+  image.setAttribute("src", userinfo);
+} else {
+  image_profile_desktop.setAttribute("src", defaultprofile);
+  image.setAttribute("src", defaultprofile);
+}
+
+
+var notification_icon = document.getElementById('image_notification')
+const currentURL = window.location.pathname;
+
+
+var notifications = [];
+
+for(var i = 0; i < activemenu.length; i++){
+  // console.log('hi')
+  if(currentURL == activemenu[i].link){
+    document.getElementById(activemenu[i].name).classList.add('mobile_active');
+    // console.log('hi2')
+  } else {
+    document.getElementById(activemenu[i].name).classList.remove('mobile_active');
+  }
+}
+
+if(currentURL == '/food/user/food_menu' || currentURL == '/food/user/beverage_menu'){
+  document.getElementById('menu').classList.add('mobile_active');
+} else {
+  document.getElementById('menu').classList.remove('mobile_active');
+}
+
+frappe.ready(function (){
+  GetNotificationList();
+})
+
+function GetNotificationList(){
+  notification_icon.src = '/normal_notification.svg'
+  frappe.call({
+  method: 'food_beverages.www.food.admin.billing.index.GetNotificationList',
+  args: {user_id : employeeId},
+  callback: function (r) {
+    // console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      notifications = r.message;
+      // console.log(notifications)
+      notifications.forEach(notification => {
+        if(notification && notification.is_read === 0){
+        notification_icon.src = '/new_notification.svg'
+        }
+      });
+    } 
+  }
+});
+}
+
+  function openCustomModal() {
+    document.getElementById('Notification').classList.add('show');
+
+   
+
+const notificationContainer = document.getElementById('notificationContainer');
+
+// Clear existing content
+notificationContainer.innerHTML = '';
+
+// Check if there are notifications
+if (notifications.length > 0) {
+    // Loop through notifications and create HTML elements
+    notifications.forEach(notification => {
+        const notificationItem = document.createElement('div');
+        notificationItem.classList.add('notification-item');
+        notificationItem.addEventListener('click', function () {
+        // Call your custom edit function here and pass the values
+        Add_read_record(notification);
+      });
+
+        const redDotStyle = notification.is_read ? 'display: none;' : 'color: red;';
+
+        notificationItem.innerHTML = `
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <p class="notification-title">${notification.title}  <span class="red-dot" style="${redDotStyle}">&#8226;</span></p>
+                    </div>
+                    <p class="notification-location">${notification.location}</p>
+                </div>
+                <p class="notification-content notification_content">${notification.description}</p>
+                <p class="notification-time">${notification.time_ago}</p>
+            `;
+        notificationContainer.appendChild(notificationItem);
+    });
+} else {
+    // If no notifications, display a message
+    notificationContainer.innerHTML = '<p>No new notifications</p>';
+    notificationContainer.style.textAlign = 'center';
+}
+
+// Show the modal
+// (You need to implement a function like showCustomModal() to handle the display)
+// showCustomModal('Notification');
+}
+
+function closeCustomModal() {
+    document.getElementById('Notification').classList.remove('show');
+}
+
+
+function Add_read_record(notification){
+// console.log(notification+'index value')
+frappe.call({
+  method: 'food_beverages.www.food.admin.billing.index.Add_read',
+  args: {user_id : employeeId,id : notification.name},
+  callback: function (r) {
+    // console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      GetNotificationList();
+      setTimeout(function () {
+      openCustomModal();
+    }, 300);
+    } 
+  }
+});
+}
+
+
+</script>
+
+
+
+
+  <!-- js should be loaded in body! -->
+  <script>
+    frappe.boot = { 'sysdefaults': { 'float_precision': 3, 'date_format': 'dd-mm-yyyy', 'time_format': 'HH:mm:ss' }, 'time_zone': { 'system': 'Asia/Kolkata', 'user': 'Asia/Kolkata' } }
+    // for backward compatibility of some libs
+    frappe.sys_defaults = frappe.boot.sysdefaults;
+  </script>
+  <script type="text/javascript" src="/assets/frappe/dist/js/frappe-web.bundle.67ZVCQN2.js"></script>
+  <script type="text/javascript" src="/assets/frappe/dist/js/frappe-web.bundle.ZTJNSQRM.js"></script>
+  <script type="text/javascript" src="/website_script.js"></script>
+  <script type="text/javascript" src="/assets/erpnext/dist/js/erpnext-web.bundle.5YR4TMQD.js"></script>
+  <script>frappe.csrf_token = "{{frappe.session.csrf_token}}";</script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  
+</body>
+
+</html>

@@ -1,0 +1,670 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/assets/frappe/js/frappe.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+    display: flex; 
+  justify-content: center; 
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 480px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 65%;
+}
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-x: hidden; /* Hide horizontal overflow */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.image {
+    flex: 0 0 48%;
+    margin-bottom: 2%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 267px;
+    border-radius: 8%;
+}
+
+.margin_content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .image-text {
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 18px 1px 1px 18px;
+    background: black;
+    padding: 3px 30px 5px 19px;
+    }
+
+
+    .margin_right{
+      margin-right: 1%;
+    }
+    
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 100%;
+      margin-top: 2%;
+    }
+
+    .margin_top{
+      margin-top: 20px;
+    }
+
+    .button_width{
+      width: 150px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 35px
+    }
+  
+    .button_width:hover{
+      width: 150px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 35px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 19%;
+}
+
+.display_center_for_Aview{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    }
+
+  .column {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+
+  .margin_top_0{
+    margin-top: 0px;
+  }
+
+  .column_width{
+    width: 73%;
+  }
+  .filter_column_width{
+    width: 63%;
+  }
+  .column {
+  margin-bottom: 10px; /* Add some spacing between columns */
+}
+
+/* Common styles for both row and column layout */
+.column {
+  margin-bottom: 10px; /* Add some spacing between columns */
+}
+
+/* Row layout for larger screens (desktop) */
+@media (min-width: 768px) {
+  .display_center_for_Aview {
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-between; /* Add space between columns */
+  }
+
+  .inner_div{
+    position: relative;
+    /* left: 38%; */
+    }
+
+  .column {
+    width: calc(25% - 10px); /* Four columns in a row with spacing between them */
+  }
+}
+
+/* Column layout for smaller screens (e.g., tablets and smartphones) */
+
+
+table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 40px;
+      display: inline;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      /* border-radius: 5px; */
+    }
+
+    .table_margin_top{
+      margin-top: 2%;
+    }
+
+    .filter_column{
+      width: calc(19% - 10px); 
+      padding: 0px 2px;
+    }
+    
+    .filter_column_align{
+      display: flex;
+      justify-content: end;
+      margin-right: -1px;
+      margin-bottom: 0.5%;
+    }
+
+    .box_shadow_remove{
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+    }
+    .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+
+  .cancel_button_common{
+      width: 139px;
+      background-color: #ddd;
+      color: black;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .cancel_button_common:hover{
+      width: 139px;
+      background-color: #ddd;
+      color: #000;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .submit_button_common{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+    }
+  
+    .submit_button_common:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+</style>
+
+
+
+<div class="location_container">
+  <button onclick="Add_new()" type="button" id="Button_new" class="button_width button margin_top submit_margin">
+  New Notification</button>
+  </div>
+   
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+
+      <div id="L_view" class="table_margin_top">
+        
+        <div id="table"></div>
+      </div>
+        
+        <div id="A_view" style="width: 100%;">
+          <div class="display_center_for_Aview">
+           
+            
+            <div class="column margin_top" style="width: 50%;">
+              <label for="Title">Title:</label>
+              <div>
+                  <input type="text" class="form-control box_shadow_remove input-style" id="Title" maxlength="40" required>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 50%;">
+              <label for="Description">Description:</label>
+              <div>
+                  <input type="text" class="form-control box_shadow_remove input-style" maxlength="100" id="Description">
+              </div>
+            </div>
+
+            
+
+            <div class="column margin_top" style="width: 50%;">
+              <label for="End_Date">End Date:</label>
+              <div>
+                  <input type="date" class="form-control box_shadow_remove input-style" id="End_Date">
+              </div>
+            </div>
+
+
+            <div class="column margin_top" style="width: 50%;">
+              <label for="Location">Location</label>
+              <div>
+                <select class="form-control box_shadow_remove form-select input-style" id="Location" name="Location">
+                  <option value="All">All</option>
+                  <option value="IITM RP">IITM RP</option>
+                  <option value="Thaiyur">Thaiyur</option>
+                  <option value="Shar">Shar</option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="inner_div">
+            <button onclick="CancelBtn()" type="button" id="Button_new" class="cancel_button_common button margin_top">
+              Cancel</button>
+            <button onclick="Add_Notification()" type="button" id="Button_new" class="submit_button_common button margin_top">
+              Submit</button>
+            </div>
+          </div>
+          </div>
+     
+      
+    </div>
+    
+  </form>
+</div>
+
+
+<div class="modal fade" id="TableDelete" tabindex="-1" role="dialog" aria-labelledby="TableDeleteTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content" style="width: 66%; margin-left: 17%;">
+      <div class="modal-header">
+        <h5 class="display_center_model modal-title">Are You Sure For Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="display_center_model">
+          <button type="button" id="yes_button" data-dismiss="modal" class="btn cancel_button_common button">
+            No
+          </button>
+          <button type="button" style="margin-left: 10px;"   onclick="delete_funciton()"  id="no_button" data-dismiss="modal" data-dismiss="modal" class="btn submit_button_common button">
+          Yes
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/frappe/2.1.1/frappe.min.js"></script>
+<script>
+
+var L_view = document.getElementById('L_view');
+var A_view = document.getElementById('A_view');
+var edit_id;
+L_view.style.display='Block';
+A_view.style.display='none';
+var data = [];
+var table = document.createElement('table');
+
+frappe.ready(function (){
+  GetNotificationList();
+})
+
+
+function CancelBtn(){
+L_view.style.display='Block';
+A_view.style.display='none';
+document.getElementById('Title').value = '';
+document.getElementById('Description').value = '';
+document.getElementById('End_Date').value = '';
+document.getElementById('Location').value = '';
+
+edit_id = '';
+}
+  
+
+function Add_new(){
+L_view.style.display='none';
+A_view.style.display='Block';
+}
+
+function Edit_function(rowData){
+  document.getElementById('Title').value = rowData.title;
+  document.getElementById('Description').value = rowData.description;
+  document.getElementById('End_Date').value = rowData.end_date;
+  document.getElementById('Location').value = rowData.location;
+  
+  edit_id = rowData.name;
+  L_view.style.display='none';
+  A_view.style.display='Block';
+}
+
+
+function GetNotificationList(){
+
+frappe.call({
+  method: 'food_beverages.www.food.admin.admin_notification.index.GetNotificationList',
+  args: {},
+  callback: function (r) {
+    console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      data = r.message;
+      console.log(data)
+      createTable();
+      // listing()
+    } 
+  }
+});
+
+}
+
+
+function Add_Notification(){
+
+  var Title = document.getElementById('Title').value;
+  var Description = document.getElementById('Description').value;
+  var End_Date = document.getElementById('End_Date').value;
+  var Location = document.getElementById('Location').value;
+
+  var employeeId = "{{ emp_id.name }}";
+
+  if(edit_id){
+  frappe.call({
+  method: 'food_beverages.www.food.admin.admin_notification.index.Edit_Notification',
+  args: {Title,Description,End_Date,Location,employeeId,id :edit_id},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+      document.getElementById('Title').value = '';
+      document.getElementById('Description').value = '';
+      document.getElementById('End_Date').value = '';
+      document.getElementById('Location').value = '';
+        edit_id = '';
+        GetNotificationList()
+        L_view.style.display='Block';
+        A_view.style.display='none';
+      }
+  }
+  });
+  } else {
+  frappe.call({
+  method: 'food_beverages.www.food.admin.admin_notification.index.Add_Notification',
+  args: {Title,Description,End_Date,Location,employeeId},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+    GetNotificationList()
+    L_view.style.display='Block';
+    A_view.style.display='none';
+    document.getElementById('Title').value = '';
+    document.getElementById('Description').value = '';
+    document.getElementById('End_Date').value = '';
+    document.getElementById('Location').value = '';
+    edit_id = '';
+    }
+  }
+  });
+  }
+
+  
+
+}
+
+
+function createTable() {
+    table.innerHTML = '';
+
+    if (!data) {
+        var noDataRow = document.createElement('tr');
+        var noDataCell = document.createElement('td');
+        noDataCell.setAttribute('colspan', '3'); // Set the colspan to the number of columns
+        noDataCell.appendChild(document.createTextNode('No data found'));
+        noDataRow.appendChild(noDataCell);
+
+        var tbody = document.createElement('tbody');
+        tbody.appendChild(noDataRow);
+        table.appendChild(tbody);
+
+        var tableDiv = document.getElementById('table');
+        tableDiv.appendChild(table);
+
+        return;
+    }
+
+    // Create table header
+    var thead = document.createElement('thead');
+    var headerRow = document.createElement('tr');
+    var headers = ['Title','Description','End Date','Location','Actions'];
+
+    headers.forEach(function (headerText) {
+      var th = document.createElement('th');
+      th.appendChild(document.createTextNode(headerText));
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Create table body
+    var tbody = document.createElement('tbody');
+
+    data.forEach(function (rowData, index) {
+      var row = document.createElement('tr');
+
+      // Add item and quantity cells
+      Object.entries(rowData).forEach(function ([key, value]) {
+      if (key !== 'name') {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(value));
+        row.appendChild(td);
+      }
+      });
+
+      // Add actions cell with edit and delete buttons
+      var actionsCell = document.createElement('td');
+      actionsCell.style.width = '85px';
+
+      var editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'btn btn-sm';
+      editButton.innerHTML = '<i class="fas fa-edit"></i>';
+      // editButton.style.backgroundColor= '#FF4D00';
+      // editButton.style.color= '#fff';
+      editButton.style.borderRadius= '8px';
+      editButton.style.border= '1px solid #1A1A1A';
+      editButton.addEventListener('click', function () {
+        // Call your custom edit function here and pass the values
+        Edit_function(rowData);
+      });
+
+      var deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'btn btn-sm';
+      deleteButton.innerHTML = '<i class="fas fa-trash-alt delete-icon"></i> ';
+      deleteButton.style.borderRadius= '8px';
+      deleteButton.style.border= '1px solid #1A1A1A';
+      deleteButton.style.marginLeft = '5px';
+      deleteButton.setAttribute('data-toggle', 'modal');
+      deleteButton.setAttribute('data-target', '#TableDelete');
+      deleteButton.addEventListener('click', function () {
+        // Call your custom delete function here and pass the values
+        deleteRow(rowData);
+      });
+      actionsCell.appendChild(editButton);
+      actionsCell.appendChild(deleteButton);
+
+      row.appendChild(actionsCell);
+
+      tbody.appendChild(row);
+    });
+
+    for (let i = 0; i < headerRow.cells.length; i++) {
+    headerRow.cells[i].style.backgroundColor = '#FF4D00';
+    headerRow.cells[i].style.color = '#fff';
+  }
+
+
+  table.appendChild(tbody);
+
+    // Get the div with id 'table' and append the table to it
+    var tableDiv = document.getElementById('table');
+    tableDiv.appendChild(table);
+  }
+
+  function deleteRow(event){
+    id = event.name;
+  }
+
+
+  
+
+function delete_funciton(){
+  console.log('id:' +id);
+  frappe.call({
+  method: 'food_beverages.www.food.admin.admin_notification.index.delete_function',
+  args: {id: id},
+  callback: function (r) {
+  console.log(r);
+  if(r.message && Object.keys(r.message).length > 0){
+    id = '';
+    GetNotificationList()
+    CancelBtn()
+  } else {
+    id = '';
+    GetNotificationList()
+    CancelBtn()
+  }
+}
+
+});
+  }
+
+</script>
+
+
+
+
+{%endblock%}

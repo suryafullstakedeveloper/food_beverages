@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2024-02-14 16:12:37.280773",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id",
+  "category",
+  "breakfast",
+  "breakfast_nveg",
+  "lunch",
+  "lunch_nveg",
+  "dinner",
+  "dinner_nveg",
+  "location",
+  "date",
+  "created_by",
+  "modifyed_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Id"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "label": "Category"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Data",
+   "label": "Date"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Data",
+   "label": "Created By"
+  },
+  {
+   "fieldname": "modifyed_by",
+   "fieldtype": "Data",
+   "label": "Modified By"
+  },
+  {
+   "fieldname": "breakfast",
+   "fieldtype": "Data",
+   "label": "Breakfast"
+  },
+  {
+   "fieldname": "lunch",
+   "fieldtype": "Data",
+   "label": "Lunch"
+  },
+  {
+   "fieldname": "dinner",
+   "fieldtype": "Data",
+   "label": "Dinner"
+  },
+  {
+   "fieldname": "breakfast_nveg",
+   "fieldtype": "Data",
+   "label": "Breakfast N-veg"
+  },
+  {
+   "fieldname": "lunch_nveg",
+   "fieldtype": "Data",
+   "label": "Lunch N-veg"
+  },
+  {
+   "fieldname": "dinner_nveg",
+   "fieldtype": "Data",
+   "label": "Dinner N-veg"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-04-10 13:48:02.186296",
+ "modified_by": "Administrator",
+ "module": "food_beverages",
+ "name": "Food Manual Count",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

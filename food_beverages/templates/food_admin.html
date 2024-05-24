@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!-- Built on Frappe. https://frappeframework.com/ -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="generator" content="frappe">
+
+
+  <meta name="name" content="home">
+  <meta property="og:type" content="website">
+  <meta name="title" content="home">
+  <meta name="language" content="en">
+  <meta property="og:title" content="home">
+  <meta name="twitter:title" content="home">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- <title>home</title>
+
+
+  <link rel="shortcut icon" href="/assets/frappe/images/frappe-favicon.svg" type="image/x-icon"> -->
+
+  <title>Food & Beverages</title>
+
+
+
+  <link rel="canonical" href="http://127.0.0.1:8001/home">
+  <link type="text/css" rel="stylesheet" href="/assets/frappe/dist/css/website.bundle.MA7XHIZR.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="/files/website_theme/user_theme_0fdc3674.css">
+  <link type="text/css" rel="stylesheet" href="/assets/erpnext/dist/css/erpnext-web.bundle.2JRVHXNB.css">
+
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+  </head>
+  <style>
+    .input-style {
+      width: 100%;
+      height: 50px;
+      border-color: #305A34;
+      border-radius: 8px;
+    }
+
+    .link:hover {
+      cursor: pointer;
+    }
+
+    .custom-file-input.input-style {
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .custom-file-label.input-style {
+      height: 50px;
+      overflow: hidden;
+    }
+
+    .custom-file-label::after {
+      height: 50px;
+      line-height: 50px;
+    }
+
+    .content {
+      padding: 10px 100px;
+
+    }
+  </style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-boxs;
+    }
+
+    body {
+      background: url('/food-bg.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #dropdown-style {
+      width: 7vw;
+      height: 60px;
+      font-size: 1.1vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+    }
+
+    #dropdown-style:hover {
+      color: #FF4D00;
+    }
+    .dropdown-item:hover{
+      color: #FF4D00;
+    }
+
+    #logo {
+      width: 80px;
+      height: 80px;
+
+    }
+
+    #userlogo {
+      margin-left: 20px;
+      padding: 20px;
+      margin-right: 100px;
+    }
+
+    .nav-container {
+      width: 100vw;
+      padding: 10px 50px;
+      display: flex;
+      justify-content: space-around;
+      background-color: white;
+    }
+
+    #user-achor {
+      width: 60px;
+      height: 60px;
+      margin-right: 120px;
+      background-color: rgb(30, 136, 299);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      color: white;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 100px);
+    }
+
+    #forms {
+      background-color: white;
+      border-radius: 10px;
+      width: 900px;
+      height: 720px;
+      border: 1px solid #989898;
+    }
+
+    @media (max-width: 799px) {
+      #dropdown-style {
+      width: 9vw;
+      /* height: 60px; */
+      font-size: 1.5vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: none;
+      font-weight: 100;
+    }
+}
+/* 
+@media only screen and (max-width: 800px) {
+  .nav-container {
+    padding: 10px;
+    justify-content: center;
+  }
+  #logo {
+    margin-right: auto;
+  }
+  #navbarSupportedContent {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 1;
+  }
+  .nav-item {
+    margin: 10px 0;
+  }
+  .navbar-toggler {
+    display: block;
+  }
+} */
+
+.image_size_logo{
+    height: 10vh;
+    width: 5vw;
+    object-fit: cover;
+    background-size: contain;
+  }
+  
+  .dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #7b8997 !important;
+}
+
+.btn.active, .btn:active {
+    color: #FF4D00;
+    text-decoration: none;
+    background-color: #fff !important;
+}
+
+#fandbdropdown{
+  width: 10vw;
+  font-size: 1.1vw;
+  box-shadow: none;
+}
+
+  </style>
+
+  <script>
+    window.frappe = {};
+    frappe.ready_events = [];
+    frappe.ready = function (fn) {
+      frappe.ready_events.push(fn);
+    }
+    window.dev_server = 1;
+    window.socketio_port = 9001;
+    window.show_language_picker = false;
+  </script>
+</head>
+
+{% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+{% set role = frappe.get_all('Has Role',filters ={'parent': frappe.session.user}, fields=['role'])%}
+{% set emp_details = frappe.get_doc('User',{'email':frappe.session.user})%}
+
+
+<body frappe-session-status="logged-in" data-path="home" style="overflow-x: hidden; font-family: 'Poppins'">
+  <nav class="navbar navbar-light navbar-expand-sm" style="padding: 0;">
+    <div style="height: 100px; " class='container-fluid nav-container'>
+      <a href="/food" id="logo">
+        <img class="image_size_logo" id="image" src="https://example.in/small-logo.png" />
+
+      </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="ml-auto navbar-nav">
+          <li class="nav-item">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/admin_manual_food_count">
+              Add FC 
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/vendor">
+              Vendor 
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="btn btn-lg dropdown-toggle" id="dropdown-style" id="dropdownMenuLink" style="width: 6vw;; height: 60px;"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Menu
+            </a>
+            <ul class="dropdown-menu" style="min-width: 9vw !important;">
+              <a style="width: 100%;" class="dropdown-item" id="fandbdropdown" href="/food/admin/admin_food_menu">
+                Food
+              </a>
+              <a style="width: 100%;" class="dropdown-item" id="fandbdropdown" href="/food/admin/admin_beverage_menu">
+                Beverages
+              </a>
+            </ul>
+          </li>
+          <li class="nav-item ">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/dashboard">
+              Dashboard
+            </a>
+          </li>
+
+          <!-- <li class="nav-item">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/inventory">
+              Inventory
+            </a>
+          </li> -->
+
+          <li class="nav-item dropdown">
+            <a class="btn btn-lg dropdown-toggle" id="dropdown-style" id="dropdownMenuLink" style="width: 9vw;; height: 60px;"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Inventory
+            </a>
+            <ul class="dropdown-menu" style="min-width: 9vw !important;">
+              <a style="width: 100%;" class="dropdown-item" id="fandbdropdown" href="/food/admin/inventory">
+                Add
+              </a>
+              <a style="width: 100%;" class="dropdown-item" id="fandbdropdown" href="/food/admin/consumable_update">
+                Update
+              </a>
+            </ul>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/calender">
+              Calendar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/reporting">
+              Reporting 
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/billing">
+              Billing 
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a style="width: 4.5vw;" class="btn" id="dropdown-style" aria-expanded="false"
+              href="/food/admin/food_log">
+              Log 
+            </a>
+          </li>
+         
+          <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login"
+          style="display: none">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <img id="image" onclick="goto_notifiction()" src="/add_notification.svg" style="height: 30px; width: 30px; margin-top: 7px;" />
+          </a>
+          </li>
+          
+          <li class="nav-item dropdown logged-in" data-label="website-post-login" id="website-post-login"
+            style="display: none">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <img id="image_profile_desktop" src="/profile-icon.png" style="height: 30px; width: 30px; margin-left: 10px; margin-top: 7px;border-radius: 15px" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <a class="dropdown-item" href="/me" rel="nofollow">
+                My Account
+              </a>
+              <a class="dropdown-item" href="/?cmd=web_logout" rel="nofollow">
+                Log out
+              </a>
+              <a class="dropdown-item switch-to-desk hidden" href="/app/new-home-page">Switch To Desk</a>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn-login-area" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+  <script>
+
+  var userinfo = "{{ emp_details.user_image }}";
+  var defaultprofile = "/profile-icon.png"
+  
+  var image_profile_desktop = document.getElementById("image_profile_desktop");
+  if(userinfo != 'None' && userinfo != '' && userinfo != undefined && userinfo != null){
+    image_profile_desktop.setAttribute("src", userinfo);
+  } else {
+    image_profile_desktop.setAttribute("src", defaultprofile);
+  }
+
+
+    function goto_notifiction(){
+      window.location = '/food/admin/admin_notification'
+    }
+  </script>
+
+  {% block webform %}
+  {% endblock %}
+
+
+  <!-- js should be loaded in body! -->
+  <script>
+    frappe.boot = { 'sysdefaults': { 'float_precision': 3, 'date_format': 'dd-mm-yyyy', 'time_format': 'HH:mm:ss' }, 'time_zone': { 'system': 'Asia/Kolkata', 'user': 'Asia/Kolkata' } }
+    // for backward compatibility of some libs
+    frappe.sys_defaults = frappe.boot.sysdefaults;
+  </script>
+  <script type="text/javascript" src="/assets/frappe/dist/js/frappe-web.bundle.67ZVCQN2.js"></script>
+  <script type="text/javascript" src="/assets/frappe/dist/js/frappe-web.bundle.ZTJNSQRM.js"></script>
+  <script type="text/javascript" src="/website_script.js"></script>
+  <script type="text/javascript" src="/assets/erpnext/dist/js/erpnext-web.bundle.5YR4TMQD.js"></script>
+  <script>frappe.csrf_token = "{{frappe.session.csrf_token}}";</script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="/assets/frappe/js/dialog.bundle.js"></script>
+
+
+
+<script>
+  var rolevar = "{{role}}"
+
+  var validJSON = rolevar.replace(/'/g, '"');
+
+var rolesArray = JSON.parse(validJSON);
+
+console.log(rolesArray)
+
+  var foodManagerExists = false;
+
+for (var i = 0; i < rolesArray.length; i++) {
+  if (rolesArray[i].role === 'Food Manager') {
+    foodManagerExists = true;
+    break;
+  }
+}
+
+if (foodManagerExists == false) {
+  window.location = '/food/Forbidden'
+} 
+
+</script>
+
+</body>
+
+</html>

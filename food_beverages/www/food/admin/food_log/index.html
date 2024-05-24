@@ -1,0 +1,509 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/assets/frappe/js/frappe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+    display: flex; 
+  justify-content: center; 
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 480px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 65%;
+}
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-x: hidden; /* Hide horizontal overflow */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.image {
+    flex: 0 0 48%;
+    margin-bottom: 2%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 267px;
+    border-radius: 8%;
+}
+
+.margin_content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .image-text {
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 18px 1px 1px 18px;
+    background: black;
+    padding: 3px 30px 5px 19px;
+    }
+
+
+    .margin_right{
+      margin-right: 1%;
+    }
+    
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 100%;
+      margin-top: 2%;
+    }
+
+    .margin_top{
+      margin-top: 20px;
+    }
+
+
+.display_center_for_Aview{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    }
+
+  .column {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+
+  .margin_top_0{
+    margin-top: 0px;
+  }
+
+  .column_width{
+    width: 73%;
+  }
+  .filter_column_width{
+    width: 63%;
+  }
+  .column {
+  margin-bottom: 10px; /* Add some spacing between columns */
+}
+
+/* Common styles for both row and column layout */
+.column {
+  margin-bottom: 10px; /* Add some spacing between columns */
+}
+
+/* Row layout for larger screens (desktop) */
+@media (min-width: 768px) {
+  .display_center_for_Aview {
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-between; /* Add space between columns */
+  }
+
+  .inner_div{
+    position: relative;
+    /* left: 38%; */
+    }
+
+  .column {
+    width: calc(25% - 10px); /* Four columns in a row with spacing between them */
+  }
+}
+
+/* Column layout for smaller screens (e.g., tablets and smartphones) */
+
+
+table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 40px;
+      display: inline;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 6px 14px;
+      width: 180px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      /* border-radius: 5px; */
+    }
+
+    .table_margin_top{
+      margin-top: 2%;
+    }
+
+    .filter_column{
+      width: calc(19% - 10px); 
+      padding: 0px 2px;
+    }
+    
+    .filter_column_align{
+      display: flex;
+      margin-left: 2%;
+      margin-bottom: 0.5%;
+    }
+
+    .box_shadow_remove{
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+    }
+    .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+
+    .submit_button_common{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 36px;
+      margin-left: 15px;
+    }
+  
+    .submit_button_common:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 36px;
+      margin-left: 15px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+</style>
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+
+      <div id="L_view" class="table_margin_top">
+        <div class="row filter_column_align">
+
+          <div class="filter_column filter_column_width">
+          <input class="form-control" id="date" name="date" type="date">
+          </div>
+
+          <div class="filter_column filter_column_width">
+            <div>
+              <select class="form-control box_shadow_remove input-style" id="Location_filter" name="Location_filter">
+                <option selected hidden disabled value="">Location</option>
+                <option value="">All</option>
+                <option value="IITM RP">IITM RP</option>
+                <option value="Thaiyur">Thaiyur</option>
+                <option value="Shar">Shar</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter_column filter_column_width">
+            <div>
+              <select class="form-control box_shadow_remove input-style" id="Food_Type_filter" name="Food_Type_filter">
+                <option selected hidden disabled value="">Food Type</option>
+                <option value="">All</option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter_column filter_column_width">
+            <div>
+              <select class="form-control box_shadow_remove input-style" id="Report_Type_filter" name="Report_Type_filter">
+                <option selected hidden disabled value="Booked">Report Type</option>
+                <option value="Booked">Booked</option>
+                <option value="Not Consumed">Not Consumed</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter_column filter_column_width">
+            <button onclick="generateExcel()" type="button" id="Button_new" class="submit_button_common button submit_margin">
+              Export</button>
+          </div>
+          
+
+        </div>
+        <div style="margin-top: 10px; width: 100% !important;" id="table"></div>
+      </div>
+        
+        <div id="A_view" style="width: 100%;">
+          
+          </div>
+     
+      
+    </div>
+    
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/frappe/2.1.1/frappe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+var L_view = document.getElementById('L_view');
+var A_view = document.getElementById('A_view');
+var edit_id;
+L_view.style.display='Block';
+A_view.style.display='none';
+var data = [];
+var table = document.createElement('table');
+createTable();
+
+var filter1 = document.getElementById('Location_filter')
+var filter2 = document.getElementById('Food_Type_filter');
+var filter3 = document.getElementById('Report_Type_filter');
+var filter4 = document.getElementById('date');
+
+  filter1.addEventListener('change', function(event) {
+    filterList();
+  });
+
+  filter2.addEventListener('change', function(event) {
+    filterList();
+  });
+
+  filter3.addEventListener('change', function(event) {
+    filterList();
+  });
+
+  filter4.addEventListener('change', function(event) {
+    filterList();
+  });
+  
+
+function createTable() {
+    table.innerHTML = '';
+
+    if (!data || data == [] || data == undefined || data.length <= 0) {
+    var thead = document.createElement('thead');
+    var headerRow = document.createElement('tr');
+    var headers = ['Emp Name', 'Emp Id','Food Type', 'Date', 'Location'];
+
+    headers.forEach(function (headerText) {
+      var th = document.createElement('th');
+      th.appendChild(document.createTextNode(headerText));
+      headerRow.appendChild(th);
+    });
+
+    for (let i = 0; i < headerRow.cells.length; i++) {
+    headerRow.cells[i].style.backgroundColor = '#FF4D00';
+    headerRow.cells[i].style.color = '#fff';
+  }
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+        var noDataRow = document.createElement('tr');
+        var noDataCell = document.createElement('td');
+        noDataCell.setAttribute('colspan', '5'); // Set the colspan to the number of columns
+        noDataCell.appendChild(document.createTextNode('No data found'));
+        noDataRow.appendChild(noDataCell);
+
+        var tbody = document.createElement('tbody');
+        tbody.appendChild(noDataRow);
+        table.appendChild(tbody);
+
+        var tableDiv = document.getElementById('table');
+        tableDiv.appendChild(table);
+
+        return;
+    }
+
+    // Create table header
+    var thead = document.createElement('thead');
+    var headerRow = document.createElement('tr');
+    var headers = ['Emp Name', 'Emp Id','Food Type', 'Date', 'Location'];
+
+    headers.forEach(function (headerText) {
+      var th = document.createElement('th');
+      th.appendChild(document.createTextNode(headerText));
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Create table body
+    var tbody = document.createElement('tbody');
+
+    data.forEach(function (rowData, index) {
+      var row = document.createElement('tr');
+
+      // Add item and quantity cells
+      Object.entries(rowData).forEach(function ([key, value]) {
+      // if (key !== 'name') {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(value));
+        row.appendChild(td);
+      // }
+      });
+
+      tbody.appendChild(row);
+    });
+
+    for (let i = 0; i < headerRow.cells.length; i++) {
+    headerRow.cells[i].style.backgroundColor = '#FF4D00';
+    headerRow.cells[i].style.color = '#fff';
+  }
+
+
+  table.appendChild(tbody);
+
+    // Get the div with id 'table' and append the table to it
+    var tableDiv = document.getElementById('table');
+    tableDiv.appendChild(table);
+  }
+
+
+  function filterList(){
+  
+    var Location_filter = document.getElementById('Location_filter').value;
+    var Food_Type_filter = document.getElementById('Food_Type_filter').value;
+    var Report_Type_filter = document.getElementById('Report_Type_filter').value;
+    var date = document.getElementById('date').value;
+
+    if(!date){
+      Swal.fire({
+        text: 'Kindly Select the Date',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+    } else {
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.food_log.index.Getreportlist_bsd_filter',
+    args: {Location_filter,Food_Type_filter,Report_Type_filter,date},
+    callback: function (r) {
+      console.log(r.message);
+      if(r.message && Object.keys(r.message).length > 0){
+        data = r.message;
+        console.log(data)
+        createTable();
+      } else {
+        console.log('no data found')
+        data = [];
+        createTable();
+      }
+    }
+    });
+  }
+  }
+
+  function generateExcel() {
+
+    if(data && data.length > 0){
+
+    var Location_filter = document.getElementById('Location_filter').value;
+    var Food_Type_filter = document.getElementById('Food_Type_filter').value;
+    var Report_Type_filter = document.getElementById('Report_Type_filter').value;
+    var date = document.getElementById('date').value;
+
+    var file_name = ''
+    if(Location_filter != ''){
+      file_name = Location_filter
+    } else {
+      file_name = 'Food'
+    }
+
+    if(Food_Type_filter != ''){
+      file_name = file_name + '_'+ Food_Type_filter
+    } 
+
+    file_name = file_name + '_' + Report_Type_filter + '_' + date
+
+  var wb = XLSX.utils.book_new();
+
+  var ws = XLSX.utils.json_to_sheet(data);
+
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+  XLSX.writeFile(wb, file_name+".xlsx");
+
+  }
+}
+
+</script>
+
+
+{%endblock%}

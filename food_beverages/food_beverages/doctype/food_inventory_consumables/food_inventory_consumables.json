@@ -1,0 +1,123 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2023-12-29 11:35:57.714092",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "id",
+  "coffee_beans",
+  "coffee_stirrers",
+  "tea_bags",
+  "sugar_sachet",
+  "packet_biscuits",
+  "paper_cups",
+  "water_cans",
+  "butter_sheet",
+  "milk_packets",
+  "location",
+  "date",
+  "created_by",
+  "modifyed_by"
+ ],
+ "fields": [
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Id"
+  },
+  {
+   "fieldname": "coffee_beans",
+   "fieldtype": "Data",
+   "label": "Packet of coffee beans"
+  },
+  {
+   "fieldname": "coffee_stirrers",
+   "fieldtype": "Data",
+   "label": "Packet of coffee stirrers"
+  },
+  {
+   "fieldname": "tea_bags",
+   "fieldtype": "Data",
+   "label": "Tea bags"
+  },
+  {
+   "fieldname": "sugar_sachet",
+   "fieldtype": "Data",
+   "label": "Sugar Sachet"
+  },
+  {
+   "fieldname": "packet_biscuits",
+   "fieldtype": "Data",
+   "label": "Packet of Biscuits"
+  },
+  {
+   "fieldname": "paper_cups",
+   "fieldtype": "Data",
+   "label": "Number of Paper Cups"
+  },
+  {
+   "fieldname": "water_cans",
+   "fieldtype": "Data",
+   "label": "No. of water cans"
+  },
+  {
+   "fieldname": "milk_packets",
+   "fieldtype": "Data",
+   "label": "Number of milk packets"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Data",
+   "label": "Date"
+  },
+  {
+   "fieldname": "created_by",
+   "fieldtype": "Data",
+   "label": "Created By"
+  },
+  {
+   "fieldname": "modifyed_by",
+   "fieldtype": "Data",
+   "label": "Modified By"
+  },
+  {
+   "fieldname": "butter_sheet",
+   "fieldtype": "Data",
+   "label": "Packet of butter sheet"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-12-29 16:33:10.984884",
+ "modified_by": "Administrator",
+ "module": "food_beverages",
+ "name": "Food Inventory Consumables",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

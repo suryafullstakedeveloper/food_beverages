@@ -1,0 +1,1255 @@
+{% extends '/templates/food_user.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+     .tnc{
+        display: flex;
+        justify-content: center;
+    }
+  .input-style {
+    width: 100%;
+    height: 50px;
+    border-color: #305A34;
+    border-radius: 8px;
+  }
+
+  .custom-file-input.input-style {
+    height: 50px;
+    cursor: pointer;
+  }
+
+  .custom-file-label.input-style {
+    height: 50px;
+    overflow: hidden;
+  }
+
+  .custom-file-label::after {
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .content {
+    padding: 10px 100px;
+
+  }
+  .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+  input[type=checkbox]:disabled
+{
+    opacity:3;
+}
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1cm;
+}
+
+#forms{
+  /* border: 8px solid #252525;  */
+  background-color: rgba(255, 255, 255, 0.9);
+  height: max-content; 
+  padding-bottom: 1cm;
+  width: 770px;
+}
+
+.to_style{
+  margin-left: 60px;
+}
+
+.margin_left{
+  margin-left: 15px;
+}
+
+.end_date_margin_left{
+  margin-left: 110px;
+}
+
+.towfour_format{
+  font-size: 13px
+}
+
+.terms_div{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.term_and_condition{
+  text-decoration: none; 
+  color: black;
+}
+
+.text_align_center{
+  text-align: center
+}
+.submit_button{
+  background-color: #305A34; 
+  color: white; 
+  padding: 10px 30px;
+  border: 1px;
+}
+
+.date_div{
+  padding: 45px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+.date_label_style{
+  font-weight: 500;
+  font-size: 19px;
+  margin-right: 11px;
+  margin-left: 195px;
+}
+.date_field_size{
+  font-size: 22px;
+}
+
+.toggle {
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      position: relative;
+      border-radius: 34px;
+      background-color: #2A8532;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .toggle::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #D9D9D9;
+      top: 4px;
+      left: 4px;
+      transition: transform 0.3s;
+    }
+
+    .toggle.on {
+      background-color: #b52b2b;
+    }
+
+    .toggle.on::before {
+      transform: translateX(26px);
+    }
+
+    .select_width{
+      width: 73%;
+    }
+    .class_basic_center{
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: -58px;
+    }
+
+    .button_style_top{
+      margin-top: 40px;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      box-shadow: none;
+      transform: translateY(-2px);
+    }
+
+    .label_text_align{
+      text-align: end;
+      font-weight: 500;
+      /* margin-right: 15px  */
+    }
+
+    .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+    width: fit-content;
+
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .append_style{
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .modal-content {
+    /* position: relative; */
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 64%;
+    /* height: 80%; */
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+    justify-content: center;
+  }
+
+  .model_centered{
+    justify-content: center;
+    display: flex;
+  }
+  /* .center_style{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } */
+
+  .button_margin{
+    margin-bottom: 10px;
+  }
+
+  .date_field_cs {
+    text-align: center;
+    margin-left: 33%;
+    font-size: 18px;
+}
+
+  .col-md-3 {
+    flex: 0 0 30% !important;
+    max-width: 30% !important;
+}
+
+  
+  @media (max-width: 575px) {
+
+    #food_icon{
+      display: none;
+    }
+
+    #forms {
+    border: none;
+    height: max-content;
+    padding-bottom: 1cm;
+  }
+    .class_basic_center {
+    display: flex;
+    align-items: center;
+    position: relative;
+    right: 0px !important;
+    }
+
+    .col-md-3{
+    position: relative;
+    width: 26vw;
+    padding-right: 15px;
+    padding-left: 15px;
+    }
+    .button_width {
+    width: 20vw;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    border: 1px solid #1A1A1A;
+    border-radius: 8px;
+    height: 10vw;
+    font-size: 2vw;
+  }
+
+    .button_width:hover{
+      width: 20vw;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 10vw;
+      box-shadow: #FF4D00 0 4px 7px;
+      transform: translateY(-2px);
+      box-shadow: none;
+      transform: none;
+      font-size: 2vw;
+    }
+
+.append_style {
+    text-align: center;
+    font-weight: 500;
+    font-size: 2vw;
+}
+.input-style {
+    width: 21vw;
+    height: 10vw;
+    border-color: #305A34;
+    border-radius: 8px;
+}
+.label_text_align {
+    text-align: end;
+    font-weight: 500;
+    font-size: 3vw;
+}
+
+.col-md-2{
+    position: relative;
+    width: 27vw;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.date_field_cs {
+    text-align: center;
+    margin-left: 3%;
+    font-size: 4vw;
+}
+.date_div {
+    padding: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content {
+    padding: 0px;
+}
+
+.marquee {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    width: fit-content;
+    font-size: 4vw;
+    margin-top: 5px;
+}
+
+.margin-left-for-btn{
+  margin-left: 12%;
+}
+
+.mt-3, .my-3 {
+    margin-top: 0rem!important;
+}
+
+  }
+    
+</style>
+
+<div id="marquee" class="marquee"></div>
+<div class="div_container">
+
+  <form class="row" id="forms">
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div class="date_div">
+       <input class="date_field_size date_field_cs" type="date" id="date" name="date">
+      </div>
+
+      <div class="form-group row class_basic_center">
+        <span id="food_icon" class="col-sm-1"><img src="/bf-icon.png" alt="" width="35" height="35"></span>
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Breakfast</div>
+        <div class="col-md-3">
+          <input type="text" disabled class="form-control input-style append_style" id="Breakfast" required>
+        </div>
+        <button type="button" id="cancel1" data-toggle="modal" data-target="#BrakefastEdit" class=" button_width button">
+          Edit
+        </button>
+
+      </div>
+
+      <div class="form-group row class_basic_center">
+        <span id="food_icon" class="col-sm-1"><img src="/Icon-Lunch.png" alt="" width="35" height="35"></span>
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Lunch</div>
+        <div class="col-md-3">
+          <input type="text" disabled class="form-control input-style append_style" id="Lunch" required>
+        </div>
+        <button type="button" id="cancel2" data-toggle="modal" data-target="#LunchEdit" class=" button_width button">
+          Edit
+        </button>
+      </div> 
+
+      <div class="form-group row class_basic_center">
+        <span id="food_icon" class="col-sm-1"><img src="/Icon-Dinner.png" alt="" width="35" height="35"></span>
+        <div class="col-md-2 mt-3 mt-md-0 label_text_align">Dinner</div>
+        <div class="col-md-3">
+          <input type="text" disabled class="form-control input-style append_style" id="Dinner" required>
+        </div>
+        <button type="button" id="cancel3" data-toggle="modal" data-target="#DinnerEdit" class=" button_width button">
+          Edit
+        </button>
+      </div> 
+
+  
+    <div id="myContainer" class="container">
+      <!-- Content of the container goes here -->
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeContainer()"></div>
+    
+  </form>
+</div>
+
+<div class="modal fade" id="BrakefastEdit" tabindex="-1" role="dialog" aria-labelledby="BrakefastEditTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Book at other place</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" onclick="Shar_timing()" id="yes_button" class="button_width button margin-left-for-btn">
+          Yes
+        </button>
+        <button type="button" id="no_button" onclick="CancelFood('Breakfast')" data-dismiss="modal" class="button_width button">
+          No
+        </button>
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+      </div>
+      <div class="modal-body center_style" id="additionalButtons" style="display: none;">
+        <div>
+        <button id="breakfast_rp" type="button" data-dismiss="modal" onclick="BreakfastUpdate('IITM RP')" class="button_width button button_margin">Yes at IITM RP</button>
+        </div>
+        <div>
+        <button id="breakfast_thaiyur" type="button" data-dismiss="modal" onclick="BreakfastUpdate('Thaiyur')" class="button_width button button_margin">Yes at Thaiyur</button>
+        </div>
+        <div>
+        <button id="breakfast_shar" type="button" data-dismiss="modal" onclick="BreakfastUpdate('Shar')" class="button_width button button_margin">Yes at Shar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="LunchEdit" tabindex="-1" role="dialog" aria-labelledby="LunchEditTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Book at other place</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" onclick="Shar_timing()" id="yes_button1" class="button_width button">
+          Yes
+        </button>
+        <button type="button" id="no_button1" onclick="CancelFood('Lunch')" data-dismiss="modal" class="button_width button">
+          No
+        </button>
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+      </div>
+      <div class="modal-body center_style" id="additionalButtons1" style="display: none;">
+        <div>
+        <button id="lunch_rp" type="button" data-dismiss="modal" onclick="LunchUpdate('IITM RP')"  class="button_width button button_margin">Yes at IITM RP</button>
+        </div>
+        <div>
+        <button id="lunch_thaiyur" type="button" data-dismiss="modal" onclick="LunchUpdate('Thaiyur')"  class="button_width button button_margin">Yes at Thaiyur</button>
+        </div>
+        <div>
+        <button id="lunch_shar" type="button" data-dismiss="modal" onclick="LunchUpdate('Shar')"  class="button_width button button_margin">Yes at Shar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="DinnerEdit" tabindex="-1" role="dialog" aria-labelledby="DinnerEditTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Book at other place</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" onclick="Shar_timing()" id="yes_button2" class="button_width button">
+          Yes
+        </button>
+        <button type="button" id="no_button2" onclick="CancelFood('Dinner')" data-dismiss="modal" class="button_width button">
+          No
+        </button>
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+        &nbsp
+      </div>
+      <div class="modal-body center_style" id="additionalButtons2" style="display: none;">
+        <div>
+        <button id="dinner_rp" type="button" data-dismiss="modal" onclick="DinnerUpdate('IITM RP')"  class="button_width button button_margin">Yes at IITM RP</button>
+        </div>
+        <div>
+        <button id="dinner_thaiyur" type="button" data-dismiss="modal" onclick="DinnerUpdate('Thaiyur')"  class="button_width button button_margin">Yes at Thaiyur</button>
+        </div>
+        <div>
+        <button id="dinner_shar" type="button" data-dismiss="modal" onclick="DinnerUpdate('Shar')"  class="button_width button button_margin">Yes at Shar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message){
+        // console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+
+var Bf; 
+var Lun;
+var Din;
+
+document.getElementById('yes_button').addEventListener('click', function() {
+  // Show the additional buttons
+  document.getElementById('additionalButtons').style.display = 'block';
+  additionalButtons.style.display = 'flex';
+  additionalButtons.style.flexDirection = 'column';
+  additionalButtons.style.alignItems = 'center';
+});
+
+document.getElementById('cancel1').addEventListener('click',function(){
+  document.getElementById('additionalButtons').style.display = 'none';
+});
+
+document.getElementById('yes_button1').addEventListener('click', function() {
+  // Show the additional buttons
+  document.getElementById('additionalButtons1').style.display = 'block';
+  additionalButtons1.style.display = 'flex';
+  additionalButtons1.style.flexDirection = 'column';
+  additionalButtons1.style.alignItems = 'center';
+});
+
+document.getElementById('cancel2').addEventListener('click',function(){
+  document.getElementById('additionalButtons1').style.display = 'none';
+});
+
+document.getElementById('yes_button2').addEventListener('click', function() {
+  // Show the additional buttons
+  document.getElementById('additionalButtons2').style.display = 'block';
+  additionalButtons2.style.display = 'flex';
+  additionalButtons2.style.flexDirection = 'column';
+  additionalButtons2.style.alignItems = 'center';
+});
+
+document.getElementById('cancel3').addEventListener('click',function(){
+  document.getElementById('additionalButtons2').style.display = 'none';
+});
+
+date.addEventListener('change', function(event) {
+  Bf = '';
+  Lun = '';
+  Din = '';
+  validateDate();
+  timeBasedrestric();
+  });
+
+document.addEventListener('DOMContentLoaded', function () {
+  validateDate();
+ 
+var selectedDate = document.getElementById('date').value;
+var employeeId = "{{ emp_id.name }}";
+
+frappe.call({
+    method: 'food_beverages.www.food.user.booked_food.index.datafetch',
+    args: {
+      selectedDate: selectedDate,
+      employeeId: employeeId,
+    },
+    callback: function (r) {
+      // console.log(r);
+      if(r.message != 'empty'){
+    //  Bf = r.message[2];
+    //  Lun = r.message[1];
+    //  Din = r.message[0];
+    
+     for (const item of r.message) {
+      if (item.request_type === 'Breakfast') {
+        Bf = item;
+      } else if (item.request_type === 'Lunch') {
+        Lun = item;
+      } else if (item.request_type === 'Dinner') {
+        Din = item;
+      }
+    }
+     if (Bf.need == 'Yes' && Bf.location != ''){
+      document.getElementById("Breakfast").value  = (Bf.need + " at " + Bf.location);
+     } else {
+      document.getElementById("Breakfast").value  = "No" ;
+     }
+     if (Lun.need == 'Yes' && Lun.location != ''){
+      document.getElementById("Lunch").value  = (Lun.need + " at " + Lun.location);
+     } else {
+      document.getElementById("Lunch").value  = "No" ;
+     }
+     if (Din.need == 'Yes' && Din.location != ''){
+      document.getElementById("Dinner").value  = (Din.need + " at " + Din.location);
+     } else {
+      document.getElementById("Dinner").value  = "No" ;
+     }
+      document.getElementById('cancel1').disabled = false;
+      document.getElementById('cancel2').disabled = false;
+      document.getElementById('cancel3').disabled = false;
+      Shar_Button_Disable();
+      } else {
+        document.getElementById("Breakfast").value  = "Not Requested!" ;
+        document.getElementById("Lunch").value  = "Not Requested!" ;
+        document.getElementById("Dinner").value  = "Not Requested!" ;
+        document.getElementById('cancel1').disabled = true;
+        document.getElementById('cancel2').disabled = true;
+        document.getElementById('cancel3').disabled = true;
+      }
+    }
+  });
+ 
+});
+  
+
+  
+  
+
+function DataFetch(){
+
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  const tomorrow = getTomorrowDate();
+  const currentHour = currentDate.getHours();
+
+  // // console.log('yeah functions called');
+
+var selectedDate = document.getElementById('date').value;
+var employeeId = "{{ emp_id.name }}";
+
+if ( selectedDate == today || selectedDate == tomorrow ){
+frappe.call({
+    method: 'food_beverages.www.food.user.booked_food.index.datafetch',
+    args: {
+      selectedDate: selectedDate,
+      employeeId: employeeId,
+    },
+    callback: function (r) {
+      // console.log(r);
+      if(r.message != 'empty'){
+      // Bf = r.message[2];
+      // Lun = r.message[1];
+      // Din = r.message[0];
+     
+      for (const item of r.message) {
+
+      if (item.request_type === 'Breakfast') {
+        Bf = item;
+      } else if (item.request_type === 'Lunch') {
+        Lun = item;
+      } else if (item.request_type === 'Dinner') {
+        Din = item;
+      }
+    }
+   
+    // setTimeout(function () {
+     if (Bf.need == 'Yes' && Bf.location != ''){
+      document.getElementById("Breakfast").value  = (Bf.need + " at " + Bf.location);
+     } else {
+      document.getElementById("Breakfast").value  = "No" ;
+     }
+     if (Lun.need == 'Yes' && Lun.location != ''){
+      document.getElementById("Lunch").value  = (Lun.need + " at " + Lun.location);
+     } else {
+      document.getElementById("Lunch").value  = "No" ;
+     }
+     if (Din.need == 'Yes' && Din.location != ''){
+      document.getElementById("Dinner").value  = (Din.need + " at " + Din.location);
+     } else {
+      document.getElementById("Dinner").value  = "No" ;
+     }
+      // document.getElementById('cancel1').disabled = false;
+      // document.getElementById('cancel2').disabled = false;
+      // document.getElementById('cancel3').disabled = false;
+    // }, 10000); // 3000 milliseconds = 3 seconds
+      } else {
+        document.getElementById("Breakfast").value  = "Not Requested!" ;
+        document.getElementById("Lunch").value  = "Not Requested!" ;
+        document.getElementById("Dinner").value  = "Not Requested!" ;
+        document.getElementById('cancel1').disabled = true;
+        document.getElementById('cancel2').disabled = true;
+        document.getElementById('cancel3').disabled = true;
+      }
+    }
+  });
+} else {
+  // console.log('y bro!');
+}
+Shar_Button_Disable();
+}
+
+
+  function validateDate() {
+    // console.log('fuction calls initally');
+    var inputDate = new Date(document.getElementById('date').value);
+    var tomorrow = new Date();
+  
+    if (inputDate.getDate() == tomorrow.getDate()) {
+      // Reset the input value to tomorrow's date
+      // // console.log(inputDate);
+      let dd = String(tomorrow.getDate()).padStart(2, '0');
+      // console.log(dd);
+      let mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+      let yyyy = tomorrow.getFullYear();
+      let formattedDate = yyyy + '-' + mm + '-' + dd;
+      // // console.log(formattedDate);
+      
+      document.getElementById('date').value = formattedDate;
+    } else {
+      let dd = String(tomorrow.getDate() + 1).padStart(2, '0');
+      // console.log(dd);
+      let mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+      let yyyy = tomorrow.getFullYear();
+      let formattedDate = getTomorrowDate();
+      // // console.log(formattedDate);
+      
+      document.getElementById('date').value = formattedDate;
+    }
+  
+    // Set the min and max attributes dynamically
+    document.getElementById('date').setAttribute('min', getCurrentDate());
+    document.getElementById('date').setAttribute('max', getTomorrowDate());
+  }
+  
+  function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+
+    // console.log('today date'+yyyy + '-' + mm + '-' + dd)
+    return yyyy + '-' + mm + '-' + dd;
+  }
+  
+  // function getTomorrowDate() {
+  //   var tomorrow = new Date();
+  //   tomorrow.setDate(tomorrow.getDate() + 1);
+  
+  //   var dd = String(tomorrow.getDate()).padStart(2, '0');
+  //   var mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+  //   var yyyy = tomorrow.getFullYear();
+  
+  //   // console.log('tomorrow date'+yyyy + '-' + mm + '-' + dd)
+  //   return yyyy + '-' + mm + '-' + dd;
+  // }
+
+  function getTomorrowDate() {
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+  
+    var dd = String(tomorrow.getDate()).padStart(2, '0');
+    var mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = tomorrow.getFullYear();
+  
+    // Check if tomorrow's day is in the next month
+    if (tomorrow.getDate() === 1) {
+        mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        // Reset the day to 01
+        dd = '01';
+    }
+
+    // console.log('tomorrow date: ' + yyyy + '-' + mm + '-' + dd)
+    return yyyy + '-' + mm + '-' + dd;
+}
+
+  
+function BreakfastUpdate(selected_loction){
+
+  const selectedDate = document.getElementById('date').value;
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  const currentHour = currentDate.getHours();
+
+  if (today === selectedDate && currentHour >= 5) {
+    Swal.fire({
+        // title: 'Attention!',
+        text: 'I am smarter than you dude, do not fool around!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+  } else {
+  var id = Bf.name
+  
+  frappe.call({
+      method: 'food_beverages.www.food.user.booked_food.index.Booked_Meal_Update',
+      args: {
+        id: id,
+        value: selected_loction,
+      },
+      callback: function (r) {
+        // console.log(r);
+        if(r.message == true){
+          // console.log('updated');
+          timeBasedrestric();
+        } else {
+          // console.log(r.message)
+        }
+      }
+    });
+
+  }
+  }
+
+function LunchUpdate(selected_loction){
+
+  const selectedDate = document.getElementById('date').value;
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if (today === selectedDate && current_time_in_minutes >= 9 * 60 + 30) {
+    Swal.fire({
+        title: 'Attention!',
+        text: 'I am smatter than you dood, do not fool around!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+  } else {
+
+var id = Lun.name
+
+frappe.call({
+    method: 'food_beverages.www.food.user.booked_food.index.Booked_Meal_Update',
+    args: {
+      id: id,
+      value: selected_loction,
+    },
+    callback: function (r) {
+      // console.log(r);
+      if(r.message == true){
+        // console.log('updated');
+        timeBasedrestric();
+      } else {
+        // console.log(r.message)
+      }
+    }
+  });
+}
+}
+
+function DinnerUpdate(selected_loction){
+
+  const selectedDate = document.getElementById('date').value;
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  const currentHour = currentDate.getHours();
+
+  // console.log(currentHour);
+  if (today === selectedDate && currentHour >= 16) {
+    Swal.fire({
+        title: 'Attention!',
+        text: 'I am smatter than you dood, do not fool around!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+  } else {
+
+var id = Din.name
+
+frappe.call({
+    method: 'food_beverages.www.food.user.booked_food.index.Booked_Meal_Update',
+    args: {
+      id: id,
+      value: selected_loction,
+    },
+    callback: function (r) {
+      // console.log(r);
+      if(r.message == true){
+        // console.log('updated');
+        timeBasedrestric();
+      } else {
+        // console.log(r.message)
+      }
+    }
+  });
+}
+}
+    
+function CancelFood(type){
+
+  const selectedDate = document.getElementById('date').value;
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+
+  if (type == 'Breakfast' && today === selectedDate && currentHour >= 5) {
+    Swal.fire({
+        title: 'Attention!',
+        text: 'I am smatter than you dood, do not fool around!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+  } else if (type == 'Lunch' && today === selectedDate && current_time_in_minutes >= 9 * 60 + 30) {
+    Swal.fire({
+        title: 'Attention!',
+        text: 'I am smatter than you dood, do not fool around!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else if (type == 'Dinner' && today === selectedDate && currentHour >= 16) {
+    Swal.fire({
+        title: 'Attention!',
+        text: 'I am smatter than you dood, do not fool around!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+
+  if(type == 'Breakfast'){
+    var id = Bf.name
+  } else if(type == 'Lunch'){
+    var id = Lun.name
+  } else if(type == 'Dinner'){
+    var id = Din.name
+  }
+
+
+frappe.call({
+    method: 'food_beverages.www.food.user.booked_food.index.CancelFood',
+    args: {
+      id: id,
+    },
+    callback: function (r) {
+      // console.log(r);
+      if(r.message == true){
+        // console.log('updated');
+        timeBasedrestric();
+      } else {
+        // console.log(r.message)
+      }
+    }
+  });
+}
+}
+
+function getCurrentDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var yyyy = today.getFullYear();
+  
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
+function timeBasedrestric() {
+  const selectedDate = document.getElementById('date').value;
+  const currentDate = new Date();
+  const today = getCurrentDate();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+
+  if (today === selectedDate) {
+    // console.log('if conditon is run')
+
+  if (currentHour >= 5) {
+    document.getElementById('cancel1').disabled = true;
+  } else{
+    document.getElementById('cancel1').disabled = false;
+  }
+
+  if (current_time_in_minutes >= 9 * 60 + 30) {
+    document.getElementById('cancel2').disabled = true;
+  } else{
+    document.getElementById('cancel2').disabled = false;
+  }
+
+  if (currentHour >= 16) {
+    document.getElementById('cancel3').disabled = true;
+  } else {
+    document.getElementById('cancel3').disabled = false;
+  }
+} else {
+  document.getElementById('cancel1').disabled = false;
+  document.getElementById('cancel2').disabled = false;
+  document.getElementById('cancel3').disabled = false;
+}
+
+DataFetch();
+
+}
+
+
+
+$(document).ready(function () {
+    // Attach an event listener to the modal when it's hidden
+    $('#DinnerEdit').on('hidden.bs.modal', function () {
+      // Call your custom function here
+      dinnerbuttonreset();
+    });
+  });
+
+  $(document).ready(function () {
+    // Attach an event listener to the modal when it's hidden
+    $('#LunchEdit').on('hidden.bs.modal', function () {
+      // Call your custom function here
+      lunchbuttonreset();
+    });
+  });
+
+  $(document).ready(function () {
+    // Attach an event listener to the modal when it's hidden
+    $('#BrakefastEdit').on('hidden.bs.modal', function () {
+      // Call your custom function here
+      breakfastbuttonreset();
+    });
+  });
+
+
+
+document.getElementById('cancel3').addEventListener('click', function() {
+  var dinner = document.getElementById('Dinner').value
+  // console.log(dinner)
+  if(dinner.includes('Thaiyur') == true){
+    document.getElementById('dinner_thaiyur').style.display = 'none'
+  }else if(dinner.includes('Shar') == true){
+    document.getElementById('dinner_shar').style.display = 'none'
+  }else if(dinner.includes('IITM RP') == true){
+    document.getElementById('dinner_rp').style.display = 'none'
+  }
+});
+
+document.getElementById('cancel2').addEventListener('click', function() {
+  var lunch = document.getElementById('Lunch').value
+  // console.log(lunch)
+  if(lunch.includes('Thaiyur') == true){
+    document.getElementById('lunch_thaiyur').style.display = 'none'
+  }else if(lunch.includes('Shar') == true){
+    document.getElementById('lunch_shar').style.display = 'none'
+  }else if(lunch.includes('IITM RP') == true){
+    document.getElementById('lunch_rp').style.display = 'none'
+  }
+});
+
+document.getElementById('cancel1').addEventListener('click', function() {
+  var breakfast = document.getElementById('Breakfast').value
+  // console.log(breakfast)
+  if(breakfast.includes('Thaiyur') == true){
+    document.getElementById('breakfast_thaiyur').style.display = 'none'
+  }else if(breakfast.includes('Shar') == true){
+    document.getElementById('breakfast_shar').style.display = 'none'
+  }else if(breakfast.includes('IITM RP') == true){
+    document.getElementById('breakfast_rp').style.display = 'none'
+  }
+});
+
+
+
+function dinnerbuttonreset(){
+  document.getElementById('dinner_thaiyur').style.display = 'block'
+  document.getElementById('dinner_shar').style.display = 'block'
+  document.getElementById('dinner_rp').style.display = 'block'
+}
+
+function lunchbuttonreset(){
+  document.getElementById('lunch_thaiyur').style.display = 'block'
+  document.getElementById('lunch_shar').style.display = 'block'
+  document.getElementById('lunch_rp').style.display = 'block'
+}
+
+function breakfastbuttonreset(){
+  document.getElementById('breakfast_thaiyur').style.display = 'block'
+  document.getElementById('breakfast_shar').style.display = 'block'
+  document.getElementById('breakfast_rp').style.display = 'block'
+}
+
+
+
+function Shar_timing(){
+
+  var inputDate = new Date(document.getElementById('date').value);
+  var today = new Date();
+  // console.log(inputDate.getDate());
+  // console.log(today.getDate());
+
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if (inputDate.getDate() == today.getDate()) {
+  // console.log('in the if conditon')
+  document.getElementById('breakfast_shar').style.display = 'none'
+  document.getElementById('dinner_shar').style.display = 'none'
+  document.getElementById('lunch_shar').style.display = 'none'
+  }
+  else if(inputDate.getDate() > today.getDate() && current_time_in_minutes >= 22 * 60 + 30){
+  // console.log('in the else if conditon')
+  document.getElementById('breakfast_shar').style.display = 'none'
+  document.getElementById('dinner_shar').style.display = 'none'
+  document.getElementById('lunch_shar').style.display = 'none'
+  } 
+  else {
+  document.getElementById('breakfast_shar').style.display = 'block'
+  document.getElementById('dinner_shar').style.display = 'block'
+  document.getElementById('lunch_shar').style.display = 'block'
+  }
+
+}
+
+function Shar_Button_Disable(){
+
+  // console.log('button disable execute')
+
+  var inputDate = new Date(document.getElementById('date').value);
+  var today = new Date();
+  // console.log(inputDate.getDate());
+  // console.log(today.getDate());
+
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var current_time_in_minutes = currentHour * 60 + minutes
+
+  if(inputDate.getDate() == today.getDate()){
+
+    if (Bf.need == 'Yes' && Bf.location == 'Shar'){
+      document.getElementById('cancel1').disabled = false;
+    }
+    if (Lun.need == 'Yes' && Lun.location == 'Shar'){
+      document.getElementById('cancel2').disabled = false;
+    } 
+    if (Din.need == 'Yes' && Din.location == 'Shar'){
+      document.getElementById('cancel3').disabled = false;
+    } 
+
+  } else if(inputDate.getDate() > today.getDate() && current_time_in_minutes >= 22 * 60 + 30){
+    if (Bf.need == 'Yes' && Bf.location == 'Shar'){
+      document.getElementById('cancel1').disabled = true;
+    }
+    if (Lun.need == 'Yes' && Lun.location == 'Shar'){
+      document.getElementById('cancel2').disabled = true;
+    } 
+    if (Din.need == 'Yes' && Din.location == 'Shar'){
+      document.getElementById('cancel3').disabled = true;
+    } 
+  }
+
+}
+
+  
+ 
+  
+
+
+</script>
+
+<script src="/assets/frappe/js/frappe-web.min.js"></script>
+<script src="/assets/frappe/js/frappe-website.min.js"></script>
+
+
+
+
+{%endblock%}

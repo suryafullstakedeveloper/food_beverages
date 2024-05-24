@@ -1,0 +1,744 @@
+{% extends '/templates/food_user.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<!-- <style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1cm;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: 8px solid #252525; 
+  max-height: 580px;
+  overflow-y: auto; 
+}
+
+    .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+
+  }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 20px;
+      border: 1px solid #DEE2E6;
+    }
+    th, td {
+      border: 1px solid #DEE2E6;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+    background-color: #FF4D00;
+    color: #fff;
+    text-transform: uppercase; /* Convert text to uppercase */
+  }
+
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .select_width{
+      width: 12%;
+      float: right;
+      box-shadow: none !important;
+      border-color: #ced4da !important;
+    }
+
+</style> -->
+
+<style>
+
+.marquee {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+    width: fit-content;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 3%;
+}
+
+#forms{
+  /* border: 8px solid #252525;  */
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 13%;
+      float: right;
+    }
+
+    .select_width {
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+    }
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .title_font_style{
+      font-weight: 500;
+      font-size: 30px;
+      margin-left: 5%;
+    }
+
+    .margin_right{
+      margin-right: 1%;
+    }
+
+    .table_width{
+      width: 80%;
+    }
+
+    .table_header{
+      background-color: #FF4D00;
+      color: #fff;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      box-shadow: none;
+      transform: translateY(-2px);
+    }
+    .margin_left{
+      margin-left: 10px;
+    }
+    .outline_border{
+    border: 1px solid #DEE2E6;
+    border-collapse: collapse;
+    }
+
+    /* .table td:nth-child(2) {
+    max-width: 200px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+} */
+
+.table td:nth-child(2) {
+    max-width: 200px; /* Adjust the width as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    overflow-wrap: break-word;
+}
+td:first-letter {
+  text-transform: uppercase;
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 100%; /* Set the width as needed */
+    margin-top: 20px; /* Adjust the margin as needed */
+  }
+
+
+
+  @media (max-width: 575px) {
+
+  .select_width {
+    /* width: 0%; */
+    float: right;
+  }
+
+  .form-select {
+    display: block;
+    width: 42%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    width: fit-content;
+    font-size: 4vw;
+    margin-top: 5px;
+}
+
+#food_icon{
+  display: none;
+}
+  }
+
+
+  h3 {
+    font-size: 1.75rem;
+    background-color: #ffd2bf;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    font-weight: 1000;
+    padding-left: 15px;
+    justify-content: space-between; /* Add this line */
+}
+
+#food_icon {
+    margin-right: 15px; /* Adjust the margin as needed */
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+    width: 150px;
+    height: 100px;
+}
+
+.table>:not(:last-child)>:last-child>* {
+    border-bottom-color: #ddd;
+}
+
+</style>
+
+<div id="marquee" class="marquee"></div>
+
+<!-- <div class="location_container">
+  <select class="form-select select_width" id="location" name="location">
+    <option value="">Location</option>
+    <option  value="IITM RP">IITM RP</option>
+    <option  value="Thaiyur">Thaiyur</option>
+    <option  value="Shar">Shar</option>
+  </select>
+</div>
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div id="breakfastTable"></div>
+      <div id="lunchTable"></div>
+      <div id="dinnerTable"></div>
+  
+    
+  </form>
+</div> -->
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div>
+        <div>
+          <div class="location_container">
+            <select class="form-select select_width margin_right" id="location" name="location">
+              <option  value="IITM RP">IITM RP</option>
+              <option  value="Thaiyur">Thaiyur</option>
+              <option  value="Shar">Shar</option>
+            </select>
+          </div>
+        </div>
+        <div class="display_center">
+          <div class="container mt-5 table_width table-container">
+            <h3>Breakfast<img id="food_icon" src="/banner-bf.png" alt=""></h3>
+            <table class="table outline_border">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th style="width: 80%;" >Menu</th>
+                    <!-- <th>Action</th> -->
+                </tr>
+                </thead>
+                <tbody id="dynamic_Breakfast_table"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="display_center">
+          <div class="container mt-5 table_width table-container">
+            <h3>Lunch<img id="food_icon" src="/banner-lunch.png" alt=""></h3>
+            <table class="table outline_border">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th style="width: 80%;" >Menu</th>
+                    <!-- <th>Action</th> -->
+                </tr>
+                </thead>
+                <tbody id="dynamic_Lunch_table"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="display_center">
+          <div class="container mt-5 table_width table-container">
+            <h3>Dinner<img id="food_icon" src="/banner-dinner.png" alt=""></h3>
+            <table class="table outline_border">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th style="width: 80%;">Menu</th>
+                    <!-- <th>Action</th> -->
+                </tr>
+                </thead>
+                <tbody id="dynamic_Dinner_table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- 
+<script>
+
+  
+document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message){
+        // console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+
+  var mealData = {};
+
+  createTable('Breakfast', [], 'breakfastTable');
+  createTable('Lunch', [], 'lunchTable');
+  createTable('Dinner', [], 'dinnerTable');
+
+  var location_variable = document.getElementById('location');
+  location_variable.addEventListener('change', function(event) {
+  // console.log('works')
+  Food_menu_list()
+  });
+
+  
+  function createTable(mealType, data, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = ""; // Clear previous content
+
+    const table = document.createElement('table');
+
+    if (data && data.length === 0) {
+      // Display "No data found" message
+      const noDataRow = table.insertRow();
+      const noDataCell = noDataRow.insertCell();
+      noDataCell.colSpan = Object.keys(data[0] || {}).length;
+      noDataCell.textContent = 'No data found';
+      noDataRow.classList.add('no-data');
+    } else {
+      // Set table caption
+      const captionRow = table.insertRow();
+      const captionCell = captionRow.insertCell();
+      captionCell.colSpan = Object.keys(data[0] || {}).length;
+      captionCell.textContent = `${mealType}`;
+
+      // Create header cells
+      const headerRow = table.insertRow();
+      Object.keys(data[0]).forEach(day => {
+        const th = document.createElement('th');
+        th.textContent = day;
+        headerRow.appendChild(th);
+      });
+
+      // Create data rows
+      data.forEach(item => {
+        const row = table.insertRow();
+        Object.values(item).forEach(value => {
+          const cell = row.insertCell();
+          cell.textContent = value;
+        });
+      });
+    }
+
+    container.appendChild(table);
+  }
+
+  function Food_menu_list(){
+  mealData = {}
+  var location_variable = document.getElementById('location').value;
+  // console.log(location_variable);
+  frappe.call({
+    method: 'food_beverages.www.food.user.food_menu.index.Get_Food_Menu',
+    args: {location: location_variable},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        // console.log('hi')
+        mealData = r.message;
+        createTable('Breakfast', mealData.Breakfast || [], 'breakfastTable');
+        createTable('Lunch', mealData.Lunch || [], 'lunchTable');
+        createTable('Dinner', mealData.Dinner || [], 'dinnerTable');
+      } else {
+        mealData = {};
+         // Create tables for each meal type
+        createTable('Breakfast', [], 'breakfastTable');
+        createTable('Lunch', [], 'lunchTable');
+        createTable('Dinner', [], 'dinnerTable');
+      }
+    }
+  
+  });
+  }
+
+</script> -->
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message){
+        // console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+
+  var id;
+  var field;
+  var new_value;
+
+  document.getElementById('location').value="Thaiyur"
+  frappe.ready(function (){
+  GetTableValues();
+})
+  
+  var location_change = document.getElementById('location');
+    location_change.addEventListener('change', function(event) {
+      GetTableValues();
+    });
+  
+  var Breakfast_data = [];
+  var Lunch_data = [];
+  var Dinner_data = [];
+  
+      function BreakfastTable(data) {
+          const tbody = document.getElementById('dynamic_Breakfast_table');
+          tbody.innerHTML = ''
+  
+          data.forEach(item => {
+              const row = document.createElement('tr');
+  
+              // const idCell = document.createElement('td');
+              // idCell.textContent = item.id;
+              // row.appendChild(idCell);
+  
+              const DayCell = document.createElement('td');
+              DayCell.textContent = item.Day;
+              row.appendChild(DayCell);
+  
+              const valueCell = document.createElement('td');
+              valueCell.textContent = item.value;
+              row.appendChild(valueCell);
+  
+              // const actionCell = document.createElement('td');
+  
+              // const editButton = document.createElement('button');
+              // editButton.type = 'button';
+              // editButton.className = 'btn btn-sm';
+              // editButton.innerHTML = '<i class="fas fa-edit"></i> ';
+              // editButton.style.backgroundColor= '#FF4D00';
+              // editButton.style.color= '#fff';
+              // editButton.style.border= '1px solid #FF4D00';
+              // editButton.style.borderRadius= '8px';
+              // editButton.setAttribute('data-toggle', 'modal');
+              // editButton.setAttribute('data-target', '#TableEdit');
+              // editButton.addEventListener('click', function () {
+              // // Call your custom edit function here and pass the values
+              // editRow(item.name, item.Day, item.meal_type);
+              // });
+  
+              // actionCell.appendChild(editButton);
+  
+              // row.appendChild(actionCell);
+  
+              tbody.appendChild(row);
+          });
+      }
+  
+      function LunchTable(data) {
+          const tbody = document.getElementById('dynamic_Lunch_table');
+          tbody.innerHTML = ''
+  
+          data.forEach(item => {
+              const row = document.createElement('tr');
+  
+              // const idCell = document.createElement('td');
+              // idCell.textContent = item.id;
+              // row.appendChild(idCell);
+  
+              const DayCell = document.createElement('td');
+              DayCell.textContent = item.Day;
+              row.appendChild(DayCell);
+  
+              const valueCell = document.createElement('td');
+              valueCell.textContent = item.value;
+              row.appendChild(valueCell);
+  
+              // const actionCell = document.createElement('td');
+  
+              // const editButton = document.createElement('button');
+              // editButton.type = 'button';
+              // editButton.className = 'btn btn-sm';
+              // editButton.innerHTML = '<i class="fas fa-edit"></i>';
+              // editButton.style.backgroundColor= '#FF4D00';
+              // editButton.style.color= '#fff';
+              // editButton.style.border= '1px solid #FF4D00';
+              // editButton.style.borderRadius= '8px';
+              // editButton.setAttribute('data-toggle', 'modal');
+              // editButton.setAttribute('data-target', '#TableEdit');
+              // editButton.addEventListener('click', function () {
+              // // Call your custom edit function here and pass the values
+              // editRow(item.name, item.Day, item.meal_type);
+              // });
+  
+              // actionCell.appendChild(editButton);
+  
+              // row.appendChild(actionCell);
+  
+              tbody.appendChild(row);
+          });
+      }
+  
+      function DinnerTable(data) {
+          const tbody = document.getElementById('dynamic_Dinner_table');
+          tbody.innerHTML = ''
+  
+          data.forEach(item => {
+              const row = document.createElement('tr');
+  
+              // const idCell = document.createElement('td');
+              // idCell.textContent = item.id;
+              // row.appendChild(idCell);
+  
+              const DayCell = document.createElement('td');
+              DayCell.textContent = item.Day;
+              row.appendChild(DayCell);
+  
+              const valueCell = document.createElement('td');
+              valueCell.textContent = item.value;
+              row.appendChild(valueCell);
+  
+              // const actionCell = document.createElement('td');
+  
+              // const editButton = document.createElement('button');
+              // editButton.type = 'button';
+              // editButton.className = 'btn btn-sm';
+              // editButton.innerHTML = '<i class="fas fa-edit"></i>';
+              // editButton.style.backgroundColor= '#FF4D00';
+              // editButton.style.color= '#fff';
+              // editButton.style.border= '1px solid #FF4D00';
+              // editButton.style.borderRadius= '8px';
+              // editButton.setAttribute('data-toggle', 'modal');
+              // editButton.setAttribute('data-target', '#TableEdit');
+              // editButton.addEventListener('click', function () {
+              // // Call your custom edit function here and pass the values
+              // editRow(item.name, item.Day, item.meal_type);
+              // });
+  
+              // actionCell.appendChild(editButton);
+  
+              // row.appendChild(actionCell);
+  
+              tbody.appendChild(row);
+          });
+      }
+  
+      function editRow(name, day, meal_type) {
+      // // console.log('Edit clicked for row:', { name, day, meal_type });
+      id = name;
+      field = day;
+      }
+  
+      function Food_menu_update(){
+      new_value = document.getElementById('new_food').value;
+      // // console.log(id,field,new_value)
+  
+      frappe.call({
+      method: 'food_beverages.www.food.admin.admin_food_menu.index.Food_menu_update',
+      args: {id: id, field : field, value : new_value},
+      callback: function (r) {
+        // console.log(r);
+        if(r.message && Object.keys(r.message).length > 0){
+          id = ''
+          field =''
+          new_value = ''
+          document.getElementById('new_food').value = ''
+          GetTableValues();
+  
+        } else {
+          id = ''
+          field =''
+          new_value = ''
+          document.getElementById('new_food').value = ''
+          GetTableValues();
+        }
+      }
+    
+      });
+      }
+  
+      function GetTableValues(){
+  
+      var location_variable = document.getElementById('location').value;
+  
+      frappe.call({
+      method: 'food_beverages.www.food.admin.admin_food_menu.index.GetTableValues',
+      args: {location: location_variable},
+      callback: function (r) {
+        // console.log(r);
+        if(r.message && Object.keys(r.message).length > 0){
+          // console.log('hi')
+          // console.log(r.message)
+          Breakfast_data = r.message[0].Breakfast
+          Lunch_data = r.message[0].Lunch
+          Dinner_data = r.message[0].Dinner
+          BreakfastTable(Breakfast_data)
+          LunchTable(Lunch_data)
+          DinnerTable(Dinner_data)
+        } else {
+          Breakfast_data = []
+          Lunch_data = []
+          Dinner_data = []
+          BreakfastTable(Breakfast_data)
+          LunchTable(Lunch_data)
+          DinnerTable(Dinner_data)
+        }
+      }
+    
+      });
+      }
+  
+  </script>
+
+{%endblock%}

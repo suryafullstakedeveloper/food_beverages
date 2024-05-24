@@ -1,0 +1,356 @@
+{% extends '/templates/food_user.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px !important;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 5px;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+  margin-top: 2%;
+
+}
+
+#forms{
+  /* border: 8px solid #252525;  */
+  /* height: auto;  */
+  height: fit-content; /* Set a maximum height if needed */
+  overflow-y: auto; 
+}
+
+    .marquee {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+    width: fit-content;
+
+  }
+
+  table {
+      border-collapse: collapse;
+      width: 100%;
+      height: 75%;
+      margin-top: 3%;
+      border: 1px solid #DEE2E6;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 14px;
+      border: 1px solid #DEE2E6;
+    }
+
+    th {
+      /* background-color: #FF4D00;
+      color: #fff; */
+      /* background-color: rgb(255, 77, 0);
+      color: rgb(255, 255, 255); */
+      font-weight: 800;
+    }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .select_width{
+      width: 12%;
+      float: right;
+      box-shadow: none !important;
+      border-color: #ced4da !important;
+    }
+    
+
+
+    
+  /* Style for custom checkbox */
+  .custom-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+    display: inline-block;
+    width: 13px;
+    height: 14px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    cursor: pointer;
+  }
+
+  /* Style for checked state */
+  .custom-checkbox:checked {
+    background-color: #554b4b;
+    border: 1px solid #000000;
+    content: '\2713'; /* Unicode character for checkmark */
+    color: #fff;
+    /* font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%; */
+    transform: translate(-7%, 3%);
+  }
+
+  .custom-checkbox:checked::before {
+  content: '\2713'; /* Unicode character for checkmark */
+  font-size: 14px;  /* Adjust size as needed */
+  color: #fff;      /* Color of the checkmark */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
+
+    select.form-control option:checked option:hover {
+      background-color: #495057 !important; /* Set your desired background color for the selected option */
+      color: #fff; /* Set your desired text color for the selected option */
+    }
+
+    
+  @media (max-width: 575px) {
+
+.select_width {
+  /* width: 0%; */
+  float: right;
+  box-shadow: none !important;
+  border-color: #ced4da !important;
+}
+
+.form-select {
+  display: block;
+  width: 28%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  -moz-padding-start: calc(0.75rem - 3px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    width: fit-content;
+    font-size: 4vw;
+    margin-top: 5px;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 2%;
+  margin-top: 7%;
+
+}
+}
+   
+
+</style>
+
+<div id="marquee" class="marquee"></div>
+
+<div class="location_container">
+  <select class="form-select form-control select_width" id="location" name="location">
+    <option  value="IITM RP">IITM RP</option>
+    <option  value="Thaiyur">Thaiyur</option>
+    <option  value="Shar">Shar</option>
+  </select>
+</div>
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <table id="dynamicTable"></table>
+  
+    
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+
+document.getElementById('location').value="Thaiyur"
+frappe.ready(function (){
+  beverage_list()
+})
+
+function dateupdatecheck(){
+  // console.log('date function checking')
+  frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.update_current_date',
+    args: {},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message){
+        // console.log(r.message);
+      } 
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+
+frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.get_daily_quote',
+    args: {},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message){
+        // console.log(r.message);
+        var marqueeElement = document.getElementById('marquee');
+        marqueeElement.innerHTML = r.message;
+      } 
+    }
+  });
+});
+
+var data = [];
+update_table_values();
+
+var location_variable = document.getElementById('location');
+location_variable.addEventListener('change', function(event) {
+  // console.log('works')
+  beverage_list()
+  });
+
+function update_table_values(){
+// Get table element
+const table = document.getElementById('dynamicTable');
+table.style.height = '10px';
+table.style.marginBottom = '20px';
+table.innerHTML = '';
+
+if (data && data.length > 0) {
+
+// Create header row
+const headerRow = table.insertRow();
+const headerCell = headerRow.insertCell(0);
+headerCell.textContent = 'Beverages';
+
+
+// Extract unique days from the data
+const days = [...new Set(data.map(item => Object.keys(item).filter(key => key !== 'item')).flat())];
+// const days = [...new Set(data.flatMap(item => Object.keys(item).filter(key => key !== 'item')))];
+// const days = [...new Set(data.reduce((acc, item) => acc.concat(Object.keys(item).filter(key => key !== 'item')), []))];
+
+// days.style.backgroundColor = '#FF4D00';
+// days.style.color = '#fff';
+
+days.forEach(day => {
+  const cell = headerRow.insertCell();
+  cell.textContent = day.toUpperCase();
+});
+
+data.forEach(itemData => {
+  const row = table.insertRow();
+  const itemNameCell = row.insertCell(0);
+  itemNameCell.textContent = itemData.item;
+
+  // Create cells for each day
+  days.forEach(day => {
+    const cell = row.insertCell();
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = itemData[day] === 'yes';
+    checkbox.style.pointerEvents = 'none';
+
+    // if (checkbox.checked) {
+    //   checkbox.style.backgroundColor = 'black';
+    //   checkbox.style.borderColor = 'white';
+    //   checkbox.style.color = 'white';
+    // }
+    // Disable the checkbox after checking
+    // checkbox.disabled = checkbox.checked;
+
+        checkbox.classList.add('custom-checkbox');
+
+    cell.appendChild(checkbox);
+
+  });
+
+  for (let i = 0; i < headerRow.cells.length; i++) {
+    // headerRow.cells[i].style.backgroundColor = '#FF4D00';
+    headerRow.cells[i].style.color = '#000';
+    // headerRow.cells[i].style.fontWeight = '800';
+    // headerRow.cells[i].style.color = '#FF4D00';
+    headerRow.cells[i].style.backgroundColor = '#ffd2bf';
+  }
+
+});
+
+} else {
+  // Display a message if there is no data
+  const noDataRow = table.insertRow();
+  const noDataCell = noDataRow.insertCell(0);
+  noDataCell.colSpan = 5; // Adjust the colspan based on the number of columns
+  noDataCell.textContent = 'No Data Found';
+}
+
+}
+  function beverage_list(){
+  data = [];
+  var location_variable = document.getElementById('location').value;
+  // console.log('func')
+  // console.log(location_variable);
+  frappe.call({
+    method: 'food_beverages.www.food.user.beverage_menu.index.Get_Beverages',
+    args: {location: location_variable},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        // console.log('hi')
+        data = r.message;
+        update_table_values();
+      } else {
+        data = [];
+        update_table_values();
+      }
+    }
+  
+  });
+  }
+
+</script>
+
+{%endblock%}

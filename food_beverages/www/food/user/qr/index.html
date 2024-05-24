@@ -1,0 +1,212 @@
+{% extends '/templates/food_user.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 30px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1cm;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  /* border: 8px solid #252525;  */
+  /* height: auto;  */
+  /* max-height: 500px;  */
+  overflow-y: hidden; 
+  overflow-x:hidden;
+  width: auto;
+  height: auto;
+  background-color: #ffd2bf;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+    width: 25vw;
+    height: 23vw;
+}
+
+
+
+@media (max-width: 575px) {
+  .mobile_size_img{
+    background-image: url(/QrNotFound.png);
+    background-repeat: no-repeat;
+    height: 70vw !important;
+    width: 70vw !important;
+    background-size: cover;
+  }
+}
+
+
+#storedQRDisplay {
+    text-align: center;
+    padding: 25px;
+    border-radius: 10px;
+    margin: 20px auto;
+    background-color: #fff;
+    }
+
+  img#storedQRCode {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px; 
+  }
+  .content-below {
+    margin-top: 10px;
+    font-size: 16px; 
+    text-align: center;
+  }
+
+</style>
+
+<div id="marquee" class="marquee"></div>
+
+
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+      <!-- <div>
+        <div id="storedQRDisplay"></div>
+      </div> -->
+
+      <div>
+        <div id="storedQRDisplay"></div>
+        <div class="content-below">
+          <h4 id="food_type"></h4>
+        </div>
+      </div>
+  </form>
+</div>
+
+
+<script>
+
+var qrdetail = '';
+
+frappe.ready(function (){
+  checkQrAvailability();
+})
+
+function showfoodtype(){
+  var temparr = qrdetail.split('/')
+  document.getElementById('food_type').innerHTML = temparr[1]
+  document.getElementById('food_type').style.color = '#3c3c3c'
+  document.getElementById('food_type').style.fontWeight = '600'
+}
+
+function showStoredQR() {
+      
+     var storedQRData = qrdetail
+     // console.log(storedQRData)
+    //  var storedQRData = 'test'
+
+      var qrCode = new QRCode(document.getElementById("storedQRDisplay"), {
+        text: storedQRData,
+      });
+    }
+
+  function showempty(){
+  var emptysms = document.getElementById('storedQRDisplay')
+  var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+// Set different CSS styles based on the screen width
+if (screenWidth < 575) {
+  emptysms.style.backgroundImage = 'url("/QrNotFound.png")';
+  emptysms.style.height = '70vw';
+  emptysms.style.width = '70vw';
+  var textElement = document.createElement('div');
+  textElement.textContent = qrdetail;
+  textElement.style.color = '#000'; 
+  textElement.style.fontSize = '2vw'; 
+  textElement.style.fontWeight = '600'; 
+  
+  emptysms.appendChild(textElement);
+  
+} else {
+  emptysms.style.backgroundImage = 'url("/QrNotFound.png")';
+  emptysms.style.height = '32vw';
+  emptysms.style.width = '32vw';
+  var textElement = document.createElement('div');
+  textElement.textContent = qrdetail;
+  textElement.style.color = '#000'; 
+  textElement.style.fontSize = '1vw'; 
+  textElement.style.fontWeight = '600'; 
+  
+  emptysms.appendChild(textElement);
+}
+
+// Common CSS styles
+emptysms.style.backgroundRepeat = 'no-repeat';
+emptysms.style.backgroundSize = 'cover';
+
+// var textElement = document.createElement('div');
+//   // textElement.textContent = qrdetail;
+//   // textElement.style.position = 'absolute';
+//   // textElement.style.top = '60%'; // Adjust as needed
+//   // textElement.style.left = '49%'; // Adjust as needed
+//   // textElement.style.transform = 'translate(-50%, -50%)';
+//   // textElement.style.color = '#000'; // Set the text color
+//   // textElement.style.fontSize = '10px'; // Set the font size
+//   // textElement.style.maxWidth = '130px'; // Set the maximum width
+//   // textElement.style.whiteSpace = 'pre-wrap';
+
+//   textElement.textContent = qrdetail;
+//   textElement.style.color = '#000'; 
+//   textElement.style.fontSize = '1vw'; 
+//   textElement.style.fontWeight = '600'; 
+  
+//   emptysms.appendChild(textElement);
+
+  }
+
+  function checkQrAvailability(){
+    var emp_id = "{{ emp_id.name }}";
+    frappe.call({
+    method: 'food_beverages.www.food.user.qr.index.checkQrAvailability',
+    args: {emp_id},
+    callback: function (r) {
+      // console.log(r);
+      if(r.message && Object.keys(r.message).length > 0){
+        if(r.message.includes('/') == true){
+        qrdetail = r.message;
+        showStoredQR()
+        showfoodtype()
+        }else{
+        qrdetail = r.message;
+        showempty()
+        }
+      } else {
+        // console.log(r.message);
+      }
+    }
+  
+  });
+  }
+
+
+</script>
+
+{%endblock%}

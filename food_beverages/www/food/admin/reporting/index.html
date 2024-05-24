@@ -1,0 +1,908 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/assets/frappe/js/frappe.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe/2.1.1/frappe.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+    display: flex; 
+  justify-content: center; 
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 1%;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 22%;
+}
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 480px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 65%;
+}
+ 
+    .no-data {
+      font-style: italic;
+      color: #666;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+    }
+
+    .chart_with{
+      width: 80%;
+      margin-top: 3%;
+    }
+
+    .card_with{
+      width: 90%;
+    }
+
+    .image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-x: hidden; /* Hide horizontal overflow */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.image {
+    flex: 0 0 48%;
+    margin-bottom: 2%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 267px;
+    border-radius: 8%;
+}
+
+.margin_content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .image-text {
+      font-size: 15px;
+    font-weight: 400;
+    border-radius: 18px 1px 1px 18px;
+    background: black;
+    padding: 3px 30px 5px 19px;
+    }
+
+
+    .margin_right{
+      margin-right: 1%;
+    }
+    
+
+    .display_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 100%;
+      margin-top: 2%;
+    }
+
+    .margin_top{
+      margin-top: 20px;
+    }
+
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      box-shadow: none;
+      transform: translateY(-2px);
+    }
+
+    
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 19%;
+}
+
+.display_center_for_Aview{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    }
+
+  .column {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+
+  .margin_top_0{
+    margin-top: 0px;
+  }
+
+  .column_width{
+    width: 73%;
+  }
+  .filter_column_width{
+    width: 63%;
+  }
+  .column {
+  margin-bottom: 10px; /* Add some spacing between columns */
+}
+
+
+/* Row layout for larger screens (desktop) */
+@media (min-width: 768px) {
+  .display_center_for_Aview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .inner_div{
+    position: relative;
+    left: 0%;
+    }
+
+  .column {
+    width: calc(50% - 10px); /* Four columns in a row with spacing between them */
+  }
+}
+
+/* Column layout for smaller screens (e.g., tablets and smartphones) */
+@media (max-width: 767px) {
+  .display_center_for_Aview {
+    flex-direction: column; /* Change flex-direction to column for smaller screens */
+  }
+
+  .column {
+    width: calc(80% - 10px); /* Four columns in a row with spacing between them */
+  }
+}
+
+table {
+      border-collapse: collapse;
+      /* width: 100%; */
+      width: 48vw;
+      margin-bottom: 40px;
+      display: inline;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .table_margin_top{
+      margin-top: 2%;
+    }
+
+    .filter_column{
+      width: calc(19% - 10px); 
+      padding: 0px 2px;
+    }
+    
+    .filter_column_align{
+      display: flex;
+      justify-content: end;
+      margin-right: -1px;
+      margin-bottom: 0.5%;
+    }
+
+  /* Add this CSS for the overlay effect */
+  /* .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  } */
+
+  .overlay img {
+    max-width: 100%;
+    max-height: 90%;
+    border-radius: 10px;
+  }
+
+  .overlay.show {
+    display: flex;
+  }
+
+  .box_shadow_remove{
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+    }
+
+    .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+
+  .cancel_button_common{
+      width: 139px;
+      background-color: #ddd;
+      color: black;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .cancel_button_common:hover{
+      width: 139px;
+      background-color: #ddd;
+      color: #000;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .submit_button_common{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+    }
+  
+    .submit_button_common:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+</style>
+
+
+
+<div class="location_container">
+  <button onclick="Add_new()" type="button" id="Button_new" class="button_width button margin_top submit_margin">
+  Add New</button>
+  </div>
+   
+
+<div class="div_container">
+
+  <form class="row" id="forms" enctype="multipart/form-data">
+    
+    <div class="content">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+
+      <div id="L_view" class="table_margin_top">
+        <div class="row filter_column_align">
+
+          <div class="filter_column filter_column_width">
+            <div>
+              <select class="form-control input-style box_shadow_remove" id="priority_filter" name="priority_filter">
+                <option value="" disabled selected hidden>Select Priority</option>
+                <option value=""></option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter_column filter_column_width">
+            <div>
+              <select class="form-control input-style box_shadow_remove" id="status_filter" name="status_filter">
+                <option value="" disabled selected hidden>Select Status</option>
+                <option value=""></option>
+                <option value="Yet to View">Yet to View</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div id="table"></div>
+      </div>
+        
+        <div id="A_view" style="width: 60%;">
+          <div class="display_center_for_Aview">
+           
+            
+            <div class="column margin_top" style="width: 70%;">
+              <label for="issue">Issue:</label>
+              <div>
+                  <input type="text" class="form-control box_shadow_remove input-style" id="issue" required>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 70%;">
+              <label for="description">Description:</label>
+              <div>
+                  <textarea type="text" class="form-control box_shadow_remove input-style" id="description"></textarea>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 70%;">
+              <label for="location">Location:</label>
+              <div>
+                <select class="form-control box_shadow_remove form-select input-style" id="location" name="location">
+                  <option value="" disabled selected hidden></option>
+                  <option value="IITM RP">IITM RP</option>
+                  <option value="Thaiyur">Thaiyur</option>
+                  <option value="Shar">Shar</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 70%;">
+              <label for="Priority">Priority:</label>
+              <div>
+                <select class="form-control box_shadow_remove form-select input-style" id="Priority" name="Priority">
+                  <option value="" disabled selected hidden></option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 70%;">
+              <label for="status">Status:</label>
+              <div>
+                <select class="form-control box_shadow_remove form-select input-style" id="status" name="status">
+                  <option value="" disabled selected hidden></option>
+                  <option value="Yet to View">Yet to View</option>
+                  <option value="Resolved">Resolved</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="column margin_top" style="width: 70%;">
+              <label for="image">Image:</label>
+              <div>
+                  <input type="file" id="myfile" name="myfile" accept=".jpg, .jpeg, .png" class="form-control box_shadow_remove input-style"  onchange="previewImage()">
+              </div>
+            </div>
+            
+            <div class="column margin_top" style="width: 70%;">
+              <label for="image">Preview:</label>
+              <div>
+                  <div id="overlay" class="overlay">
+                    <img id="imagePreview" src="#" alt="Preview">
+                  </div>
+              </div>
+            </div>
+
+
+            <div class="inner_div">
+            <button onclick="CancelBtn()" type="button" id="Button_new" class="cancel_button_common button margin_top">
+              Cancel</button>
+            <button onclick="Add_Reporting()" type="button" id="Button_new" class="submit_button_common button margin_top">
+              Submit</button>
+            </div>
+          </div>
+          </div>
+     
+      
+    </div>
+    
+  </form>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/frappe/2.1.1/frappe.min.js"></script>
+<script>
+
+var L_view = document.getElementById('L_view');
+var A_view = document.getElementById('A_view');
+var edit_id;
+L_view.style.display='Block';
+A_view.style.display='none';
+// imagePreview.style.display = 'none';
+var data = [];
+var table = document.createElement('table');
+var base64String;
+var imagelink;
+
+frappe.ready(function (){
+  GetReportingList();
+})
+
+var filter1 = document.getElementById('priority_filter')
+var filter2 = document.getElementById('status_filter');
+
+  filter1.addEventListener('change', function(event) {
+    filterList();
+  });
+
+  filter2.addEventListener('change', function(event) {
+    filterList();
+  });
+  
+
+
+
+function CancelBtn(){
+L_view.style.display='Block';
+A_view.style.display='none';
+document.getElementById('issue').value = '';
+document.getElementById('description').value = '';
+document.getElementById('location').value = '';
+document.getElementById('Priority').value = '';
+document.getElementById('status').value = '';
+edit_id = '';
+}
+  
+
+function Add_new(){
+L_view.style.display='none';
+A_view.style.display='Block';
+}
+
+function Edit_Reporting(rowData){
+  document.getElementById('issue').value = rowData.issue;
+  document.getElementById('description').value = rowData.description;
+  document.getElementById('location').value = rowData.location;
+  document.getElementById('Priority').value = rowData.priority;
+  document.getElementById('status').value = rowData.status;
+
+  re_convert(rowData.image)
+
+  edit_id = rowData.name;
+  L_view.style.display='none';
+  A_view.style.display='Block';
+}
+
+
+function GetReportingList(){
+
+frappe.call({
+  method: 'food_beverages.www.food.admin.reporting.index.GetReportingList',
+  args: {},
+  callback: function (r) {
+    console.log(r.message);
+    if(r.message && Object.keys(r.message).length > 0){
+      data = r.message;
+      console.log(data)
+      createTable();
+      // listing()
+    } 
+  }
+});
+
+}
+
+
+function Add_Reporting(){
+
+  var issue = document.getElementById('issue').value;
+  var description = document.getElementById('description').value;
+  // var image = document.getElementById('image').value;
+  var location = document.getElementById('location').value;
+  var Priority = document.getElementById('Priority').value;
+  var status = document.getElementById('status').value;
+  var employeeId = "{{ emp_id.name }}";
+  var imageInput = document.getElementById('myfile');
+  var image = imageInput.files.length > 0 ? imageInput.files[0] : ''; // Check if file is selected
+  console.log(image)
+
+  
+if (image) {
+      convertFileToBase64(image, function (base64String) {
+  
+        console.log(base64String)
+
+        var imageSizeInBytes = base64String.length * 0.75; // Base64 encoding increases the size by 1.33 times
+        var imageSizeInMB = imageSizeInBytes / (1024 * 1024);
+
+        if (imageSizeInMB > 7) {
+            // Return an error message if the base64String size exceeds 10 MB
+            Swal.fire({
+            // title: 'Attention!',
+            text: 'Image size is too large. Maximum allowed size is 5 MB.',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            customClass: {
+              confirmButton: 'custom-swal-button' // Custom class for the button
+            },
+            buttonsStyling: false
+          });
+        }
+
+    else{
+
+  if(edit_id){
+  frappe.call({
+  method: 'food_beverages.www.food.admin.reporting.index.Edit_Reporting',
+  args: {issue,description,image : base64String,location,Priority,status,employeeId,id :edit_id},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Data already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+        document.getElementById('issue').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('image').value = '';
+        document.getElementById('location').value = '';
+        document.getElementById('Priority').value = '';
+        document.getElementById('status').value = '';
+        edit_id = '';
+        GetReportingList()
+        L_view.style.display='Block';
+        A_view.style.display='none';
+      }
+  }
+  });
+  } else {
+  frappe.call({
+  method: 'food_beverages.www.food.admin.reporting.index.Add_Reporting',
+  args: {issue,description,imagelink : base64String,location,Priority,status,employeeId},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Data already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+    // GetBillingList()
+    L_view.style.display='Block';
+    A_view.style.display='none';
+    document.getElementById('issue').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('image').value = '';
+    document.getElementById('location').value = '';
+    document.getElementById('Priority').value = '';
+    document.getElementById('status').value = '';
+    edit_id = '';
+    GetReportingList()
+    }
+  }
+  });
+  }
+
+  }
+
+  });
+ } else {
+  var base64String = ''
+  if(edit_id){
+  frappe.call({
+  method: 'food_beverages.www.food.admin.reporting.index.Edit_Reporting',
+  args: {issue,description,image : base64String,location,Priority,status,employeeId,id :edit_id},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Data already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+        document.getElementById('issue').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('image').value = '';
+        document.getElementById('location').value = '';
+        document.getElementById('Priority').value = '';
+        document.getElementById('status').value = '';
+        edit_id = '';
+        GetReportingList()
+        L_view.style.display='Block';
+        A_view.style.display='none';
+      }
+  }
+  });
+  } else {
+  frappe.call({
+  method: 'food_beverages.www.food.admin.reporting.index.Add_Reporting',
+  args: {issue,description,imagelink : base64String,location,Priority,status,employeeId},
+  callback: function (r) {
+    if(r.message == 'Record exists!'){
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Data already exists!',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+    } else {
+    // GetBillingList()
+    L_view.style.display='Block';
+    A_view.style.display='none';
+    document.getElementById('issue').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('image').value = '';
+    document.getElementById('location').value = '';
+    document.getElementById('Priority').value = '';
+    document.getElementById('status').value = '';
+    edit_id = '';
+    GetReportingList()
+    }
+  }
+  });
+  }
+ }
+
+  
+
+}
+
+
+function createTable() {
+    table.innerHTML = '';
+
+    if (!data) {
+        var noDataRow = document.createElement('tr');
+        var noDataCell = document.createElement('td');
+        noDataCell.setAttribute('colspan', '3'); // Set the colspan to the number of columns
+        noDataCell.appendChild(document.createTextNode('No data found'));
+        noDataRow.appendChild(noDataCell);
+
+        var tbody = document.createElement('tbody');
+        tbody.appendChild(noDataRow);
+        table.appendChild(tbody);
+
+        var tableDiv = document.getElementById('table');
+        tableDiv.appendChild(table);
+
+        return;
+    }
+
+    // Create table header
+    var thead = document.createElement('thead');
+    var headerRow = document.createElement('tr');
+    var headers = ['Issue','Description', 'Priority','Status','Location','Actions'];
+
+    headers.forEach(function (headerText) {
+      var th = document.createElement('th');
+      th.appendChild(document.createTextNode(headerText));
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Create table body
+    var tbody = document.createElement('tbody');
+
+    data.forEach(function (rowData, index) {
+      var row = document.createElement('tr');
+
+      // Add item and quantity cells
+      Object.entries(rowData).forEach(function ([key, value]) {
+      if (key !== 'name' && key !== 'image') {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(value));
+        row.appendChild(td);
+      }
+      });
+
+      // Add actions cell with edit and delete buttons
+      var actionsCell = document.createElement('td');
+
+      var editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'btn btn-sm';
+      editButton.innerHTML = '<i class="fas fa-edit"></i>';
+      // editButton.style.backgroundColor= '#FF4D00';
+      // editButton.style.color= '#fff';
+      editButton.style.borderRadius= '8px';
+      editButton.style.border= '1px solid #1A1A1A';
+      editButton.addEventListener('click', function () {
+        // Call your custom edit function here and pass the values
+        Edit_Reporting(rowData);
+      });
+      actionsCell.appendChild(editButton);
+
+      row.appendChild(actionsCell);
+
+      tbody.appendChild(row);
+    });
+
+    for (let i = 0; i < headerRow.cells.length; i++) {
+    headerRow.cells[i].style.backgroundColor = '#FF4D00';
+    headerRow.cells[i].style.color = '#fff';
+  }
+
+
+  table.appendChild(tbody);
+
+    // Get the div with id 'table' and append the table to it
+    var tableDiv = document.getElementById('table');
+    tableDiv.appendChild(table);
+  }
+
+
+  function filterList(){
+    var priority_filter = document.getElementById('priority_filter').value;
+    var status_filter = document.getElementById('status_filter').value;
+
+    frappe.call({
+    method: 'food_beverages.www.food.admin.reporting.index.GetReportingList_bsd_filter',
+    args: {priority_filter,status_filter},
+    callback: function (r) {
+      console.log(r.message);
+      if(r.message && Object.keys(r.message).length > 0){
+        data = r.message;
+        console.log(data)
+        createTable();
+      } else {
+        console.log('no data found')
+        data = [];
+        createTable();
+      }
+    }
+    });
+  }
+
+
+function previewImage() {
+  console.log('ape')
+    var input = document.getElementById('myfile');
+    var imagePreview = document.getElementById('imagePreview');
+
+    // Check if a file is selected
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+        imagePreview.style.display = 'block';
+      };
+
+      // Read the image file as a data URL
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      // Reset the image preview if no file is selected
+      imagePreview.src = '#';
+      imagePreview.style.display = 'none';
+    }
+  }
+
+
+function convertFileToBase64(file, callback) {
+   var reader = new FileReader();
+
+   reader.onload = function (e) {
+      var arrayBuffer = e.target.result;
+      var base64String = arrayBufferToBase64(arrayBuffer);
+      callback(base64String);
+   };
+
+   reader.readAsArrayBuffer(file);
+}
+
+function arrayBufferToBase64(arrayBuffer) {
+    var binary = '';
+    var bytes = new Uint8Array(arrayBuffer);
+    var len = bytes.byteLength;
+
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+
+    return btoa(binary);
+}
+
+
+
+function re_convert(imagelink) {
+    var imagePreview = document.getElementById('imagePreview');
+
+    // Clear the existing content in the imagePreview div
+    imagePreview.innerHTML = '';
+
+    // Create an img element
+    var img = document.createElement('img');
+
+    // Set the base64 string as the src attribute
+    img.src = 'data:image/png;base64,' + imagelink;
+
+    // Append the img element to the imagePreview div
+    imagePreview.src = img.src;
+    
+   imagePreview.style.display = 'block';
+}
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+{%endblock%}

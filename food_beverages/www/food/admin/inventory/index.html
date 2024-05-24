@@ -1,0 +1,949 @@
+{% extends '/templates/food_admin.html' %}
+
+{% block webform %}
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<style>
+    
+  .content {
+    padding: 10px 10px;
+
+  }
+
+.div_container{
+  display: flex; 
+  justify-content: center; 
+  margin: 0.3cm;
+}
+
+.location_container{
+  display: flex;
+  justify-content: right;
+  margin-right: 11%;
+}
+
+#forms{
+  border: none; 
+  /* height: auto;  */
+  max-height: 656px; /* Set a maximum height if needed */
+  overflow-y: auto; 
+  width: 80%;
+}
+
+    .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 20s linear infinite;
+    font-weight: 500;
+    font-size: 30px;
+    margin-top: 5px;
+
+  }
+
+  table {
+      border-collapse: collapse;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #dddddd;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: center;
+      padding: 8px;
+      border: 1px solid #000000;
+    }
+
+    th {
+      background-color: #FF4D00;
+      color: #fff;
+    }
+
+  .select_width{
+      width: 12%;
+      float: right;
+      box-shadow: none !important;
+      border-color: #ced4da !important;
+    }
+
+    .box_shadow_remove{
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+    }
+
+    .inner_div{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .display_center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    }
+
+    .display_center_model{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+    }
+
+    .inner_div_size{
+      height: 90%;
+      width: 90%;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+
+    /* #table2 {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      height: 100%;
+      border: 2px solid #000000;
+    } */
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .edit-btn, .delete-btn {
+      cursor: pointer;
+      padding: 5px 10px;
+      margin-right: 5px;
+    }
+
+    .edit-btn {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+    .text_size{
+      font-size: 23px;
+    }
+    .margin_top{
+      margin-top: 40px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between; /* Adjust as needed */
+    }
+
+    .column {
+      margin-right: 10px; /* Adjust the margin as needed */
+    }
+    .button_width{
+      width: 139px;
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .button_width:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      box-shadow: none;
+      transform: translateY(-2px);
+    }
+    .modal-content {
+    /* position: relative; */
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 64%;
+    /* height: 80%; */
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+    justify-content: center;
+  }
+
+  .model_centered{
+    justify-content: center;
+    display: flex;
+  }
+
+  .space_evently{
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .submit_margin{
+    margin-left: 1%;
+  }
+
+  .margin_top_for_lc{
+    margin-top: 1%;
+  }
+
+  .custom-swal-button {
+    background-color: #305A34;
+    /* Green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 10px 20px;
+    /* Larger padding for bigger size */
+    font-size: 16px;
+    /* Larger font size */
+    border-radius: 5px;
+    /* Rounded corners */
+  }
+
+  .cancel_button_common{
+      width: 139px;
+      background-color: #ddd;
+      color: black;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px
+    }
+  
+    .cancel_button_common:hover{
+      width: 139px;
+      background-color: #ddd;
+      color: #000;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+    .submit_button_common{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+    }
+  
+    .submit_button_common:hover{
+      width: 139px;
+      background-color: #FF4D00;
+      color: #fff;
+      border-radius: 10px;
+      border: none;
+      border-radius: 8px;
+      height: 50px;
+      margin-left: 15px;
+      /* box-shadow: #FF4D00 0 4px 7px; */
+      transform: translateY(-2px);
+    }
+
+
+</style>
+
+
+<div class="location_container">
+  <select class="form-select select_width margin_top_for_lc" id="location" name="location">
+    <option value="">Location</option>
+    <option  value="IITM RP">IITM RP</option>
+    <option  value="Thaiyur">Thaiyur</option>
+    <option  value="Shar">Shar</option>
+  </select>
+</div>
+<div class="div_container">
+
+  <form class="row" id="forms">
+    
+    <div class="content inner_div">
+      {% set emp_id = frappe.get_doc('Employee',{'company_email':frappe.session.user})%}
+
+      <div class="inner_div_size">
+        <div id="l_view">
+          <span class="text_size">Inventory Assets</span>
+           <button style="float: right;" onclick="Asset_New()" type="button" id="Button_new" class="btn button_width button">
+           Add New</button> 
+          <div id="table"></div>
+          <span class="text_size">Inventory Consumables</span>
+          <button style="float: right;" onclick="Add_Consumables()" type="button" id="Button_new" class="btn button_width button">
+          Add New</button> 
+          <div id="table2"></div>
+        </div>
+
+
+        <div id="A_view">
+          <div class="display_center">
+            <div class="column margin_top" style="width: 36%;">
+              <label  for="Asset_Item">Item:</label>
+              <div>
+                  <input type="text" class="form-control box_shadow_remove input-style" id="Asset_Item" required>
+              </div>
+            </div>
+            
+            <div class="column margin_top" style="width: 36%;">
+              <label for="Asset_Quantity">Quantity:</label>
+              <div>
+                  <input type="text" class="form-control box_shadow_remove input-style" id="Asset_Quantity" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+              </div>
+            </div>
+            <div class="inner_div">
+            <button onclick="CancelBtn()" type="button" id="Button_new" class="btn cancel_button_common button margin_top">
+              Cancel</button>
+            <button onclick="Add_Asset()" type="button" id="Button_new" class="btn submit_button_common button margin_top">
+              Submit</button>
+            </div>
+          </div>
+          </div>
+          
+
+        <div id="B_view">
+          <div class="space_evently">
+          
+          <div class="display_center">
+
+            <div class="column margin_top" style="width: 160%;">
+              <label for="Consumable_Item">Item:</label>
+              <div>
+                  <input type="text" class="form-control box_shadow_remove input-style" id="Consumable_Item">
+              </div>
+            </div>
+
+          </div>
+          </div>
+
+          <div class="inner_div">
+          <button onclick="CancelBtn()" type="button" id="Button_new" class="btn cancel_button_common button margin_top">
+            Cancel</button>
+            <button onclick="Submit_Consumables()" type="button" id="Button_new" class="btn submit_button_common button margin_top">
+              Submit</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+<div class="modal fade" id="TableDelete" tabindex="-1" role="dialog" aria-labelledby="TableDeleteTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered model_centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="display_center_model modal-title">Are You Sure For Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="display_center_model">
+          <button type="button" onclick="Asset_delete()" id="yes_button" data-dismiss="modal" class="btn button_width button">
+            Yes
+          </button>
+          <button type="button" id="no_button" data-dismiss="modal" data-dismiss="modal" class="btn button_width button margin_left">
+            No
+          </button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  
+  var Aview = document.getElementById('A_view');
+  var Lview = document.getElementById('l_view');
+  var Bview = document.getElementById('B_view');
+  Aview.style.display = 'none';
+  Lview.style.display = 'block';
+  Bview.style.display = 'none';
+
+  
+  var table = document.createElement('table');
+  var table2 = document.createElement('table');
+  var Asset_id;
+  var consumable_id;
+  var data = [];
+  var Consumables_data = [];
+
+  createTable();
+  createConsumablesTable();
+
+  var location_variable = document.getElementById('location');
+  location_variable.addEventListener('change', function(event) {
+    GetInventory_assets();
+    GetConsumables_data();
+  });
+  
+
+  function createTable() {
+    table.innerHTML = '';
+
+    if (data.length === 0) {
+        var noDataRow = document.createElement('tr');
+        var noDataCell = document.createElement('td');
+        noDataCell.setAttribute('colspan', '3'); // Set the colspan to the number of columns
+        noDataCell.appendChild(document.createTextNode('No data found'));
+        noDataRow.appendChild(noDataCell);
+
+        var tbody = document.createElement('tbody');
+        tbody.appendChild(noDataRow);
+        table.appendChild(tbody);
+
+        var tableDiv = document.getElementById('table');
+        tableDiv.appendChild(table);
+
+        return;
+    }
+   
+    
+    // Create table header
+    var thead = document.createElement('thead');
+    var headerRow = document.createElement('tr');
+    var headers = ['Item', 'Quantity', 'Actions'];
+
+    headers.forEach(function (headerText) {
+      var th = document.createElement('th');
+      th.appendChild(document.createTextNode(headerText));
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Create table body
+    var tbody = document.createElement('tbody');
+
+    data.forEach(function (rowData, index) {
+      var row = document.createElement('tr');
+
+      // Add item and quantity cells
+      Object.entries(rowData).forEach(function ([key, value]) {
+      if (key !== 'name') {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(value));
+        row.appendChild(td);
+      }
+      });
+
+      // Add actions cell with edit and delete buttons
+      var actionsCell = document.createElement('td');
+
+      var editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'btn btn-sm';
+      editButton.innerHTML = '<i class="fas fa-edit"></i>';
+      // editButton.style.backgroundColor= '#FF4D00';
+      // editButton.style.color= '#fff';
+      editButton.style.borderRadius= '8px';
+      editButton.style.border= '1px solid #1A1A1A';
+      editButton.addEventListener('click', function () {
+        // Call your custom edit function here and pass the values
+        editRow(rowData);
+      });
+      actionsCell.appendChild(editButton);
+
+      var deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'btn btn-sm';
+      deleteButton.innerHTML = '<i class="fas fa-trash-alt delete-icon"></i> ';
+      // deleteButton.style.backgroundColor= '#FF4D00';
+      // deleteButton.style.color= '#fff';
+      deleteButton.style.borderRadius= '8px';
+      deleteButton.style.border= '1px solid #1A1A1A';
+      deleteButton.style.marginLeft = '5px';
+      deleteButton.setAttribute('data-toggle', 'modal');
+      deleteButton.setAttribute('data-target', '#TableDelete');
+      deleteButton.addEventListener('click', function () {
+        // Call your custom delete function here and pass the values
+        deleteRow(rowData);
+      });
+      actionsCell.appendChild(deleteButton);
+
+      row.appendChild(actionsCell);
+
+      tbody.appendChild(row);
+    });
+
+    for (let i = 0; i < headerRow.cells.length; i++) {
+    headerRow.cells[i].style.backgroundColor = '#FF4D00';
+    headerRow.cells[i].style.color = '#fff';
+  }
+
+
+    table.appendChild(tbody);
+
+    // Get the div with id 'table' and append the table to it
+    var tableDiv = document.getElementById('table');
+    tableDiv.appendChild(table);
+  }
+
+  function createConsumablesTable() {
+    table2.innerHTML = '';
+
+    if (Consumables_data.length === 0) {
+        var noDataRow = document.createElement('tr');
+        var noDataCell = document.createElement('td');
+        noDataCell.setAttribute('colspan', '3'); // Set the colspan to the number of columns
+        noDataCell.appendChild(document.createTextNode('No data found'));
+        noDataRow.appendChild(noDataCell);
+
+        var tbody = document.createElement('tbody');
+        tbody.appendChild(noDataRow);
+        table2.appendChild(tbody);
+
+        var tableDiv = document.getElementById('table2');
+        tableDiv.appendChild(table2);
+
+        return;
+    }
+
+    // Create table header
+    var thead = document.createElement('thead');
+    var headerRow = document.createElement('tr');
+    var headers = [ 'Item' ,'Actions'];
+
+    headers.forEach(function (headerText) {
+      var th = document.createElement('th');
+      th.appendChild(document.createTextNode(headerText));
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table2.appendChild(thead);
+
+    // Create table body
+    var tbody = document.createElement('tbody');
+
+    Consumables_data.forEach(function (rowData, index) {
+      var row = document.createElement('tr');
+
+      // Add item and quantity cells
+      Object.entries(rowData).forEach(function ([key, value]) {
+      if (key !== 'name') {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode(value));
+        row.appendChild(td);
+      }
+      });
+
+      // Add actions cell with edit and delete buttons
+      var actionsCell = document.createElement('td');
+
+      var editButton = document.createElement('button');
+      editButton.type = 'button';
+      editButton.className = 'btn btn-sm';
+      editButton.innerHTML = '<i class="fas fa-edit"></i>';
+      // editButton.style.backgroundColor= '#FF4D00';
+      // editButton.style.color= '#fff';
+      editButton.style.borderRadius= '8px';
+      editButton.style.border= '1px solid #1A1A1A';
+      editButton.addEventListener('click', function () {
+        // Call your custom edit function here and pass the values
+        editConsumables(rowData);
+      });
+      actionsCell.appendChild(editButton);
+
+      row.appendChild(actionsCell);
+
+      tbody.appendChild(row);
+    });
+
+    for (let i = 0; i < headerRow.cells.length; i++) {
+    headerRow.cells[i].style.backgroundColor = '#FF4D00';
+    headerRow.cells[i].style.color = '#fff';
+  }
+
+
+  table2.appendChild(tbody);
+
+    // Get the div with id 'table' and append the table to it
+    var tableDiv = document.getElementById('table2');
+    tableDiv.appendChild(table2);
+  }
+ 
+  function editRow(event) {
+    // console.log('Edit clicked for item:',event);
+
+  Aview.style.display = 'block';
+  Lview.style.display = 'none';
+  Bview.style.display = 'none';
+  document.getElementById('Asset_Item').value = event.item;
+  document.getElementById('Asset_Quantity').value = event.quantity;
+  Asset_id = event.name;
+  console.log(Asset_id)
+
+  }
+
+  function editConsumables(event) {
+    // console.log('Edit clicked for item:',event);
+
+  Aview.style.display = 'none';
+  Lview.style.display = 'none';
+  Bview.style.display = 'block';
+  document.getElementById('Consumable_Item').value = event.item
+
+  consumable_id = event.name
+console.log(consumable_id)
+
+  }
+
+  // Sample deleteRow function (replace this with your actual implementation)
+  function deleteRow(index) {
+    Asset_id = index.name;
+  }
+
+  function Asset_delete(){
+  frappe.call({
+  method: 'food_beverages.www.food.admin.inventory.index.Delete_Asset',
+  args: {id: Asset_id},
+  callback: function (r) {
+  console.log(r);
+  if(r.message && Object.keys(r.message).length > 0){
+    Asset_id = '';
+    GetInventory_assets();
+  } else {
+    Asset_id = '';
+    GetInventory_assets();
+  }
+}
+
+});
+  }
+
+function GetInventory_assets(){
+
+var location_variable = document.getElementById('location').value;
+
+frappe.call({
+method: 'food_beverages.www.food.admin.inventory.index.GetInventory_assets',
+args: {location: location_variable},
+callback: function (r) {
+  console.log(r);
+  if(r.message && Object.keys(r.message).length > 0){
+    console.log('hi')
+    console.log(r.message)
+    data = r.message;
+    createTable()
+  } else {
+    data = []
+    createTable()
+  }
+}
+
+});
+}
+
+function GetConsumables_data(){
+
+var location_variable = document.getElementById('location').value;
+
+frappe.call({
+method: 'food_beverages.www.food.admin.inventory.index.GetConsumables_data',
+args: {location: location_variable},
+callback: function (r) {
+  console.log(r);
+  if(r.message && Object.keys(r.message).length > 0){
+    console.log('hi')
+    console.log(r.message)
+    Consumables_data = r.message;
+    createConsumablesTable();
+  } else {
+    Consumables_data = []
+    createConsumablesTable();
+  }
+}
+
+});
+}
+
+function Asset_New(){
+  Aview.style.display = 'block';
+  Lview.style.display = 'none';
+  Bview.style.display = 'none';
+}
+
+function Add_Consumables(){
+  Aview.style.display = 'none';
+  Lview.style.display = 'none';
+  Bview.style.display = 'block';
+}
+
+function Add_Asset(){
+  var Asset_Item = document.getElementById('Asset_Item').value;
+  var Asset_Quantity = document.getElementById('Asset_Quantity').value;
+  var employeeId = "{{ emp_id.name }}";
+  var location_variable = document.getElementById('location').value;
+  if(Asset_id){
+    if (location_variable === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly select the location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+    frappe.call({
+    method: 'food_beverages.www.food.admin.inventory.index.Update_Asset',
+    args: {
+      id:Asset_id,
+      Asset_Item: Asset_Item,
+      Asset_Quantity: Asset_Quantity,
+      employeeId: employeeId,
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message) {
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+        GetInventory_assets();
+        document.getElementById('Asset_Quantity').value = '';
+        document.getElementById('Asset_Item').value = '';
+        Asset_id = '';
+      }
+      else {
+        Asset_id = '';
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+        GetInventory_assets();
+        document.getElementById('Asset_Quantity').value = '';
+        document.getElementById('Asset_Item').value = '';
+      }
+    }
+  
+  });
+  }
+  } else {
+ 
+  if (location_variable === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly select the location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+
+  frappe.call({
+    method: 'food_beverages.www.food.admin.inventory.index.Add_Asset',
+    args: {
+      Asset_Item: Asset_Item,
+      Asset_Quantity: Asset_Quantity,
+      employeeId: employeeId,
+      location_variable:location_variable,
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message) {
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+        GetInventory_assets();
+        document.getElementById('Asset_Quantity').value = '';
+        document.getElementById('Asset_Item').value = '';
+      }
+      else {
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+        GetInventory_assets();
+        document.getElementById('Asset_Quantity').value = '';
+        document.getElementById('Asset_Item').value = '';
+      }
+    }
+  
+  });
+}
+  }
+}
+
+
+function Submit_Consumables(){
+
+var Consumable_Item = document.getElementById('Consumable_Item').value;
+
+var location_variable = document.getElementById('location').value;
+
+var employeeId = "{{ emp_id.name }}";
+
+if(consumable_id){
+
+  if (location_variable === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly select the location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+
+frappe.call({
+    method: 'food_beverages.www.food.admin.inventory.index.Edit_Consumables',
+    args: {
+      Consumable_Item,
+      location_variable,
+      employeeId,
+      id:consumable_id
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message == 'recordExists') {
+      
+        Swal.fire({
+        // title: 'Attention!',
+        text: 'In this location already have this Consumable',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+        
+      }
+      else {
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+    
+        document.getElementById('Consumable_Item').value = '';
+        consumable_id = ''
+        GetConsumables_data();
+        
+        
+      }
+    }
+  
+  });
+}
+} else {
+
+if (location_variable === '') {
+      Swal.fire({
+        // title: 'Attention!',
+        text: 'Kindly select the location',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return; // Stop form submission
+    } else {
+
+frappe.call({
+    method: 'food_beverages.www.food.admin.inventory.index.Add_Consumables',
+    args: {
+      Consumable_Item: Consumable_Item,
+      location_variable:location_variable,
+      employeeId
+    },
+    callback: function (r) {
+      console.log(r);
+      if (r.message == 'recordExists') {
+      
+        Swal.fire({
+        // title: 'Attention!',
+        text: 'In this location already have this Consumable',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+        customClass: {
+          confirmButton: 'custom-swal-button' // Custom class for the button
+        },
+        buttonsStyling: false
+      });
+      return;
+        
+      }
+      else {
+        Aview.style.display = 'none';
+        Lview.style.display = 'block';
+        Bview.style.display = 'none';
+    
+        document.getElementById('Consumable_Item').value = '';
+        GetConsumables_data();
+        
+      }
+    }
+  
+  });
+}
+}
+
+}
+
+function CancelBtn(){
+  Aview.style.display = 'none';
+  Lview.style.display = 'block';
+  Bview.style.display = 'none';
+  document.getElementById('Consumable_Item').value = '';
+  document.getElementById('Asset_Quantity').value = '';
+  document.getElementById('Asset_Item').value = '';
+}
+ 
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+{%endblock%}
