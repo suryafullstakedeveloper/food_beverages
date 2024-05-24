@@ -340,6 +340,7 @@ background-image: linear-gradient(180deg, rgba(60, 26, 229, 0) 0%, #3C1AE5 50%, 
     <script>
         window.location = "/food/scanning";
     </script>
+{% if frappe.session.user == 'Guest' %} 
     {% set emp_id = {'employee_name': ''} %}
 {% else %}
 
